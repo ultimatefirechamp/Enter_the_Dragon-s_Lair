@@ -9,5 +9,4 @@ Player::~Player() {
 
 void Player::Render() {
 	SDL_RenderCopy(GameManager::getinstance()->g_renderer, sprite_->textr, &sprite_->sr, &trs->tr);
-	hpbar->Render();
 }
