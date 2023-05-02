@@ -13,8 +13,6 @@ public:
 		sprite_ = objf::CreateComp<SpriteComponent>("SpriteComponent");
 		addComponent(sprite_);
 		sprite_->InitSprite("C:/Users/MSI/source/repos/team_Project/team_Project/resource/wall.png");
-		hpbar = objf::CreateComp<HPBar>("HPBar");
-		addComponent(hpbar);
 		sprite_->sr.x = 0;
 		sprite_->sr.y = 0;
 		sprite_->sr.w = 100;
@@ -35,5 +33,4 @@ private:
 	int max_stamina, stamina;
 	InputComponent* input_;
 	SpriteComponent* sprite_;
-	HPBar* hpbar;
 };
