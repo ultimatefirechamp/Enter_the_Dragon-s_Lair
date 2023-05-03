@@ -5,7 +5,6 @@
 #include"Player.h"
 #include"Monster.h"
 
-
 void InitGame() {
 	GameManager::getinstance()->g_flag = true;
 }
