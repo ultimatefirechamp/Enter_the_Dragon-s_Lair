@@ -54,16 +54,6 @@ public:
 	SDL_Rect tr;
 };
 
-class HPBar : public Component {
-public:
-	HPBar(std::string name) : Component(name) {}
-
-	void Update();
-	void Render();
-	
-private:
-
-};
 
 class InputComponent: public Component {
 public:

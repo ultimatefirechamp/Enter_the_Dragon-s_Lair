@@ -47,15 +47,3 @@ void SpriteComponent::InitSprite(const char* file) {
 	textr = SDL_CreateTextureFromSurface(GameManager::getinstance()->g_renderer, tmp);
 	SDL_FreeSurface(tmp);
 }
-
-void HPBar::Update() {}
-
-void HPBar::Render() {
-	GameManager* gm = GameManager::getinstance();
-	SDL_SetRenderDrawColor(gm->g_renderer, 0, 255, 0, 0);
-	SDL_Rect tmp;
-	tmp = m_Owner->GetComponent<transform>("transform")->tr;
-	tmp.y += tmp.h;
-	tmp.h = -10;
-	SDL_RenderFillRect(gm->g_renderer, &tmp);
-}
