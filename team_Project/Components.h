@@ -55,7 +55,6 @@ public:
 };
 
 
-
 class InputComponent: public Component {
 public:
 	InputComponent(std::string name) : Component(name) {}

@@ -1,11 +1,11 @@
 #pragma once
-#include"Object.h"
+#include"Character.h"
 #include"Components.h"
 
-class Player:public Object
+class Player : public Character
 {
 public:
-	Player(std::string name):Object(name) {
+	Player(std::string name) : Character(name){
 		trs = objf::CreateComp<transform>("transform");
 		addComponent(trs);
 		input_ = objf::CreateComp<InputComponent>("InputComponent");

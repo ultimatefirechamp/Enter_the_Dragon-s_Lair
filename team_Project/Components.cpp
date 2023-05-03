@@ -47,4 +47,3 @@ void SpriteComponent::InitSprite(const char* file) {
 	textr = SDL_CreateTextureFromSurface(GameManager::getinstance()->g_renderer, tmp);
 	SDL_FreeSurface(tmp);
 }
-
