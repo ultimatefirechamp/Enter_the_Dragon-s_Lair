@@ -12,7 +12,7 @@ public:
 		addComponent(input_);
 		sprite_ = objf::CreateComp<SpriteComponent>("SpriteComponent");
 		addComponent(sprite_);
-		sprite_->InitSprite("C:/Users/MSI/source/repos/team_Project/team_Project/resource/wall.png");
+		sprite_->InitSprite("./resource/wall.png");
 		sprite_->sr.x = 0;
 		sprite_->sr.y = 0;
 		sprite_->sr.w = 100;

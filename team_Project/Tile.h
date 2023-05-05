@@ -7,7 +7,7 @@ class Tile : Object
 	Tile(std::string name) : Object(name) {
 		sprite = objf::CreateComp<SpriteComponent>("SpriteComponent");
 		addComponent(sprite);
-		sprite->InitSprite("resource/wall.png");
+		sprite->InitSprite("./resource/wall.png");
 
 	}
 	bool IsWalkable;
