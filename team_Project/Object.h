@@ -1,9 +1,5 @@
 #pragma once
-#include"Components.h"
-#include<iostream>
-#include<string>
-#include<vector>
-#include<map>
+#include"Game.h"
 class Component;
 class transform;
 

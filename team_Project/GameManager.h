@@ -1,7 +1,5 @@
 #pragma once
-#include<iostream>
-#include<vector>
-#include"Object.h"
+#include"Game.h"
 
 class Object;
 

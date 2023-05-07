@@ -1,9 +1,5 @@
 #pragma once
-#include"Object.h"
-#include<string>
-#include<map>
-#include"SDL_image.h"
-#include"GameManager.h"
+#include"Game.h"
 
 class Object;
 class GameManager;
@@ -32,9 +28,12 @@ class transform : public Component {
 public:
 	transform(std::string name) : Component(name) {}
 
+	void SetPos(int x, int y);
+	void SetSize(int w, int h);
 
 	void Update() {}
-	
+	SDL_Rect GetRect();
+
 	int x = 0;
 	int y = 0;
 	int w = 0;
@@ -60,7 +59,8 @@ class SpriteComponent : public Component {
 public:
 
 	void InitSprite(const char* file);
-	
+	void SetSpriteRect(int x, int y, int w, int h);
+
 	SpriteComponent(std::string name) : Component(name) {}
 	
 	~SpriteComponent() {

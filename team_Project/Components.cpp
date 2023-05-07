@@ -47,6 +47,25 @@ void SpriteComponent::InitSprite(const char* file) {
 	SDL_FreeSurface(tmp);
 }
 
+void transform::SetPos(int x, int y) {
+	this->x = x;
+	this->y = y;
+}
+void transform::SetSize(int w, int h) {
+	this->w = w;
+	this->h = h;
+}
+SDL_Rect transform::GetRect() {
+	return { this->x,this->y,this->w,this->h };
+}
+
+
+void SpriteComponent::SetSpriteRect(int x, int y, int w, int h) {
+	sr.x = x;
+	sr.y = y;
+	sr.w = w;
+	sr.h = h;
+}
 void SpriteComponent::Render() {
 	SDL_Rect tmp;
 	GameManager* gm = GameManager::getinstance();
