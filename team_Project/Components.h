@@ -33,25 +33,12 @@ public:
 	transform(std::string name) : Component(name) {}
 
 
-	void SetRect(int x, int y, int w, int h) {
-		tr.x = x;
-		tr.y = y;
-		tr.w = w;
-		tr.h = h;
-	}
-
-	void SetPos(int x, int y) {
-		tr.x = x;
-		tr.y = y;
-	}
-
 	void Update() {}
 	
 	int x = 0;
 	int y = 0;
 	int w = 0;
 	int h = 0;
-	SDL_Rect tr;
 };
 
 
@@ -81,6 +68,7 @@ public:
 	}
 
 	void Update() {}
+	void Render();
 	SDL_Texture* textr;
 	SDL_Rect sr;
 
