@@ -14,6 +14,9 @@ public:
 		}
 		m_comps.clear();
 	}
+	
+	bool IsOn;
+
 	virtual void Update() = 0;
 	virtual void Render() = 0;
 
@@ -28,6 +31,7 @@ public:
 	std::string GetName() { return m_Name; }
 
 	Object(std::string name) {
+		IsOn = true;
 		m_Name = name;
 	}
 	

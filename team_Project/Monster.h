@@ -14,6 +14,7 @@ public:
 		trs->SetSize(100, 100);
 	}
 
+	void move();
 	void GetDamaged(int damage);
 	void Update() {}
 	void Render();

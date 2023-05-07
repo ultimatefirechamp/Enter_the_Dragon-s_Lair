@@ -18,3 +18,7 @@ void Player::GetDamaged(int damage) {
 		hp = 0;
 	}
 }
+
+void Player::move() {
+
+}

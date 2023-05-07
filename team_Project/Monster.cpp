@@ -9,3 +9,7 @@ void Monster::GetDamaged(int damage) {
 		hp = 0;
 	}
 }
+
+void Monster::move() {
+
+}

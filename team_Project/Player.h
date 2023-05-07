@@ -22,7 +22,7 @@ public:
 	
 	void GetDamaged(int damage);
 
-
+	void move();
 
 	void Update() {
 		input_->HandleEvent();
