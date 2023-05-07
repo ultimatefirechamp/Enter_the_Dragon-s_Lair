@@ -17,7 +17,10 @@ public:
 		sprite_->sr.y = 0;
 		sprite_->sr.w = 100;
 		sprite_->sr.h = 100;
-		trs->SetRect(0, 0, 70, 70);
+		trs->x = 0;
+		trs->y = 0;
+		trs->w = 100;
+		trs->h = 100;
 	}
 
 	~Player();
