@@ -4,10 +4,32 @@
 
 class Tile;
 
+struct TileRow {
+	std::vector<Tile*> tiles;
+};
 
 class Map
 {
-	std::vector<std::vector<Tile*>> map_tiles();
+public:
+	Map();
+	~Map();
 	
+	Tile* GetTileInfo(int x, int y);
+	Tile* GetSelectedTile();
+
+	bool GetShowOpen() { return false; }
+
+
+private:
+	bool m_showOpen, m_showClosed;
+	std::vector<TileRow*> map_tiles;
+
+	Tile* m_startTile;
+	Tile* m_endTile;
+
+	bool CheckSurroundings(Tile* tile);
+	void ClearMap();
+	void ResetStartEnd();
+
 };
 

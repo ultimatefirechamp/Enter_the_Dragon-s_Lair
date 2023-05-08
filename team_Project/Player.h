@@ -12,8 +12,8 @@ public:
 		addComponent(input_);
 		sprite_ = objf::CreateComp<SpriteComponent>("SpriteComponent");
 		addComponent(sprite_);
-		sprite_->InitSprite("./resource/wall.png");
-		sprite_->SetSpriteRect(0, 0, 100, 100);
+		sprite_->InitSprite("./resource/WallSprite.png");
+		sprite_->SetSpriteRect(0, 0, 24, 24);
 		trs->SetPos(0, 0);
 		trs->SetSize(100, 100);
 	}
