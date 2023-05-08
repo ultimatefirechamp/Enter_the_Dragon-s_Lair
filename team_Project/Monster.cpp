@@ -17,3 +17,7 @@ void Monster::SetPos(int x, int y) {
 void Monster::move() {
 
 }
+
+void Monster::Attack(Character* player) {
+	player->GetDamaged(10);
+}

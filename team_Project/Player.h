@@ -23,6 +23,7 @@ public:
 	void GetDamaged(int damage);
 
 	void move();
+	void Attack(Character* monster);
 
 	void Update() {
 		input_->HandleEvent();

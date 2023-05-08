@@ -22,3 +22,7 @@ void Player::GetDamaged(int damage) {
 void Player::move() {
 
 }
+
+void Player::Attack(Character* monster) {
+	monster->GetDamaged(10);
+}
