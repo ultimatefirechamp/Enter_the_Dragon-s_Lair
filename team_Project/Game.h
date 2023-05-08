@@ -19,15 +19,6 @@ namespace objf {
 		tObj* obj = new tObj(objName);
 		return obj;
 	}
-	template<class tObj>
-	tObj* GetObj(std::string objName) {
-		for (auto& i : GameManager::getinstance()->objCol) {
-			if (i->GetName == objName) {
-				return dynamic_cast<tObj*>i;
-			}
-		}
-		return nullptr;
-	}
 	template<class tComp>
 	tComp* CreateComp(std::string compName) {
 		tComp* cmp = new tComp(compName);
