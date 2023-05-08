@@ -10,3 +10,19 @@ Player::~Player() {
 void Player::Render() {
 	sprite_->Render();
 }
+
+void Player::GetDamaged(int damage) {
+	hp -= damage;
+	if (hp <= 0) {
+		IsAlive = false;
+		hp = 0;
+	}
+}
+
+void Player::move() {
+
+}
+
+void Player::Attack(Character* monster) {
+	monster->GetDamaged(10);
+}

@@ -11,8 +11,14 @@ GameManager::~GameManager() {
 void GameManager::HandleEvent() {}
 
 void GameManager::Update() {
+	for (auto &i : objCol) {
+		i->Update();
+	}
 	for (int i = 0; i < objCol.size(); i++) {
-		objCol[i]->Update();
+		if (!objCol[i]->IsOn) {
+			objCol.erase(objCol.begin() + i);
+			i--;
+		}
 	}
 }
 void GameManager::Render() {

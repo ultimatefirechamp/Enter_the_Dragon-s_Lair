@@ -1,27 +1,25 @@
 #pragma once
-#include"Object.h"
-class Monster:public Object
+#include"Character.h"
+class Monster:public Character
 {
 public:
-	Monster(std::string name) : Object(name) {
+	Monster(std::string name) : Character(name) {
 		trs = objf::CreateComp<transform>("transform");
 		addComponent(trs);
 		sprite_ = objf::CreateComp<SpriteComponent>("SpriteComponent");
 		addComponent(sprite_);
 		sprite_->InitSprite("./resource/wall.png");
-		sprite_->sr.x = 0;
-		sprite_->sr.y = 0;
-		sprite_->sr.w = 100;
-		sprite_->sr.h = 100;
-		trs->x = 500;
-		trs->y = 0;
-		trs->w = 100;
-		trs->h = 100;
+		sprite_->SetSpriteRect(0, 0, 100, 100);
+		trs->SetPos(500, 0);
+		trs->SetSize(100, 100);
 	}
 
+	void SetPos(int x, int y);
+	void move();
+	void Attack(Character* player);
+	void GetDamaged(int damage);
 	void Update() {}
 	void Render();
 private:
 	SpriteComponent* sprite_;
 };
-

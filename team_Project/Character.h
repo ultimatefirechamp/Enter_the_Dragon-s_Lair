@@ -5,14 +5,18 @@ class Character : public Object
 {
 public:
 	Character(std::string name) : Object(name){
+		IsAlive = true;
 		hp = 0;
-		maxhp = 0;
+		max_hp = 0;
 		stamina = 0;
+		max_stamina = 0;
 	}
-	int hp, maxhp;
-	int stamina;
+	int hp, max_hp;
+	int stamina, max_stamina;
+	bool IsAlive;
 
+	virtual void move() = 0;
 	virtual void Update() = 0;
-
+	virtual void GetDamaged(int damage) = 0;
 };
 
