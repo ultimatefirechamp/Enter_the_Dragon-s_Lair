@@ -10,6 +10,10 @@ void Monster::GetDamaged(int damage) {
 	}
 }
 
+void Monster::SetPos(int x, int y) {
+	trs->SetPos(x, y);
+}
+
 void Monster::move() {
 
 }

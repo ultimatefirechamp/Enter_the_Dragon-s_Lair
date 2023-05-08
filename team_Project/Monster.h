@@ -14,6 +14,7 @@ public:
 		trs->SetSize(100, 100);
 	}
 
+	void SetPos(int x, int y);
 	void move();
 	void GetDamaged(int damage);
 	void Update() {}
@@ -21,4 +22,3 @@ public:
 private:
 	SpriteComponent* sprite_;
 };
-

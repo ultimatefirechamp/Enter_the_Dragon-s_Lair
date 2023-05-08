@@ -73,17 +73,3 @@ public:
 	SDL_Rect sr;
 
 };
-
-
-namespace objf {
-	template<class tObj>
-	tObj* CreateObj(std::string objName) {
-		tObj* obj = new tObj(objName);
-		return obj;
-	}
-	template<class tComp>
-	tComp* CreateComp(std::string compName) {
-		tComp* cmp = new tComp(compName);
-		return cmp;
-	}
-}
