@@ -1,3 +1,4 @@
+#include"stdafx.h"
 #include<iostream>
 #include"GameManager.h"
 #include"SDL.h"

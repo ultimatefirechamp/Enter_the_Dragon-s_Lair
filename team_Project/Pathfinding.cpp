@@ -1,3 +1,4 @@
+#include"stdafx.h"
 #include "Pathfinding.h"
 
 bool SortTiles(const Tile* _i, const Tile* _j)

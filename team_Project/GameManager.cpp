@@ -1,3 +1,4 @@
+#include"stdafx.h"
 #include "GameManager.h"
 #include<Windows.h>
 GameManager* GameManager::instance = NULL;
