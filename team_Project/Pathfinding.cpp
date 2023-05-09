@@ -103,20 +103,20 @@ bool PathAlgorithm::CalculateTileValue(Tile* tile, std::vector<Tile*> sortedTile
 				path->routed = true;
 				return true;
 			}
-		}
-		else {
-			if (!affector->closed && affector->IsWalkable && CheckTileCorners(tile, diag)) {
-				affector->hVal = CalculateDistance(affector, path->end);
-				if (diag != 0) {
-					affector->gVal = m_diagTileDist * affector->parameter;
-				}
-				else {
-					affector->gVal = m_normalTileDist * affector->parameter;
-				}
-				affector->fVal = affector->gVal + affector->hVal;
-				if (!affector->open) {
-					AddOpenTile(affector, path->open);
-					affector->parent = tile;
+			else {
+				if (!affector->closed && affector->IsWalkable && CheckTileCorners(tile, diag)) {
+					affector->hVal = CalculateDistance(affector, path->end);
+					if (diag != 0) {
+						affector->gVal = m_diagTileDist * affector->parameter;
+					}
+					else {
+						affector->gVal = m_normalTileDist * affector->parameter;
+					}
+					affector->fVal = affector->gVal + affector->hVal;
+					if (!affector->open) {
+						AddOpenTile(affector, path->open);
+						affector->parent = tile;
+					}
 				}
 			}
 		}

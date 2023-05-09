@@ -9,9 +9,6 @@
 #include"SDL_mixer.h"
 
 
-#include"Object.h"
-#include"GameManager.h"
-#include"Components.h"
 
 namespace objf {
 	template<class tObj>

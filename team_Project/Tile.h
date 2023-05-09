@@ -2,10 +2,13 @@
 #include"Object.h"
 class Object;
 
-class Tile : Object
+class Tile : public Object
 {
 public:
 	Tile(std::string name) : Object(name) {
+		trs = objf::CreateComp<transform>("transform");
+		addComponent(trs);
+		trs->SetSize(100, 100);
 		sprite = objf::CreateComp<SpriteComponent>("SpriteComponent");
 		addComponent(sprite);
 		sprite->InitSprite("./resource/wall.png");
