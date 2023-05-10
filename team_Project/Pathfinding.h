@@ -43,7 +43,7 @@ public:
 
 private:
 	const float m_normalTileDist = 1.0f;
-	const float m_diagTileDist = 1.4f;
+	const float m_diagTileDist = 1.0f;
 
 
 	bool CalculateTileValue(Tile* _tile, std::vector<Tile*> _sortedTiles, Path*& _path);

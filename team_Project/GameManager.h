@@ -1,16 +1,26 @@
 #pragma once
 #include"Game.h"
 #include"Object.h"
+#include"stdafx.h"
 
 class Object;
+class Map;
+class PathAlgorithm;
+class Path;
 
 class GameManager
 {
 public:
 	std::vector<Object*> objCol;
 	SDL_Renderer* g_renderer;
+	Map* map;
+	PathAlgorithm* PF;
+	Path* path;
+
 	bool g_flag;
 	int p_x, p_y;
+
+	void InitMap();
 
 	static GameManager* getinstance() {
 		if (instance == NULL) {
@@ -18,6 +28,8 @@ public:
 		}
 		return instance;
 	}
+
+	void PathFindTest();
 	void HandleEvent();
 	void Update();
 	void Render();

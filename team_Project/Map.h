@@ -18,7 +18,11 @@ public:
 	Tile* GetSelectedTile();
 
 	bool GetShowOpen() { return false; }
+	std::vector<TileRow*>& GetMap() {
+		return map_tiles;
+	}
 
+	void SetTile();
 
 private:
 	bool m_showOpen, m_showClosed;

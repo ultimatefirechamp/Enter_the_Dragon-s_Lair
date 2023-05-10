@@ -5,14 +5,16 @@ class Object;
 class Tile : public Object
 {
 public:
-	Tile(std::string name) : Object(name) {
+	Tile(std::string name, int x, int y) : Object(name) {
 		trs = objf::CreateComp<transform>("transform");
 		addComponent(trs);
 		trs->SetSize(100, 100);
 		sprite = objf::CreateComp<SpriteComponent>("SpriteComponent");
 		addComponent(sprite);
-		sprite->InitSprite("./resource/wall.png");
-
+		sprite->InitSprite("./resource/WallSprite.png");
+		parameter = 1.0f;
+		mapX = x;
+		mapY = y;
 	}
 	
 	int mapX, mapY;
@@ -37,8 +39,24 @@ public:
 	bool IsWalkable;
 
 	void Update();
+	void Render();
+	SpriteComponent* GetSprite() { return sprite; }
 
 private:
 	SpriteComponent* sprite;
 };
 
+class Wall : public Tile {
+public:
+	Wall(std::string name, int x, int y) : Tile(name, x, y) {
+		GetSprite()->sr = { 0,0,24,24 };
+		IsWalkable = false;
+	}
+};
+class Floor : public Tile {
+public:
+	Floor(std::string name, int x, int y) : Tile(name, x, y) {
+		GetSprite()->sr = { 24,0,24,24 };
+		IsWalkable = true;
+	}
+};
