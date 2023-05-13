@@ -16,6 +16,7 @@ public:
 		parameter = 1.0f;
 		mapX = x;
 		mapY = y;
+		onCharacter = NULL;
 	}
 	
 	int mapX, mapY;

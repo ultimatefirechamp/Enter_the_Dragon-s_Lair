@@ -16,7 +16,7 @@ public:
 	int stamina, max_stamina;
 	bool IsAlive;
 
-	virtual void move(Tile* tile) = 0;
+	virtual void move(Tile* tile, int dir) = 0;
 	virtual void Update() = 0;
 	virtual void GetDamaged(int damage) = 0;
 };

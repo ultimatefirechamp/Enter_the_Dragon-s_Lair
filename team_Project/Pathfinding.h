@@ -54,6 +54,5 @@ private:
 
 	void AddClosedTile(Tile* _tile, std::vector<Tile*>& _closed);
 	void AddOpenTile(Tile* _tile, std::vector<Tile*>& _open);
-
 };
 

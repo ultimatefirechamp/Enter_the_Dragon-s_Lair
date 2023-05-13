@@ -18,6 +18,7 @@ public:
 	Path* path;
 
 	bool g_flag;
+	bool P_Turn;
 	int p_x, p_y;
 
 	void InitMap();
@@ -38,6 +39,7 @@ private:
 	GameManager() {
 		p_x = 0;
 		p_y = 0;
+		P_Turn = true;
 	}
 	~GameManager();
 

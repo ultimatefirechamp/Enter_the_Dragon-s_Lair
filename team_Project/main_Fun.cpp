@@ -15,13 +15,16 @@ int main(int arc, char** argv) {
 	GameManager* gm = GameManager::getinstance();
 	gm->g_renderer = SDL_CreateRenderer(win, -1, 0);
 
-	objf::CreateObj<Player>("Player");
-	objf::CreateObj<Monster>("Monster");
 	gm->InitMap();
 	InitGame();
 	gm->map->SetTile();
-	gm->PathFind(1,8,8,1);
+	gm->PathFind(1, 8, 8, 1);
 	gm->TestHwakIn();
+
+
+	objf::CreateObj<Player>("Player");
+	objf::CreateObj<Monster>("Monster");
+	
 
 	while (gm->g_flag) {
 		gm->Update();

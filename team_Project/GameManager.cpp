@@ -31,7 +31,7 @@ void GameManager::InitMap() {
 			else {
 				tmp = new Floor("Floor", i, j);
 			}
-			tmp->GetTrans()->SetPos(i * 100, j * 100);
+			tmp->GetTrans()->SetPos(i , j);
 			map->GetMap()[i]->tiles.push_back(tmp);
 		}
 	}
@@ -47,13 +47,15 @@ void GameManager::PathFind(int x, int y, int x2, int y2) {
 	path->end = map->GetMap()[x2]->tiles[y2];
 	
 	PF->CalculatePath(path);
+	path->positions;
 	
 }
 
 void GameManager::TestHwakIn() {
 	for (Tile* tile : path->positions) {
-		tile->GetSprite()->SetSpriteRect(48, 0, 24, 24);
+		std::cout << "(" << tile->GetTrans()->x << ", " << tile->GetTrans()->y << ")\n";
 	}
+	std::cout << std::endl;
 }
 
 

@@ -241,3 +241,4 @@ void PathAlgorithm::ResetPath(Path*& path) {
 	path->start = NULL;
 	path->end = NULL;
 }
+
