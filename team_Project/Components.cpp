@@ -31,6 +31,11 @@ void InputComponent::HandleEvent() {
 			gm->p_x = transform_->x;
 			gm->p_y = transform_->y;
 			break;
+		case SDL_MOUSEBUTTONDOWN:
+			if (event.button.button == SDL_BUTTON_RIGHT) {
+
+			}
+			break;
 		case SDL_KEYUP:
 			break;
 		}

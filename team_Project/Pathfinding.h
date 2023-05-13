@@ -41,9 +41,13 @@ public:
 	bool CheckTileCorners(Tile* tile, int dir);
 	void ResetPath(Path* &path);
 
+
 private:
 	const float m_normalTileDist = 1.0f;
 	const float m_diagTileDist = 1.0f;
+
+	float m_timeLimit, m_timeCurrent;
+	Uint32 m_oldTicks, m_newTicks;
 
 
 	bool CalculateTileValue(Tile* _tile, std::vector<Tile*> _sortedTiles, Path*& _path);

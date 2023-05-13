@@ -37,17 +37,23 @@ void GameManager::InitMap() {
 	}
 }
 
-void GameManager::PathFindTest() {
+void GameManager::PathFind(int x, int y, int x2, int y2) {
 	path->positions.clear();
 	path->open.clear();
-	path->open.push_back(map->GetMap()[1]->tiles[1]);
-	path->start = map->GetMap()[1]->tiles[1];
+	path->open.push_back(map->GetMap()[x]->tiles[y]);
+	path->start = map->GetMap()[x]->tiles[y];
 	path->start->open = true;
 
-	path->end = map->GetMap()[8]->tiles[1];
+	path->end = map->GetMap()[x2]->tiles[y2];
 	
 	PF->CalculatePath(path);
 	
+}
+
+void GameManager::TestHwakIn() {
+	for (Tile* tile : path->positions) {
+		tile->GetSprite()->SetSpriteRect(48, 0, 24, 24);
+	}
 }
 
 

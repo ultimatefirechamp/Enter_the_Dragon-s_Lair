@@ -20,7 +20,8 @@ int main(int arc, char** argv) {
 	gm->InitMap();
 	InitGame();
 	gm->map->SetTile();
-	gm->PathFindTest();
+	gm->PathFind(1,8,8,1);
+	gm->TestHwakIn();
 
 	while (gm->g_flag) {
 		gm->Update();

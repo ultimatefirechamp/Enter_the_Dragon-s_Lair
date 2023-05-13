@@ -15,7 +15,8 @@ void Monster::SetPos(int x, int y) {
 	trs->SetPos(x, y);
 }
 
-void Monster::move() {
+void Monster::move(Tile* tar) {
+	onTile->onCharacter = NULL;
 
 }
 

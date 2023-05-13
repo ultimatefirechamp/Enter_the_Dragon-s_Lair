@@ -22,7 +22,7 @@ public:
 	
 	void GetDamaged(int damage);
 
-	void move();
+	void move(Tile* tile);
 	void Attack(Character* monster);
 
 	void Update() {

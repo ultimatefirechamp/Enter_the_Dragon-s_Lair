@@ -20,7 +20,7 @@ void Player::GetDamaged(int damage) {
 	}
 }
 
-void Player::move() {
+void Player::move(Tile* tile) {
 
 }
 

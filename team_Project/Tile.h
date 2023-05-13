@@ -1,6 +1,7 @@
 #pragma once
 #include"Object.h"
 class Object;
+class Character;
 
 class Tile : public Object
 {
@@ -41,9 +42,11 @@ public:
 	void Update();
 	void Render();
 	SpriteComponent* GetSprite() { return sprite; }
+	Character* onCharacter;
 
 private:
 	SpriteComponent* sprite;
+	
 };
 
 class Wall : public Tile {

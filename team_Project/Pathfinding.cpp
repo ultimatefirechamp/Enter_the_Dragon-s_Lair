@@ -6,12 +6,20 @@ bool SortTiles(const Tile* _i, const Tile* _j)
 	return _i->fVal < _j->fVal;
 }
 
-PathAlgorithm::PathAlgorithm() {}
+PathAlgorithm::PathAlgorithm() {
+	m_timeLimit = 1.0f / 600.0f;
+}
 
 PathAlgorithm::~PathAlgorithm() {}
 
 void PathAlgorithm::CalculatePath(Path* &path) {
-	while (true) {
+	m_timeCurrent = 0;
+	m_newTicks = SDL_GetTicks();
+	while (m_timeCurrent < m_timeLimit) {
+		m_oldTicks = m_newTicks;
+		m_newTicks = SDL_GetTicks();
+		m_timeCurrent += (m_newTicks - m_oldTicks) / 1000.0f;
+		path->time += (m_newTicks - m_oldTicks) / 1000.0f;
 		if (!path->calculated) {
 			if (path->open.size() > 0) {
 				std::sort(path->open.begin(), path->open.end(), SortTiles);
@@ -85,7 +93,7 @@ bool PathAlgorithm::CalculateTileValue(Tile* tile, std::vector<Tile*> sortedTile
 			break;
 		}
 		if (affector != NULL) {
-			if (affector == path->end && CheckTileCorners(tile, diag)) {
+			if (affector == path->end){ //&& CheckTileCorners(tile, diag)) {
 				path->calculated = true;
 				path->reached = true;
 
@@ -105,7 +113,7 @@ bool PathAlgorithm::CalculateTileValue(Tile* tile, std::vector<Tile*> sortedTile
 				return true;
 			}
 			else {
-				if (!affector->closed && affector->IsWalkable && CheckTileCorners(tile, diag)) {
+				if (!affector->closed && affector->IsWalkable){ //&& CheckTileCorners(tile, diag)) {
 					affector->hVal = CalculateDistance(affector, path->end);
 					if (diag != 0) {
 						affector->gVal = m_diagTileDist * affector->parameter;
@@ -179,7 +187,9 @@ bool PathAlgorithm::CheckTileCorners(Tile* tile, int dir) {
 float PathAlgorithm::CalculateDistance(Tile* start, Tile* end) {
 	float xVal = start->mapX - end->mapX;
 	float yVal = start->mapY - end->mapY;
-	return sqrt((xVal * xVal) + (yVal * yVal));
+	if (xVal == 1 || yVal == 1) {
+		return 1;
+	}
 }
 
 void PathAlgorithm::AddOpenTile(Tile* tile, std::vector<Tile*>& open) {

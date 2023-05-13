@@ -15,11 +15,12 @@ public:
 	}
 
 	void SetPos(int x, int y);
-	void move();
+	void move(Tile* tar);
 	void Attack(Character* player);
 	void GetDamaged(int damage);
 	void Update() {}
 	void Render();
 private:
+	Tile* onTile;
 	SpriteComponent* sprite_;
 };
