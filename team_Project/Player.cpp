@@ -92,41 +92,102 @@ void Player::HandleEvents() {
 			//g_flag_running = false
 			break;
 		case SDL_KEYDOWN:
-			if (event.key.keysym.sym == SDLK_RIGHT) {
-				trs->x += 1;
-				move(onTile, 6);
+			if (event.key.keysym.sym == SDLK_KP_6) {
+				if (onTile->r->onCharacter == NULL) {//if there is no Character
+					trs->x += 1;
+					move(onTile, 6);
+				}
+				else {
+					onTile->r->onCharacter->GetDamaged(10);
+				}
+				gm->P_Turn = false;
 			}
-			else if (event.key.keysym.sym == SDLK_UP) {
-				trs->y -= 1;
-				move(onTile, 8);
+			else if (event.key.keysym.sym == SDLK_KP_5) {
+				gm->P_Turn = false;
 			}
-			else if (event.key.keysym.sym == SDLK_DOWN) {
-				trs->y += 1;
-				move(onTile, 2);
+			else if (event.key.keysym.sym == SDLK_KP_8) {
+				if (onTile->u->onCharacter == NULL) {//if there is no Character
+					trs->y -= 1;
+					move(onTile, 8);
+				}
+				else {
+					onTile->u->onCharacter->GetDamaged(10);
+				}
+				gm->P_Turn = false;
 			}
-			else if (event.key.keysym.sym == SDLK_LEFT) {
-				trs->x -= 1;
-				move(onTile, 4);
+			else if (event.key.keysym.sym == SDLK_KP_2) {
+				if (onTile->d->onCharacter == NULL) {
+					trs->y += 1;
+					move(onTile, 2);
+				}
+				else {
+					onTile->d->onCharacter->GetDamaged(10);
+				}
+				gm->P_Turn = false;
+			}
+			else if (event.key.keysym.sym == SDLK_KP_4) {
+				if (onTile->l->onCharacter == NULL) {
+					trs->x -= 1;
+					move(onTile, 4);
+				}
+				else {
+					onTile->l->onCharacter->GetDamaged(10);
+				}
+				gm->P_Turn = false;
 			}
 			else if (event.key.keysym.sym == SDLK_KP_1) {
-				trs->x -= 1;
-				trs->y += 1;
-				move(onTile, 1);
+				if (onTile->dl->onCharacter == NULL) {
+					trs->x -= 1;
+					trs->y += 1;
+					move(onTile, 1);
+				}
+				else {
+					onTile->dl->onCharacter->GetDamaged(10);
+				}
+				gm->P_Turn = false;
 			}
 			else if (event.key.keysym.sym == SDLK_KP_3) {
-				trs->x += 1;
-				trs->y += 1;
-				move(onTile, 3);
+				if (onTile->dr->onCharacter == NULL) {
+					trs->x += 1;
+					trs->y += 1;
+					move(onTile, 3);
+				}
+				else {
+					onTile->dr->onCharacter->GetDamaged(10);
+				}
+				gm->P_Turn = false;
+			}
+			else if (event.key.keysym.sym == SDLK_KP_7) {
+				if (onTile->ul->onCharacter == NULL) {
+					trs->x -= 1;
+					trs->y -= 1;
+					move(onTile, 7);
+				}
+				else {
+					onTile->ul->onCharacter->GetDamaged(10);
+				}
+				gm->P_Turn = false;
+			}
+			else if (event.key.keysym.sym == SDLK_KP_9) {
+				if (onTile->ur->onCharacter == NULL) {
+					trs->x += 1;
+					trs->y -= 1;
+					move(onTile, 9);
+				}
+				else {
+					onTile->ur->onCharacter->GetDamaged(10);
+				}
+				gm->P_Turn = false;
 			}
 			gm->p_x = trs->x;
 			gm->p_y = trs->y;
 			if (SpriteState) {
 				SpriteState = 0;
-				sprite_->SetSpriteRect(24, 0, 24, 24);
+				sprite_->SetSpriteRect(24, 24, 24, 24);
 			}
 			else {
 				SpriteState = 1;
-				sprite_->SetSpriteRect(0, 0, 24, 24);
+				sprite_->SetSpriteRect(0, 24, 24, 24);
 			}
 			break;
 		case SDL_KEYUP:

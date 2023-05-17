@@ -1,5 +1,6 @@
 #pragma once
 #include"Object.h"
+
 class Object;
 class Character;
 

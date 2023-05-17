@@ -11,7 +11,7 @@ void InitGame() {
 }
 int main(int arc, char** argv) {
 	SDL_Init(SDL_INIT_EVERYTHING);
-	SDL_Window* win = SDL_CreateWindow("wer", 100, 100, 600, 600, 0);
+	SDL_Window* win = SDL_CreateWindow("wer", 100, 100, WINDOW_WIDTH, WINDOW_HEIGHT, 0);
 	GameManager* gm = GameManager::getinstance();
 	gm->g_renderer = SDL_CreateRenderer(win, -1, 0);
 
