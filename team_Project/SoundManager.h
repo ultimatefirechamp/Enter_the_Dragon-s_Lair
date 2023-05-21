@@ -31,6 +31,4 @@ private:
 	Mix_Chunk* monster_atk_se;
 	Mix_Chunk* monster_dmg_se;
 
-	//현재 재생되고 있는 음악 채널
-	int playing_mc = -1;
 };

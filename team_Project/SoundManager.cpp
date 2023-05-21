@@ -118,4 +118,3 @@ void SoundManager::monster_dmg_sound()
 {
 	Mix_PlayChannel(-1, monster_dmg_se, 0);
 }
-
