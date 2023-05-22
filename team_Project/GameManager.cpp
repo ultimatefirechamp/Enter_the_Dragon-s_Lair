@@ -1,11 +1,63 @@
+#include"stdafx.h"
 #include "GameManager.h"
 #include<Windows.h>
+
 GameManager* GameManager::instance = NULL;
 
 GameManager::~GameManager() {
 	SDL_DestroyRenderer(g_renderer);
 	delete(instance);
 }
+
+void GameManager::InitMap() {
+	map = new Map();
+	PF = new PathAlgorithm();
+	path = new Path();
+	for (int i = 0; i < 10; i++) {
+		map->GetMap().push_back(new TileRow());
+		for (int j = 0; j < 10; j++) {
+			Tile* tmp;
+			if (i == 0 || i == 9 || j == 0 || j == 9) {
+				tmp = new Wall("Wall", i, j);
+			}
+			else if (i == 4) {
+				if (j == 4) {
+					tmp = new Floor("Floor", i, j);
+				}
+				else {
+					tmp = new Wall("Wall", i, j);
+				}
+			}
+			else {
+				tmp = new Floor("Floor", i, j);
+			}
+			tmp->GetTrans()->SetPos(i , j);
+			map->GetMap()[i]->tiles.push_back(tmp);
+		}
+	}
+}
+
+void GameManager::PathFind(int x, int y, int x2, int y2) {
+	path->positions.clear();
+	path->open.clear();
+	path->open.push_back(map->GetMap()[x]->tiles[y]);
+	path->start = map->GetMap()[x]->tiles[y];
+	path->start->open = true;
+
+	path->end = map->GetMap()[x2]->tiles[y2];
+	
+	PF->CalculatePath(path);
+	path->positions;
+	
+}
+
+void GameManager::TestHwakIn() {
+	for (Tile* tile : path->positions) {
+		std::cout << "(" << tile->GetTrans()->x << ", " << tile->GetTrans()->y << ")\n";
+	}
+	std::cout << std::endl;
+}
+
 
 
 void GameManager::HandleEvent() {}

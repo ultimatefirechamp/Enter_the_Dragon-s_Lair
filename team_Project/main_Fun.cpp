@@ -1,3 +1,4 @@
+#include"stdafx.h"
 #include<iostream>
 #include"GameManager.h"
 #include"SDL.h"
@@ -10,13 +11,20 @@ void InitGame() {
 }
 int main(int arc, char** argv) {
 	SDL_Init(SDL_INIT_EVERYTHING);
-	SDL_Window* win = SDL_CreateWindow("wer", 100, 100, 600, 600, 0);
+	SDL_Window* win = SDL_CreateWindow("wer", 100, 100, WINDOW_WIDTH, WINDOW_HEIGHT, 0);
 	GameManager* gm = GameManager::getinstance();
 	gm->g_renderer = SDL_CreateRenderer(win, -1, 0);
 
-	gm->objCol.push_back(objf::CreateObj<Player>("Player"));
-	gm->objCol.push_back(objf::CreateObj<Monster>("Monster"));
+	gm->InitMap();
 	InitGame();
+	gm->map->SetTile();
+	gm->PathFind(1, 8, 8, 1);
+	gm->TestHwakIn();
+
+
+	objf::CreateObj<Player>("Player");
+	objf::CreateObj<Monster>("Monster");
+	
 
 	while (gm->g_flag) {
 		gm->Update();

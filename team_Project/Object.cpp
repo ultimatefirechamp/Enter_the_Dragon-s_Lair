@@ -1,3 +1,4 @@
+#include"stdafx.h"
 #include "Object.h"
 void Object::addComponent(Component* cmp) {
 	if (m_comps.count(cmp->GetName())) return;

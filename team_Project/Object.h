@@ -1,5 +1,7 @@
 #pragma once
 #include"Game.h"
+#include"Components.h"
+
 class Component;
 class transform;
 
@@ -29,8 +31,12 @@ public:
 	}
 
 	std::string GetName() { return m_Name; }
+	transform* GetTrans() {
+		return trs;
+	}
 
 	Object(std::string name) {
+		GameManager::getinstance()->objCol.push_back(this);
 		IsOn = true;
 		m_Name = name;
 	}

@@ -12,24 +12,34 @@ public:
 		addComponent(input_);
 		sprite_ = objf::CreateComp<SpriteComponent>("SpriteComponent");
 		addComponent(sprite_);
-		sprite_->InitSprite("./resource/wall.png");
-		sprite_->SetSpriteRect(0, 0, 100, 100);
-		trs->SetPos(0, 0);
+		sprite_->InitSprite("./resource/CharacterSprite.png");
+		sprite_->SetSpriteRect(0, 24, 24, 24);
+		trs->SetPos(1, 1);
 		trs->SetSize(100, 100);
+		GameManager::getinstance()->map->GetMap()[trs->x]->tiles[trs->y]->onCharacter = this;
+		onTile = GameManager::getinstance()->map->GetMap()[trs->x]->tiles[trs->y];
+		SpriteState = 0;
+		GameManager::getinstance()->p_x = trs->x;
+		GameManager::getinstance()->p_y = trs->y;
 	}
 
 	~Player();
 	
+	Tile* onTile;
+
 	void GetDamaged(int damage);
 
-	void move();
+	void move(Tile* tile, int dir);
 	void Attack(Character* monster);
 
-	void Update() {
-		input_->HandleEvent();
-	}
+	void CheckIsThereEnemy();
 
+	void Update() {
+		HandleEvents();
+	}
+	void HandleEvents();
 	
+	int SpriteState;
 	virtual void Render();
 private:
 	InputComponent* input_;

@@ -9,9 +9,8 @@
 #include"SDL_mixer.h"
 
 
-#include"Object.h"
-#include"GameManager.h"
-#include"Components.h"
+#define WINDOW_WIDTH 1280
+#define WINDOW_HEIGHT 720
 
 namespace objf {
 	template<class tObj>
