@@ -25,6 +25,19 @@ public:
 
 };
 
+class HPBAR : public Component {
+public:
+	HPBAR(std::string name) : Component(name) {}
+	int max_hp;
+	int hp;
+	SDL_Color bg_clr;
+	SDL_Color clr;
+	void Update() {}
+	void Render();
+	void set_mh(int mh);
+	void set_hp(int h);
+};
+
 class transform : public Component {
 public:
 	transform(std::string name) : Component(name) {}

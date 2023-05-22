@@ -39,6 +39,7 @@ public:
 	}
 	void HandleEvents();
 	
+	int SkillState;
 	int SpriteState;
 	virtual void Render();
 private:
