@@ -92,12 +92,23 @@ void Player::HandleEvents() {
 			//g_flag_running = false
 			break;
 		case SDL_KEYDOWN:
+			if (SkillState != 0) {
+				switch (SkillState)
+				{
+				case 1:
+					if (event.key.keysym.sym == SDLK_KP_6) {
+
+					}
+				default:
+					break;
+				}
+			}
 			if (event.key.keysym.sym == SDLK_KP_6) {
-				if (onTile->r->onCharacter == NULL) {//if there is no Character
+				if (onTile->r->onCharacter == NULL && onTile->r->IsWalkable) {//if there is no Character
 					trs->x += 1;
 					move(onTile, 6);
 				}
-				else {
+				else if (onTile->r->onCharacter != NULL) {
 					onTile->r->onCharacter->GetDamaged(10);
 				}
 				gm->P_Turn = false;
@@ -106,75 +117,75 @@ void Player::HandleEvents() {
 				gm->P_Turn = false;
 			}
 			else if (event.key.keysym.sym == SDLK_KP_8) {
-				if (onTile->u->onCharacter == NULL) {//if there is no Character
+				if (onTile->u->onCharacter == NULL && onTile->u->IsWalkable) {//if there is no Character
 					trs->y -= 1;
 					move(onTile, 8);
 				}
-				else {
+				else if(onTile->u->onCharacter!=NULL){
 					onTile->u->onCharacter->GetDamaged(10);
 				}
 				gm->P_Turn = false;
 			}
 			else if (event.key.keysym.sym == SDLK_KP_2) {
-				if (onTile->d->onCharacter == NULL) {
+				if (onTile->d->onCharacter == NULL && onTile->d->IsWalkable) {
 					trs->y += 1;
 					move(onTile, 2);
 				}
-				else {
+				else if (onTile->d->onCharacter != NULL) {
 					onTile->d->onCharacter->GetDamaged(10);
 				}
 				gm->P_Turn = false;
 			}
 			else if (event.key.keysym.sym == SDLK_KP_4) {
-				if (onTile->l->onCharacter == NULL) {
+				if (onTile->l->onCharacter == NULL && onTile->l->IsWalkable) {
 					trs->x -= 1;
 					move(onTile, 4);
 				}
-				else {
+				else if (onTile->l->onCharacter != NULL) {
 					onTile->l->onCharacter->GetDamaged(10);
 				}
 				gm->P_Turn = false;
 			}
 			else if (event.key.keysym.sym == SDLK_KP_1) {
-				if (onTile->dl->onCharacter == NULL) {
+				if (onTile->dl->onCharacter == NULL && onTile->dl->IsWalkable) {
 					trs->x -= 1;
 					trs->y += 1;
 					move(onTile, 1);
 				}
-				else {
+				else if (onTile->dl->onCharacter != NULL) {
 					onTile->dl->onCharacter->GetDamaged(10);
 				}
 				gm->P_Turn = false;
 			}
 			else if (event.key.keysym.sym == SDLK_KP_3) {
-				if (onTile->dr->onCharacter == NULL) {
+				if (onTile->dr->onCharacter == NULL && onTile->dr->IsWalkable) {
 					trs->x += 1;
 					trs->y += 1;
 					move(onTile, 3);
 				}
-				else {
+				else if (onTile->dr->onCharacter != NULL) {
 					onTile->dr->onCharacter->GetDamaged(10);
 				}
 				gm->P_Turn = false;
 			}
 			else if (event.key.keysym.sym == SDLK_KP_7) {
-				if (onTile->ul->onCharacter == NULL) {
+				if (onTile->ul->onCharacter == NULL && onTile->ul->IsWalkable) {
 					trs->x -= 1;
 					trs->y -= 1;
 					move(onTile, 7);
 				}
-				else {
+				else if (onTile->ul->onCharacter != NULL) {
 					onTile->ul->onCharacter->GetDamaged(10);
 				}
 				gm->P_Turn = false;
 			}
 			else if (event.key.keysym.sym == SDLK_KP_9) {
-				if (onTile->ur->onCharacter == NULL) {
+				if (onTile->ur->onCharacter == NULL && onTile->ur->IsWalkable) {
 					trs->x += 1;
 					trs->y -= 1;
 					move(onTile, 9);
 				}
-				else {
+				else if (onTile->ur->onCharacter != NULL) {
 					onTile->ur->onCharacter->GetDamaged(10);
 				}
 				gm->P_Turn = false;
