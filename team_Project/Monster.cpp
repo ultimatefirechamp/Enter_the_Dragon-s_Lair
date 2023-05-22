@@ -2,16 +2,12 @@
 #include "Monster.h"
 void Monster::Render() {
 	sprite_->Render();
-	hpbar->Render();
 }
 void Monster::GetDamaged(int damage) {
 	hp -= damage;
-	hpbar->set_hp(hp);
 	std::cout << "HP : "<< hp << " monster jonna cheo majat Sawyo!\n";
 	if (hp <= 0) {
 		IsAlive = false;
-		IsOn = false;
-		onTile->onCharacter = NULL;
 		hp = 0;
 	}
 }
@@ -23,10 +19,7 @@ void Monster::SetPos(int x, int y) {
 
 void Monster::Update() {
 	GameManager* gm = GameManager::getinstance();
-	if (!this->IsAlive) {//if Dead
-		
-	}
-	else if (!GameManager::getinstance()->P_Turn) {
+	if (!GameManager::getinstance()->P_Turn) {
 		gm->PF->ResetPath(gm->path);
 		gm->PathFind(trs->x, trs->y, gm->p_x, gm->p_y);
 		gm->TestHwakIn();

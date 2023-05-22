@@ -92,23 +92,12 @@ void Player::HandleEvents() {
 			//g_flag_running = false
 			break;
 		case SDL_KEYDOWN:
-			if (SkillState != 0) {
-				switch (SkillState)
-				{
-				case 1:
-					if (event.key.keysym.sym == SDLK_KP_6) {
-
-					}
-				default:
-					break;
-				}
-			}
 			if (event.key.keysym.sym == SDLK_KP_6) {
-				if (onTile->r->onCharacter == NULL && onTile->r->IsWalkable) {//if there is no Character
+				if (onTile->r->onCharacter == NULL) {//if there is no Character
 					trs->x += 1;
 					move(onTile, 6);
 				}
-				else if (onTile->r->onCharacter != NULL) {
+				else {
 					onTile->r->onCharacter->GetDamaged(10);
 				}
 				gm->P_Turn = false;
@@ -117,31 +106,31 @@ void Player::HandleEvents() {
 				gm->P_Turn = false;
 			}
 			else if (event.key.keysym.sym == SDLK_KP_8) {
-				if (onTile->u->onCharacter == NULL && onTile->u->IsWalkable) {//if there is no Character
+				if (onTile->u->onCharacter == NULL) {//if there is no Character
 					trs->y -= 1;
 					move(onTile, 8);
 				}
-				else if(onTile->u->onCharacter!=NULL){
+				else {
 					onTile->u->onCharacter->GetDamaged(10);
 				}
 				gm->P_Turn = false;
 			}
 			else if (event.key.keysym.sym == SDLK_KP_2) {
-				if (onTile->d->onCharacter == NULL && onTile->d->IsWalkable) {
+				if (onTile->d->onCharacter == NULL) {
 					trs->y += 1;
 					move(onTile, 2);
 				}
-				else if (onTile->d->onCharacter != NULL) {
+				else {
 					onTile->d->onCharacter->GetDamaged(10);
 				}
 				gm->P_Turn = false;
 			}
 			else if (event.key.keysym.sym == SDLK_KP_4) {
-				if (onTile->l->onCharacter == NULL && onTile->l->IsWalkable) {
+				if (onTile->l->onCharacter == NULL) {
 					trs->x -= 1;
 					move(onTile, 4);
 				}
-				else if (onTile->l->onCharacter != NULL) {
+				else {
 					onTile->l->onCharacter->GetDamaged(10);
 				}
 				gm->P_Turn = false;
