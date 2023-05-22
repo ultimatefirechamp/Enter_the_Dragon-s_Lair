@@ -16,8 +16,6 @@ public:
 		addComponent(hpbar);
 
 		SetThisCharacterOnTile(5, 1);
-		max_hp = 100;
-		hp = 100;
 
 		hpbar->set_hp(hp);
 		hpbar->set_mh(max_hp);
@@ -26,7 +24,6 @@ public:
 
 	void SetPos(int x, int y);
 	void move(Tile* tar, int dir);
-	void move(Tile* tar);
 	void Attack(Character* player);
 	void GetDamaged(int damage);
 	void Update();

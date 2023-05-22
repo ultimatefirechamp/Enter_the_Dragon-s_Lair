@@ -43,8 +43,8 @@ void SpriteComponent::Render() {
 	SDL_Rect tmp;
 	GameManager* gm = GameManager::getinstance();
 	transform* t_tr = m_Owner->GetComponent<transform>("transform");
-	tmp = { t_tr->x*100 - gm->p_x*100 + 1280/2 - (t_tr->w / 2),
-			t_tr->y*100 - gm->p_y*100 + 720/2 - (t_tr->h / 2),
+	tmp = { t_tr->x*100 - gm->p_x*100 + 300 - (t_tr->w / 2),
+			t_tr->y*100 - gm->p_y*100 + 300 - (t_tr->h / 2),
 			t_tr->w,t_tr->h };
 	SDL_RenderCopy(gm->g_renderer, textr, &sr, &tmp);
 }
