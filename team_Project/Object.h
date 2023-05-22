@@ -16,7 +16,7 @@ public:
 		}
 		m_comps.clear();
 	}
-	
+
 	bool IsOn;
 
 	virtual void Update() = 0;
@@ -40,7 +40,7 @@ public:
 		IsOn = true;
 		m_Name = name;
 	}
-	
+
 protected:
 	transform* trs;
 	std::string m_Name;

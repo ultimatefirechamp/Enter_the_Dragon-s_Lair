@@ -1,5 +1,6 @@
 #pragma once
 #include"Object.h"
+
 class Object;
 class Character;
 
@@ -18,7 +19,7 @@ public:
 		mapY = y;
 		onCharacter = NULL;
 	}
-	
+
 	int mapX, mapY;
 	float parameter;
 
@@ -30,7 +31,7 @@ public:
 	Tile* dl;
 	Tile* r;
 	Tile* l;
-	
+
 	Tile* parent;
 
 
@@ -47,7 +48,7 @@ public:
 
 private:
 	SpriteComponent* sprite;
-	
+
 };
 
 class Wall : public Tile {

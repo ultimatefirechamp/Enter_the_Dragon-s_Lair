@@ -11,9 +11,9 @@ Map::~Map() {
 }
 
 void Map::ClearMap() {
-	for(TileRow* row : map_tiles)
+	for (TileRow* row : map_tiles)
 	{
-		for(Tile * tile : row->tiles)
+		for (Tile* tile : row->tiles)
 		{
 			delete tile;
 		}
@@ -31,7 +31,7 @@ Tile* Map::GetTileInfo(int x, int y) {
 }
 Tile* Map::GetSelectedTile() { return NULL; }
 
-bool Map::CheckSurroundings(Tile* tile) { 
+bool Map::CheckSurroundings(Tile* tile) {
 	if ((tile->u == NULL || tile->IsWalkable) && (tile->ur == NULL || tile->IsWalkable) && (tile->ul == NULL || tile->IsWalkable)
 		&& (tile->d == NULL || tile->IsWalkable) && (tile->dl == NULL || tile->IsWalkable) && (tile->dr == NULL || tile->IsWalkable)
 		&& (tile->r == NULL || tile->IsWalkable) && (tile->l == NULL || tile->IsWalkable)) {
@@ -46,8 +46,8 @@ void Map::ResetStartEnd() {
 
 void Map::SetTile() {
 	for (int x = 0; x < map_tiles.size(); x++) {
-		for (int y = 0; y < map_tiles[x]->tiles.size();y++) {
-			if (x == 0 && y==0) { // LEFTUP CORNER
+		for (int y = 0; y < map_tiles[x]->tiles.size(); y++) {
+			if (x == 0 && y == 0) { // LEFTUP CORNER
 				map_tiles[x]->tiles[y]->u = NULL;
 				map_tiles[x]->tiles[y]->d = map_tiles[x]->tiles[y + 1];
 				map_tiles[x]->tiles[y]->ul = NULL;
@@ -97,7 +97,7 @@ void Map::SetTile() {
 				map_tiles[x]->tiles[y]->r = map_tiles[x + 1]->tiles[y];
 				map_tiles[x]->tiles[y]->l = map_tiles[x - 1]->tiles[y];
 			}
-			else if (y == map_tiles[0]->tiles.size()-1) {//DOWNBOUND EXCEPT CORNER
+			else if (y == map_tiles[0]->tiles.size() - 1) {//DOWNBOUND EXCEPT CORNER
 				map_tiles[x]->tiles[y]->u = map_tiles[x]->tiles[y - 1];
 				map_tiles[x]->tiles[y]->d = NULL;
 				map_tiles[x]->tiles[y]->ul = map_tiles[x - 1]->tiles[y - 1];
@@ -117,7 +117,7 @@ void Map::SetTile() {
 				map_tiles[x]->tiles[y]->r = map_tiles[x + 1]->tiles[y];
 				map_tiles[x]->tiles[y]->l = NULL;
 			}
-			else if (x == map_tiles.size()-1){//RIGHTBOUND EXCEPT CORNER
+			else if (x == map_tiles.size() - 1) {//RIGHTBOUND EXCEPT CORNER
 				map_tiles[x]->tiles[y]->u = map_tiles[x]->tiles[y - 1];
 				map_tiles[x]->tiles[y]->d = map_tiles[x]->tiles[y + 1];
 				map_tiles[x]->tiles[y]->ul = map_tiles[x - 1]->tiles[y - 1];

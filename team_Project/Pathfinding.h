@@ -35,11 +35,11 @@ public:
 	PathAlgorithm();
 	~PathAlgorithm();
 
-	void CalculatePath(Path* &path);
+	void CalculatePath(Path*& path);
 
 	float CalculateDistance(Tile* start, Tile* end);
 	bool CheckTileCorners(Tile* tile, int dir);
-	void ResetPath(Path* &path);
+	void ResetPath(Path*& path);
 
 
 private:
@@ -55,4 +55,3 @@ private:
 	void AddClosedTile(Tile* _tile, std::vector<Tile*>& _closed);
 	void AddOpenTile(Tile* _tile, std::vector<Tile*>& _open);
 };
-

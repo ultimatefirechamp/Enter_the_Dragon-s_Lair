@@ -10,10 +10,10 @@ protected:
 	std::string name;
 	Object* m_Owner;
 public:
-	
+
 	void setOwner(Object* own);
 	Object* getOwner() { return m_Owner; }
-	
+
 	virtual void Update() = 0;
 
 	std::string GetName() { return name; }
@@ -23,6 +23,19 @@ public:
 	}
 	~Component() {}
 
+};
+
+class HPBAR : public Component {
+public:
+	HPBAR(std::string name) : Component(name) {}
+	int max_hp;
+	int hp;
+	SDL_Color bg_clr;
+	SDL_Color clr;
+	void Update() {}
+	void Render();
+	void set_mh(int mh);
+	void set_hp(int h);
 };
 
 class transform : public Component {
@@ -42,16 +55,16 @@ public:
 };
 
 
-class InputComponent: public Component {
+class InputComponent : public Component {
 public:
 	InputComponent(std::string name) : Component(name) {}
 
 	void HandleEvent();
 
 	void Update() {
-		
+
 	}
-	
+
 private:
 	transform* transform_;
 };
@@ -63,7 +76,7 @@ public:
 	void SetSpriteRect(int x, int y, int w, int h);
 
 	SpriteComponent(std::string name) : Component(name) {}
-	
+
 	~SpriteComponent() {
 		SDL_DestroyTexture(textr);
 	}

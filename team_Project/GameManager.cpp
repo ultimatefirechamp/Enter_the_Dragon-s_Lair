@@ -31,7 +31,7 @@ void GameManager::InitMap() {
 			else {
 				tmp = new Floor("Floor", i, j);
 			}
-			tmp->GetTrans()->SetPos(i , j);
+			tmp->GetTrans()->SetPos(i, j);
 			map->GetMap()[i]->tiles.push_back(tmp);
 		}
 	}
@@ -45,10 +45,10 @@ void GameManager::PathFind(int x, int y, int x2, int y2) {
 	path->start->open = true;
 
 	path->end = map->GetMap()[x2]->tiles[y2];
-	
+
 	PF->CalculatePath(path);
 	path->positions;
-	
+
 }
 
 void GameManager::TestHwakIn() {
@@ -63,7 +63,7 @@ void GameManager::TestHwakIn() {
 void GameManager::HandleEvent() {}
 
 void GameManager::Update() {
-	for (auto &i : objCol) {
+	for (auto& i : objCol) {
 		i->Update();
 	}
 	for (int i = 0; i < objCol.size(); i++) {

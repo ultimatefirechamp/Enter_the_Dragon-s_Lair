@@ -7,12 +7,12 @@ bool SortTiles(const Tile* _i, const Tile* _j)
 }
 
 PathAlgorithm::PathAlgorithm() {
-	m_timeLimit = 1.0f / 600.0f;
+	m_timeLimit = 1.0 / 600.0f;
 }
 
 PathAlgorithm::~PathAlgorithm() {}
 
-void PathAlgorithm::CalculatePath(Path* &path) {
+void PathAlgorithm::CalculatePath(Path*& path) {
 	m_timeCurrent = 0;
 	m_newTicks = SDL_GetTicks();
 	while (m_timeCurrent < m_timeLimit) {
@@ -93,7 +93,7 @@ bool PathAlgorithm::CalculateTileValue(Tile* tile, std::vector<Tile*> sortedTile
 			break;
 		}
 		if (affector != NULL) {
-			if (affector == path->end){ //&& CheckTileCorners(tile, diag)) {
+			if (affector == path->end) { //&& CheckTileCorners(tile, diag)) {
 				path->calculated = true;
 				path->reached = true;
 
@@ -102,9 +102,9 @@ bool PathAlgorithm::CalculateTileValue(Tile* tile, std::vector<Tile*> sortedTile
 				while (traceback != path->start) {
 					path->positions.push_back(traceback);
 					traceback = traceback->parent;
-					if (path->positions.size() == path->closed.size()) {
+					/*if (path->positions.size() == path->closed.size()) {
 						break;
-					}
+					}*/
 				}
 
 				path->positions.push_back(path->start);
@@ -113,7 +113,7 @@ bool PathAlgorithm::CalculateTileValue(Tile* tile, std::vector<Tile*> sortedTile
 				return true;
 			}
 			else {
-				if (!affector->closed && affector->IsWalkable){ //&& CheckTileCorners(tile, diag)) {
+				if (!affector->closed && affector->IsWalkable && affector->onCharacter == NULL) { //&& CheckTileCorners(tile, diag)) {
 					affector->hVal = CalculateDistance(affector, path->end);
 					if (diag != 0) {
 						affector->gVal = m_diagTileDist * affector->parameter;
@@ -130,14 +130,14 @@ bool PathAlgorithm::CalculateTileValue(Tile* tile, std::vector<Tile*> sortedTile
 			}
 		}
 	}
-	
+
 	path->open.erase(path->open.begin());
 	AddClosedTile(tile, path->closed);
 	return false;
 
 }
 
-bool PathAlgorithm::CheckTileCorners(Tile* tile, int dir) { 
+bool PathAlgorithm::CheckTileCorners(Tile* tile, int dir) {
 
 	switch (dir) {
 	default:
@@ -241,4 +241,3 @@ void PathAlgorithm::ResetPath(Path*& path) {
 	path->start = NULL;
 	path->end = NULL;
 }
-

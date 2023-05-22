@@ -5,7 +5,7 @@ class Tile;
 class Character : public Object
 {
 public:
-	Character(std::string name) : Object(name){
+	Character(std::string name) : Object(name) {
 		IsAlive = true;
 		hp = 0;
 		max_hp = 0;
@@ -20,4 +20,3 @@ public:
 	virtual void Update() = 0;
 	virtual void GetDamaged(int damage) = 0;
 };
-

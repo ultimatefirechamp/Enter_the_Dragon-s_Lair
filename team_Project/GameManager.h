@@ -3,6 +3,7 @@
 #include"Object.h"
 #include"stdafx.h"
 
+
 class Object;
 class Map;
 class PathAlgorithm;

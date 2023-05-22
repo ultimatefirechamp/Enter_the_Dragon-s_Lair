@@ -13,7 +13,7 @@ class Map
 public:
 	Map();
 	~Map();
-	
+
 	Tile* GetTileInfo(int x, int y);
 	Tile* GetSelectedTile();
 
@@ -36,4 +36,3 @@ private:
 	void ResetStartEnd();
 
 };
-
