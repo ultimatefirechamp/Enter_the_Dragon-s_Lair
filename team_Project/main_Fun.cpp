@@ -12,6 +12,7 @@ void InitGame() {
 int main(int arc, char** argv) {
 	SDL_Init(SDL_INIT_EVERYTHING);
 	SDL_Window* win = SDL_CreateWindow("wer", 100, 100, WINDOW_WIDTH, WINDOW_HEIGHT, 0);
+
 	GameManager* gm = GameManager::getinstance();
 	gm->g_renderer = SDL_CreateRenderer(win, -1, 0);
 
@@ -25,6 +26,7 @@ int main(int arc, char** argv) {
 	objf::CreateObj<Player>("Player");
 	objf::CreateObj<Monster>("Monster");
 
+	gm->sm->intro_music();
 
 	while (gm->g_flag) {
 		gm->Update();
@@ -37,6 +39,9 @@ int main(int arc, char** argv) {
 	}
 
 	SDL_DestroyWindow(win);
+
+
+	Mix_CloseAudio();
 	SDL_Quit();
 	return 0;
 }

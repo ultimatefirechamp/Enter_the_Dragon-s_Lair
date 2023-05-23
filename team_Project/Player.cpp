@@ -66,6 +66,7 @@ void Player::move(Tile* tile, int dir) {
 }
 
 void Player::Attack(Character* monster) {
+	GameManager::getinstance()->sm->player_atk_sound();
 	monster->GetDamaged(10);
 }
 
@@ -109,7 +110,7 @@ void Player::HandleEvents() {
 					move(onTile, 6);
 				}
 				else if (onTile->r->onCharacter != NULL) {
-					onTile->r->onCharacter->GetDamaged(10);
+					Attack(onTile->r->onCharacter);
 				}
 				gm->P_Turn = false;
 			}
@@ -122,7 +123,7 @@ void Player::HandleEvents() {
 					move(onTile, 8);
 				}
 				else if (onTile->u->onCharacter != NULL) {
-					onTile->u->onCharacter->GetDamaged(10);
+					Attack(onTile->u->onCharacter);
 				}
 				gm->P_Turn = false;
 			}
@@ -132,7 +133,7 @@ void Player::HandleEvents() {
 					move(onTile, 2);
 				}
 				else if (onTile->d->onCharacter != NULL) {
-					onTile->d->onCharacter->GetDamaged(10);
+					Attack(onTile->d->onCharacter);
 				}
 				gm->P_Turn = false;
 			}
@@ -142,7 +143,7 @@ void Player::HandleEvents() {
 					move(onTile, 4);
 				}
 				else if (onTile->l->onCharacter != NULL) {
-					onTile->l->onCharacter->GetDamaged(10);
+					Attack(onTile->l->onCharacter);
 				}
 				gm->P_Turn = false;
 			}
@@ -153,7 +154,7 @@ void Player::HandleEvents() {
 					move(onTile, 1);
 				}
 				else if (onTile->dl->onCharacter != NULL) {
-					onTile->dl->onCharacter->GetDamaged(10);
+					Attack(onTile->dl->onCharacter);
 				}
 				gm->P_Turn = false;
 			}
@@ -164,7 +165,7 @@ void Player::HandleEvents() {
 					move(onTile, 3);
 				}
 				else if (onTile->dr->onCharacter != NULL) {
-					onTile->dr->onCharacter->GetDamaged(10);
+					Attack(onTile->dr->onCharacter);
 				}
 				gm->P_Turn = false;
 			}
@@ -175,7 +176,7 @@ void Player::HandleEvents() {
 					move(onTile, 7);
 				}
 				else if (onTile->ul->onCharacter != NULL) {
-					onTile->ul->onCharacter->GetDamaged(10);
+					Attack(onTile->ul->onCharacter);
 				}
 				gm->P_Turn = false;
 			}
@@ -186,7 +187,7 @@ void Player::HandleEvents() {
 					move(onTile, 9);
 				}
 				else if (onTile->ur->onCharacter != NULL) {
-					onTile->ur->onCharacter->GetDamaged(10);
+					Attack(onTile->ur->onCharacter);
 				}
 				gm->P_Turn = false;
 			}

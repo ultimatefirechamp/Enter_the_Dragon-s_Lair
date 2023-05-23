@@ -2,12 +2,13 @@
 #include"Game.h"
 #include"Object.h"
 #include"stdafx.h"
-
+#include"SoundManager.h"
 
 class Object;
 class Map;
 class PathAlgorithm;
 class Path;
+class SoundManager;
 
 class GameManager
 {
@@ -17,6 +18,7 @@ public:
 	Map* map;
 	PathAlgorithm* PF;
 	Path* path;
+	SoundManager* sm;
 
 	bool g_flag;
 	bool P_Turn;
@@ -41,6 +43,7 @@ private:
 		p_x = 0;
 		p_y = 0;
 		P_Turn = true;
+		sm = new SoundManager();
 	}
 	~GameManager();
 
