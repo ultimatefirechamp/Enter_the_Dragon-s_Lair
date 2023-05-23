@@ -96,11 +96,98 @@ void Player::HandleEvents() {
 			if (SkillState != 0) {
 				switch (SkillState)
 				{
-				case 1:
+				case 1://ÃÌ°æ
 					if (event.key.keysym.sym == SDLK_KP_6) {
-						onTile->r->onCharacter->GetDamaged(40);
+						if (onTile->r->onCharacter != NULL) {
+							onTile->r->onCharacter->GetDamaged(40);
+						}
 						SkillState = 0;
 					}
+					else if (event.key.keysym.sym == SDLK_KP_4) {
+						if (onTile->l->onCharacter != NULL) {
+							onTile->l->onCharacter->GetDamaged(40);
+							
+						}
+						SkillState = 0;
+					}
+					else if (event.key.keysym.sym == SDLK_KP_8) {
+						if (onTile->u->onCharacter != NULL) {
+							onTile->u->onCharacter->GetDamaged(40);
+						}
+						SkillState = 0;
+					}
+					else if (event.key.keysym.sym == SDLK_KP_2) {
+						if (onTile->u->onCharacter != NULL) {
+							onTile->d->onCharacter->GetDamaged(40);
+						}
+						SkillState = 0;
+					}
+					GameManager::getinstance()->P_Turn = false;
+
+				case 2://ÀÏÁø±¤Ç³
+					if (event.key.keysym.sym == SDLK_KP_6) {
+						if (onTile->r->onCharacter != NULL) {
+							Attack(onTile->r->onCharacter);
+						}
+						else {
+							if (onTile->r->IsWalkable) {//if there is no Character and Walkable
+								trs->x += 1;
+								move(onTile, 6);
+								if (onTile->r->onCharacter != NULL) {
+									onTile->r->onCharacter->GetDamaged(30);
+								}
+							}
+						}
+						SkillState = 0;
+					}
+					else if (event.key.keysym.sym == SDLK_KP_4) {
+						if (onTile->l ->onCharacter != NULL) {
+							Attack(onTile->l->onCharacter);
+						}
+						else {
+							if (onTile->l->IsWalkable) {//if there is no Character and Walkable
+								trs->x -= 1;
+								move(onTile, 4);
+								if (onTile->l->onCharacter != NULL) {
+									onTile->l->onCharacter->GetDamaged(30);
+								}
+							}
+						}
+						SkillState = 0;
+					}
+					else if (event.key.keysym.sym == SDLK_KP_8) {
+						if (onTile->u->onCharacter != NULL) {
+							Attack(onTile->u->onCharacter);
+						}
+						else {
+							if (onTile->u->IsWalkable) {//if there is no Character and Walkable
+								trs->y -= 1;
+								move(onTile, 8);
+								if (onTile->u->onCharacter != NULL) {
+									onTile->u->onCharacter->GetDamaged(30);
+								}
+							}
+						}
+						SkillState = 0;
+					}
+					else if (event.key.keysym.sym == SDLK_KP_2) {
+						if (onTile->d->onCharacter != NULL) {
+							Attack(onTile->d->onCharacter);
+						}
+						else {
+							if (onTile->d->IsWalkable) {//if there is no Character and Walkable
+								trs->y += 1;
+								move(onTile, 2);
+								if (onTile->d->onCharacter != NULL) {
+									onTile->d->onCharacter->GetDamaged(30);
+								}
+							}
+						}
+						SkillState = 0;
+					}
+					GameManager::getinstance()->P_Turn = false;
+
+
 				default:
 					break;
 				}
@@ -191,6 +278,13 @@ void Player::HandleEvents() {
 					Attack(onTile->ur->onCharacter);
 				}
 				gm->P_Turn = false;
+			}
+			else if (event.key.keysym.sym == SDLK_a) {
+				SkillState = 1;
+				sprite_->SetSpriteRect(48, 96, 24, 24);
+			}
+			else if (event.key.keysym.sym == SDLK_q) {
+				SkillState = 2;
 			}
 			gm->p_x = trs->x;
 			gm->p_y = trs->y;

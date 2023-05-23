@@ -22,9 +22,15 @@ int main(int arc, char** argv) {
 	gm->PathFind(1, 8, 8, 1);
 	gm->TestHwakIn();
 
-
+	Monster* mn;
 	objf::CreateObj<Player>("Player");
-	objf::CreateObj<Monster>("Monster");
+	mn = objf::CreateObj<Monster>("Monster");
+	mn->SetPos(5, 1);
+	mn->SetThisCharacterOnTile(5, 1);
+	//mn = objf::CreateObj<Monster>("Monster");
+	//mn->SetPos(3, 3);
+	//mn->SetThisCharacterOnTile(3, 3);
+
 
 	gm->sm->intro_music();
 

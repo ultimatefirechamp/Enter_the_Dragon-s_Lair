@@ -72,6 +72,7 @@ void GameManager::Update() {
 			i--;
 		}
 	}
+	P_Turn = true;
 }
 void GameManager::Render() {
 

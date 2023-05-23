@@ -15,7 +15,6 @@ public:
 		hpbar = objf::CreateComp<HPBAR>("HPBAR");
 		addComponent(hpbar);
 
-		SetThisCharacterOnTile(5, 1);
 		max_hp = 100;
 		hp = 100;
 
