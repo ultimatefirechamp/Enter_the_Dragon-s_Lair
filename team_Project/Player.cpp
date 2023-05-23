@@ -98,13 +98,14 @@ void Player::HandleEvents() {
 				{
 				case 1:
 					if (event.key.keysym.sym == SDLK_KP_6) {
-
+						onTile->r->onCharacter->GetDamaged(40);
+						SkillState = 0;
 					}
 				default:
 					break;
 				}
 			}
-			if (event.key.keysym.sym == SDLK_KP_6) {
+			else if (event.key.keysym.sym == SDLK_KP_6) {
 				if (onTile->r->onCharacter == NULL && onTile->r->IsWalkable) {//if there is no Character
 					trs->x += 1;
 					move(onTile, 6);
@@ -195,18 +196,22 @@ void Player::HandleEvents() {
 			gm->p_y = trs->y;
 			if (SpriteState) {
 				SpriteState = 0;
-				sprite_->SetSpriteRect(24, 24, 24, 24);
+				sprite_->SetSpriteRect(24, 96, 24, 24);
 			}
 			else {
 				SpriteState = 1;
-				sprite_->SetSpriteRect(0, 24, 24, 24);
+				sprite_->SetSpriteRect(0, 96, 24, 24);
+			}
+			if (SkillState == 1) {
+				sprite_->SetSpriteRect(48, 96, 24, 24);
 			}
 			break;
 		case SDL_KEYUP:
 			break;
 		case SDL_MOUSEBUTTONDOWN:
 			if (event.button.button == SDL_BUTTON_RIGHT) {
-				CheckIsThereEnemy();
+				SkillState = 1;
+				sprite_->SetSpriteRect(48, 96, 24, 24);
 			}
 			break;
 		case SDL_MOUSEBUTTONUP:
