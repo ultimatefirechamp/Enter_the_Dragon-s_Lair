@@ -126,8 +126,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PrecompiledHeader>Create</PrecompiledHeader>
+      <AdditionalIncludeDirectories>C:\Users\MSI\source\repos\team_Project\team_Project\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -148,8 +147,6 @@
     <ClInclude Include="Object.h" />
     <ClInclude Include="Pathfinding.h" />
     <ClInclude Include="Player.h" />
-    <ClInclude Include="SoundManager.h" />
-    <ClInclude Include="stdafx.h" />
     <ClInclude Include="Tile.h" />
   </ItemGroup>
   <ItemGroup>
