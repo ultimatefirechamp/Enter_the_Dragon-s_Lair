@@ -34,6 +34,8 @@ public:
 
 	Tile* parent;
 
+
+
 	float gVal, hVal, fVal;
 
 	bool open, closed;
@@ -49,3 +51,17 @@ private:
 
 };
 
+class Wall : public Tile {
+public:
+	Wall(std::string name, int x, int y) : Tile(name, x, y) {
+		GetSprite()->sr = { 0,0,24,24 };
+		IsWalkable = false;
+	}
+};
+class Floor : public Tile {
+public:
+	Floor(std::string name, int x, int y) : Tile(name, x, y) {
+		GetSprite()->sr = { 24,0,24,24 };
+		IsWalkable = true;
+	}
+};
