@@ -9,12 +9,14 @@ class Map;
 class PathAlgorithm;
 class Path;
 class SoundManager;
-
+class Scene;
 
 class GameManager
 {
 public:
 	std::vector<Object*> objCol;
+	std::vector<Scene*> Scenes;
+
 	SDL_Renderer* g_renderer;
 	Map* map;
 	PathAlgorithm* PF;
@@ -39,13 +41,9 @@ public:
 	void Update();
 	void Render();
 	void TestHwakIn();
+	int CurrentPhase;
 private:
-	GameManager() {
-		p_x = 0;
-		p_y = 0;
-		P_Turn = true;
-		sm = new SoundManager();
-	}
+	GameManager();
 	~GameManager();
 
 	static GameManager* instance;

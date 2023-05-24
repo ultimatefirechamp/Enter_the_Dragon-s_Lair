@@ -7,7 +7,10 @@
 #include"Monster.h"
 
 void InitGame() {
+	GameManager* gm = GameManager::getinstance();
 	GameManager::getinstance()->g_flag = true;
+	gm->Scenes[gm->CurrentPhase]->InitScene();
+	gm->objCol = gm->Scenes[gm->CurrentPhase]->objCol;
 }
 int main(int arc, char** argv) {
 	SDL_Init(SDL_INIT_EVERYTHING);
@@ -16,20 +19,20 @@ int main(int arc, char** argv) {
 	GameManager* gm = GameManager::getinstance();
 	gm->g_renderer = SDL_CreateRenderer(win, -1, 0);
 
-	gm->InitMap();
+	//gm->InitMap();
 	InitGame();
-	gm->map->SetTile();
-	gm->PathFind(1, 8, 8, 1);
-	gm->TestHwakIn();
+	//gm->map->SetTile();
+	//gm->PathFind(1, 8, 8, 1);
+	//gm->TestHwakIn();
 
-	Monster* mn;
+	/*Monster* mn;
 	objf::CreateObj<Player>("Player");
 	mn = objf::CreateObj<Monster>("Monster");
 	mn->SetPos(5, 1);
 	mn->SetThisCharacterOnTile(5, 1);
 	mn = objf::CreateObj<Monster>("Monster");
 	mn->SetPos(3, 3);
-	mn->SetThisCharacterOnTile(3, 3);
+	mn->SetThisCharacterOnTile(3, 3);*/
 
 
 	gm->sm->intro_music();

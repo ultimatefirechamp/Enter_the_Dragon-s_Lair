@@ -4,6 +4,15 @@
 
 GameManager* GameManager::instance = NULL;
 
+GameManager::GameManager() {
+	p_x = 0;
+	p_y = 0;
+	P_Turn = true;
+	CurrentPhase = 0;
+	Scenes.push_back(new Intro());
+	sm = new SoundManager();
+}
+
 GameManager::~GameManager() {
 	SDL_DestroyRenderer(g_renderer);
 	delete(instance);
