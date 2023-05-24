@@ -33,13 +33,9 @@ void Monster::Update() {
 		gm->TestHwakIn();
 
 		int x, y;
-		if (gm->path->positions.size() == 0) {
-			return;
-		}
 		x = gm->path->positions[gm->path->positions.size() - 2]->mapX;
 		y = gm->path->positions[gm->path->positions.size() - 2]->mapY;
-		
-		
+
 		if (gm->map->GetMap()[x]->tiles[y]->onCharacter == NULL) {
 			trs->x = x;
 			trs->y = y;
@@ -48,6 +44,9 @@ void Monster::Update() {
 		else {
 			gm->map->GetMap()[x]->tiles[y]->onCharacter->GetDamaged(10);
 		}
+
+		gm->P_Turn = true;
+
 
 	}
 }

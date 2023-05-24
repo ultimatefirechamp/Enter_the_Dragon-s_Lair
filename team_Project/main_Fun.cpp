@@ -22,7 +22,7 @@ int main(int arc, char** argv) {
 	gm->PathFind(1, 8, 8, 1);
 	gm->TestHwakIn();
 
-	Monster* mn;
+
 	objf::CreateObj<Player>("Player");
 	mn = objf::CreateObj<Monster>("Monster");
 	mn->SetPos(5, 1);
