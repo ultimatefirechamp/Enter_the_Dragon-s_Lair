@@ -41,6 +41,7 @@ public:
 
 	int SkillState;
 	int SpriteState;
+	
 	virtual void Render();
 private:
 	InputComponent* input_;
