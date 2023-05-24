@@ -27,9 +27,9 @@ int main(int arc, char** argv) {
 	mn = objf::CreateObj<Monster>("Monster");
 	mn->SetPos(5, 1);
 	mn->SetThisCharacterOnTile(5, 1);
-	//mn = objf::CreateObj<Monster>("Monster");
-	//mn->SetPos(3, 3);
-	//mn->SetThisCharacterOnTile(3, 3);
+	mn = objf::CreateObj<Monster>("Monster");
+	mn->SetPos(3, 3);
+	mn->SetThisCharacterOnTile(3, 3);
 
 
 	gm->sm->intro_music();
