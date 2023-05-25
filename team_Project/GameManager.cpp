@@ -10,6 +10,7 @@ GameManager::GameManager() {
 	P_Turn = true;
 	CurrentPhase = 0;
 	Scenes.push_back(new Intro());
+	Scenes.push_back(new InGameScene());
 	sm = new SoundManager();
 }
 
@@ -23,6 +24,8 @@ void GameManager::InitScenes() {
 		scene->InitScene();
 		scene->objCol = this->objCol;
 	}
+	CurrentPhase = 0;
+	this->objCol = Scenes[CurrentPhase]->objCol;
 }
 
 void GameManager::InitMap() {

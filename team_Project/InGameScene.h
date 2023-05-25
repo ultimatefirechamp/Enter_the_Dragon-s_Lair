@@ -5,6 +5,8 @@
 class InGameScene : public Scene
 {
 public:
+	InGameScene() {}
+	~InGameScene();
 	void InitScene();
 private:
 

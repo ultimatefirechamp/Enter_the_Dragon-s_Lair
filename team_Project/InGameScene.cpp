@@ -7,3 +7,6 @@ void InGameScene::InitScene() {
 	gm->map->SetTile();
 	objf::CreateObj<Player>("Player");
 }
+InGameScene::~InGameScene() {
+	objCol.clear();
+}

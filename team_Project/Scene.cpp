@@ -71,7 +71,9 @@ void StartButton::Update() {
 				//g_flag_running = false
 				break;
 			case SDL_MOUSEBUTTONDOWN:
-				
+				gm->CurrentPhase = 1;
+				gm->Scenes[0]->objCol = gm->objCol;
+				gm->objCol = gm->Scenes[gm->CurrentPhase]->objCol;
 				break;
 			}
 		}
