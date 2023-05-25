@@ -41,6 +41,8 @@ public:
 	void Update();
 	void Render();
 	void TestHwakIn();
+	void InitScenes();
+
 	int CurrentPhase;
 private:
 	GameManager();

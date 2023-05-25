@@ -9,8 +9,7 @@
 void InitGame() {
 	GameManager* gm = GameManager::getinstance();
 	GameManager::getinstance()->g_flag = true;
-	gm->Scenes[gm->CurrentPhase]->InitScene();
-	gm->objCol = gm->Scenes[gm->CurrentPhase]->objCol;
+	gm->InitScenes();
 }
 int main(int arc, char** argv) {
 	SDL_Init(SDL_INIT_EVERYTHING);

@@ -17,6 +17,13 @@ GameManager::~GameManager() {
 	SDL_DestroyRenderer(g_renderer);
 	delete(instance);
 }
+void GameManager::InitScenes() {
+	for (auto& scene : Scenes) {
+		this->objCol = scene->objCol;
+		scene->InitScene();
+		scene->objCol = this->objCol;
+	}
+}
 
 void GameManager::InitMap() {
 	map = new Map();
