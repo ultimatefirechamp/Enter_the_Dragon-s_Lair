@@ -24,7 +24,7 @@ void GameManager::InitScenes() {
 		scene->InitScene();
 		scene->objCol = this->objCol;
 	}
-	CurrentPhase = 0;
+	CurrentPhase = INTRO;
 	this->objCol = Scenes[CurrentPhase]->objCol;
 }
 
