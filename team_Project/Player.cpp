@@ -35,7 +35,8 @@ void Player::SetMotion(States st) {
 void Player::Skill(SDL_Event event) {
 	Tile* tmp = NULL;
 	GameManager* gm = GameManager::getinstance();
-	int dir;
+	int dir = -1;
+	bool Isvar = false;
 	switch (SkillState)
 	{
 	case ONE_INCH_PUNCH:
@@ -75,8 +76,6 @@ void Player::Skill(SDL_Event event) {
 			dir = 3;
 			break;
 		case SDLK_KP_5:
-			SKillOn = false;
-			SpriteState = IDLE;
 			dir = 5;
 			break;
 		default:
@@ -88,7 +87,7 @@ void Player::Skill(SDL_Event event) {
 			SpriteState = PUNCH;
 			SKillOn = false;
 		}
-		else {
+		else if(dir != -1){
 			SpriteState = IDLE;
 			move(onTile, dir);
 			SKillOn = false;
