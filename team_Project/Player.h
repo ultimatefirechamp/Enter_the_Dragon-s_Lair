@@ -18,9 +18,10 @@ public:
 		trs->SetSize(100, 100);
 		GameManager::getinstance()->map->GetMap()[trs->x]->tiles[trs->y]->onCharacter = this;
 		onTile = GameManager::getinstance()->map->GetMap()[trs->x]->tiles[trs->y];
-		SpriteState = 0;
+		SpriteState = IDLE;
 		GameManager::getinstance()->p_x = trs->x;
 		GameManager::getinstance()->p_y = trs->y;
+		SKillOn = false;
 	}
 
 	~Player();
@@ -38,9 +39,13 @@ public:
 		HandleEvents();
 	}
 	void HandleEvents();
+	void SetMotion(States st);
 
-	int SkillState;
-	int SpriteState;
+	void Skill(SDL_Event event);
+	bool SKillOn;
+
+	Skills SkillState;
+	States SpriteState;
 	
 	virtual void Render();
 private:

@@ -7,6 +7,104 @@ Player::~Player() {
 	delete(input_);
 
 }
+void Player::SetMotion(States st) {
+	switch (st)
+	{
+	case IDLE:
+		if (sprite_->sr.x == 0)
+			sprite_->SetSpriteRect(24, 96, 24, 24);
+		else
+			sprite_->SetSpriteRect(0,96,24,24);
+		break;
+	case PUNCH_READY:
+		sprite_->SetSpriteRect(72, 96, 24, 24);
+		break;
+	case PUNCH:
+		sprite_->SetSpriteRect(144, 96, 24, 24);
+		//sprite_->SetSpriteRect();
+		break;
+	case KICK:
+		sprite_->SetSpriteRect(168, 96, 24, 24);
+		//sprite_->SetSpriteRect();
+		break;
+	default:
+		break;
+	}
+}	
+
+void Player::Skill(SDL_Event event) {
+	Tile* tmp = NULL;
+	GameManager* gm = GameManager::getinstance();
+	int dir;
+	switch (SkillState)
+	{
+	case ONE_INCH_PUNCH:
+	{
+		switch (event.key.keysym.sym)
+		{
+		case SDLK_KP_6:
+			tmp = onTile->r;
+			dir = 6;
+			break;
+		case SDLK_KP_4:
+			tmp = onTile->l;
+			dir = 4;
+			break;
+		case SDLK_KP_2:
+			tmp = onTile->d;
+			dir = 2;
+			break;
+		case SDLK_KP_8:
+			tmp = onTile->u;
+			dir = 8;
+			break;
+		case SDLK_KP_7:
+			tmp = onTile->ul;
+			dir = 7;
+			break;
+		case SDLK_KP_9:
+			tmp = onTile->ur;
+			dir = 9;
+			break;
+		case SDLK_KP_1:
+			tmp = onTile->dl;
+			dir = 1;
+			break;
+		case SDLK_KP_3:
+			tmp = onTile->dr;
+			dir = 3;
+			break;
+		case SDLK_KP_5:
+			SKillOn = false;
+			SpriteState = IDLE;
+			dir = 5;
+			break;
+		default:
+			break;
+		}
+		if (dir != 5 && tmp->onCharacter != NULL) {
+			gm->sm->player_atk_sound();
+			tmp->onCharacter->GetDamaged(40);
+			SpriteState = PUNCH;
+			SKillOn = false;
+		}
+		else {
+			SpriteState = IDLE;
+			move(onTile, dir);
+			SKillOn = false;
+		}
+
+	}
+		break;
+
+	case DRAGON_KICK:
+		break;
+	case ONE_WILD_WIND:
+		break;
+	default:
+		break;
+	}
+}
 
 void Player::Render() {
 	sprite_->Render();
@@ -63,6 +161,7 @@ void Player::move(Tile* tile, int dir) {
 		onTile->onCharacter = this;
 		break;
 	}
+	trs->SetPos(onTile->mapX, onTile->mapY);
 }
 
 void Player::Attack(Character* monster) {
@@ -93,21 +192,12 @@ void Player::HandleEvents() {
 			//g_flag_running = false
 			break;
 		case SDL_KEYDOWN:
-			if (SkillState != 0) {
-				switch (SkillState)
-				{
-				case 1:
-					if (event.key.keysym.sym == SDLK_KP_6) {
-						onTile->r->onCharacter->GetDamaged(40);
-						SkillState = 0;
-					}
-				default:
-					break;
-				}
+			if (SKillOn) {
+				Skill(event);
 			}
 			else if (event.key.keysym.sym == SDLK_KP_6) {
 				if (onTile->r->onCharacter == NULL && onTile->r->IsWalkable) {//if there is no Character
-					trs->x += 1;
+					SpriteState = IDLE;
 					move(onTile, 6);
 				}
 				else if (onTile->r->onCharacter != NULL) {
@@ -116,11 +206,12 @@ void Player::HandleEvents() {
 				gm->P_Turn = false;
 			}
 			else if (event.key.keysym.sym == SDLK_KP_5) {
+				SpriteState = IDLE;
 				gm->P_Turn = false;
 			}
 			else if (event.key.keysym.sym == SDLK_KP_8) {
 				if (onTile->u->onCharacter == NULL && onTile->u->IsWalkable) {//if there is no Character
-					trs->y -= 1;
+					SpriteState = IDLE;
 					move(onTile, 8);
 				}
 				else if (onTile->u->onCharacter != NULL) {
@@ -130,7 +221,7 @@ void Player::HandleEvents() {
 			}
 			else if (event.key.keysym.sym == SDLK_KP_2) {
 				if (onTile->d->onCharacter == NULL && onTile->d->IsWalkable) {
-					trs->y += 1;
+					SpriteState = IDLE;
 					move(onTile, 2);
 				}
 				else if (onTile->d->onCharacter != NULL) {
@@ -140,7 +231,7 @@ void Player::HandleEvents() {
 			}
 			else if (event.key.keysym.sym == SDLK_KP_4) {
 				if (onTile->l->onCharacter == NULL && onTile->l->IsWalkable) {
-					trs->x -= 1;
+					SpriteState = IDLE;
 					move(onTile, 4);
 				}
 				else if (onTile->l->onCharacter != NULL) {
@@ -150,8 +241,7 @@ void Player::HandleEvents() {
 			}
 			else if (event.key.keysym.sym == SDLK_KP_1) {
 				if (onTile->dl->onCharacter == NULL && onTile->dl->IsWalkable) {
-					trs->x -= 1;
-					trs->y += 1;
+					SpriteState = IDLE;
 					move(onTile, 1);
 				}
 				else if (onTile->dl->onCharacter != NULL) {
@@ -161,8 +251,8 @@ void Player::HandleEvents() {
 			}
 			else if (event.key.keysym.sym == SDLK_KP_3) {
 				if (onTile->dr->onCharacter == NULL && onTile->dr->IsWalkable) {
-					trs->x += 1;
-					trs->y += 1;
+					
+					SpriteState = IDLE;
 					move(onTile, 3);
 				}
 				else if (onTile->dr->onCharacter != NULL) {
@@ -172,8 +262,8 @@ void Player::HandleEvents() {
 			}
 			else if (event.key.keysym.sym == SDLK_KP_7) {
 				if (onTile->ul->onCharacter == NULL && onTile->ul->IsWalkable) {
-					trs->x -= 1;
-					trs->y -= 1;
+					
+					SpriteState = IDLE;
 					move(onTile, 7);
 				}
 				else if (onTile->ul->onCharacter != NULL) {
@@ -183,9 +273,8 @@ void Player::HandleEvents() {
 			}
 			else if (event.key.keysym.sym == SDLK_KP_9) {
 				if (onTile->ur->onCharacter == NULL && onTile->ur->IsWalkable) {
-					trs->x += 1;
-					trs->y -= 1;
 					move(onTile, 9);
+					SpriteState = IDLE;
 				}
 				else if (onTile->ur->onCharacter != NULL) {
 					Attack(onTile->ur->onCharacter);
@@ -194,29 +283,21 @@ void Player::HandleEvents() {
 			}
 			gm->p_x = trs->x;
 			gm->p_y = trs->y;
-			if (SpriteState) {
-				SpriteState = 0;
-				sprite_->SetSpriteRect(24, 96, 24, 24);
-			}
-			else {
-				SpriteState = 1;
-				sprite_->SetSpriteRect(0, 96, 24, 24);
-			}
-			if (SkillState == 1) {
-				sprite_->SetSpriteRect(48, 96, 24, 24);
-			}
+			SetMotion(SpriteState);
 			break;
 		case SDL_KEYUP:
 			break;
 		case SDL_MOUSEBUTTONDOWN:
 			if (event.button.button == SDL_BUTTON_RIGHT) {
-				SkillState = 1;
-				sprite_->SetSpriteRect(48, 96, 24, 24);
+				SkillState = ONE_INCH_PUNCH;
+				SpriteState = PUNCH_READY;
+				SetMotion(SpriteState);
+				SKillOn = true;
 			}
 			break;
 		case SDL_MOUSEBUTTONUP:
 			break;
 		}
-
+		
 	}
 }

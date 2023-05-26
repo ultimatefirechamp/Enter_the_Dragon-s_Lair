@@ -6,6 +6,8 @@
 #include"Player.h"
 #include"Monster.h"
 
+Uint32 g_last_time_ms;
+
 void InitGame() {
 	GameManager* gm = GameManager::getinstance();
 	GameManager::getinstance()->g_flag = true;
@@ -33,13 +35,17 @@ int main(int arc, char** argv) {
 	mn->SetPos(3, 3);
 	mn->SetThisCharacterOnTile(3, 3);*/
 
-
 	gm->sm->intro_music();
+	g_last_time_ms = SDL_GetTicks();
 
 	while (gm->g_flag) {
+		Uint32 cur_time_ms = SDL_GetTicks();
+		if (cur_time_ms - g_last_time_ms < 33)
+			continue;
 		gm->Update();
 		gm->Render();
-		SDL_Delay(33);
+
+		g_last_time_ms = cur_time_ms;
 	}
 
 	for (int i = 0; i < gm->objCol.size(); i++) {
@@ -50,6 +56,7 @@ int main(int arc, char** argv) {
 
 
 	Mix_CloseAudio();
+	TTF_Quit();
 	SDL_Quit();
 	return 0;
 }

@@ -15,6 +15,20 @@
 #define INGAME 1
 #define ENDING 2
 
+
+enum States
+{
+	IDLE,
+	PUNCH_READY,
+	PUNCH,
+	KICK
+};
+enum Skills {
+	ONE_INCH_PUNCH,
+	DRAGON_KICK,
+	ONE_WILD_WIND
+};
+
 namespace objf {
 	template<class tObj>
 	tObj* CreateObj(std::string objName) {
