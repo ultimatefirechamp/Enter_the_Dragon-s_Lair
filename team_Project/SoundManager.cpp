@@ -12,9 +12,9 @@ SoundManager::SoundManager() {
 		std::cout << "Mix_OpenAudio " << Mix_GetError() << std::endl;
 		exit(1);
 	}
-	intro_bgm = Mix_LoadMUS("./resource/intro.mp3");
+	intro_bgm = Mix_LoadMUS("./resource/Start_Theme.mp3");
 	if (intro_bgm == 0) {
-		std::cout << "Mix_LoadMUS(\"intro.mp3\"): " << Mix_GetError() << std::endl;
+		std::cout << "Mix_LoadMUS(\"StartTheme.mp3\"): " << Mix_GetError() << std::endl;
 	}
 	stage_bgm = Mix_LoadMUS("./resource/stage.mp3");
 	if (stage_bgm == 0) {

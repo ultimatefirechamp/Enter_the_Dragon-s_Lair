@@ -11,6 +11,23 @@
 
 #define WINDOW_WIDTH 1280
 #define WINDOW_HEIGHT 720
+#define INTRO 0
+#define INGAME 1
+#define ENDING 2
+
+
+enum States
+{
+	IDLE,
+	PUNCH_READY,
+	PUNCH,
+	KICK
+};
+enum Skills {
+	ONE_INCH_PUNCH,
+	DRAGON_KICK,
+	ONE_WILD_WIND
+};
 
 namespace objf {
 	template<class tObj>
