@@ -14,13 +14,8 @@ public:
 		addComponent(sprite_);
 		sprite_->InitSprite("./resource/GP_MainSheet.png");
 		sprite_->SetSpriteRect(0, 96, 24, 24);
-		trs->SetPos(1, 1);
 		trs->SetSize(100, 100);
-		GameManager::getinstance()->map->GetMap()[trs->x]->tiles[trs->y]->onCharacter = this;
-		onTile = GameManager::getinstance()->map->GetMap()[trs->x]->tiles[trs->y];
 		SpriteState = IDLE;
-		GameManager::getinstance()->p_x = trs->x;
-		GameManager::getinstance()->p_y = trs->y;
 		SKillOn = false;
 
 		gameover_ = new GameOverScreen("game_over");
