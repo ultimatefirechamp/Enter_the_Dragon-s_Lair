@@ -1,6 +1,26 @@
 #pragma once
 #include"Character.h"
 #include"Components.h"
+class Object;
+
+class GameOverScreen : public Object {
+public:
+	GameOverScreen(std::string name) : Object(name) {
+		sprite_ = objf::CreateComp<SpriteComponent>("SpriteComponent");
+		addComponent(sprite_);
+		sprite_->InitSprite("./resource/GameOver_screen.png");
+		sprite_->SetSpriteRect(0, 0, 320, 180);
+
+		SDL_SetTextureAlphaMod(sprite_->textr, 0);
+	}
+
+	void Update();
+	void Render();
+
+private:
+	int i = 0;
+	SpriteComponent* sprite_;
+};
 
 class Player : public Character
 {
@@ -54,21 +74,3 @@ private:
 	GameOverScreen* gameover_;
 };
 
-class GameOverScreen : public Object {
-public:
-	GameOverScreen(std::string name) : Object(name) {
-		sprite_ = objf::CreateComp<SpriteComponent>("SpriteComponent");
-		addComponent(sprite_);
-		sprite_->InitSprite("./resource/GameOver_screen.png");
-		sprite_->SetSpriteRect(0, 0, 320, 180);
-
-		SDL_SetTextureAlphaMod(sprite_->textr, 0);
-	}
-
-	void Update();
-	void Render();
-
-private:
-	int i = 0;
-	SpriteComponent* sprite_;
-};

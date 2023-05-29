@@ -283,6 +283,9 @@ void Player::HandleEvents() {
 				}
 				gm->P_Turn = false;
 			}
+			else if (event.key.keysym.sym == SDLK_p) {
+				this->IsAlive = false;
+			}
 			gm->p_x = trs->x;
 			gm->p_y = trs->y;
 			SetMotion(SpriteState);
