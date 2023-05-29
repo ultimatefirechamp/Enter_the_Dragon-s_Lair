@@ -13,7 +13,7 @@ public:
 		trs->SetSize(100, 100);
 		sprite = objf::CreateComp<SpriteComponent>("SpriteComponent");
 		addComponent(sprite);
-		sprite->InitSprite("./resource/WallSprite.png");
+		sprite->InitSprite("./resource/GP_MainSheet.png");
 		parameter = 1.0f;
 		mapX = x;
 		mapY = y;
@@ -63,5 +63,13 @@ public:
 	Floor(std::string name, int x, int y) : Tile(name, x, y) {
 		GetSprite()->sr = { 24,0,24,24 };
 		IsWalkable = true;
+	}
+};
+
+class AIR : public Tile {
+public:
+	AIR(std::string name, int x, int y) : Tile(name, x, y) {
+		GetSprite()->sr = { 120,0,24,24 };
+		IsWalkable = false;
 	}
 };
