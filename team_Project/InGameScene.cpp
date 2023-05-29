@@ -4,6 +4,7 @@
 void InGameScene::InitScene() {
 	GameManager* gm = GameManager::getinstance();
 	gm->InitMap();
+	gm->LoadMap("./resource/Test.txt");
 	gm->map->SetTile();
 	Player* tmp =
 	objf::CreateObj<Player>("Player");

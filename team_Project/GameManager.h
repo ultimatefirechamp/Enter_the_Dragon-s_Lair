@@ -42,6 +42,7 @@ public:
 	void Render();
 	void TestHwakIn();
 	void InitScenes();
+	void LoadMap(const char* path);
 
 	int CurrentPhase;
 private:

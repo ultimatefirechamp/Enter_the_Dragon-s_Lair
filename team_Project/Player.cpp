@@ -34,9 +34,10 @@ void Player::SetMotion(States st) {
 
 void Player::Skill(SDL_Event event) {
 	Tile* tmp = NULL;
+	Tile* tmp2 = NULL;
+	Tile* tmp3 = NULL;
 	GameManager* gm = GameManager::getinstance();
 	int dir = -1;
-	bool Isvar = false;
 	switch (SkillState)
 	{
 	case ONE_INCH_PUNCH:
@@ -99,6 +100,57 @@ void Player::Skill(SDL_Event event) {
 	case DRAGON_KICK:
 		break;
 	case ONE_WILD_WIND:
+		switch (event.key.keysym.sym)
+		{
+		case SDLK_KP_6:
+			tmp = onTile->r;
+			dir = 6;
+			break;
+		case SDLK_KP_4:
+			tmp = onTile->l;
+			dir = 4;
+			break;
+		case SDLK_KP_2:
+			tmp = onTile->d;
+			dir = 2;
+			break;
+		case SDLK_KP_8:
+			tmp = onTile->u;
+			dir = 8;
+			break;
+		case SDLK_KP_7:
+			tmp = onTile->ul;
+			dir = 7;
+			break;
+		case SDLK_KP_9:
+			tmp = onTile->ur;
+			dir = 9;
+			break;
+		case SDLK_KP_1:
+			tmp = onTile->dl;
+			dir = 1;
+			break;
+		case SDLK_KP_3:
+			tmp = onTile->dr;
+			dir = 3;
+			break;
+		case SDLK_KP_5:
+			dir = 5;
+			break;
+		default:
+			break;
+		}
+		if (dir != 5 && tmp->onCharacter == NULL) {
+			gm->sm->player_atk_sound();
+			tmp->onCharacter->GetDamaged(40);
+			SpriteState = PUNCH;
+			SKillOn = false;
+		}
+		else if (dir != -1) {
+			SpriteState = IDLE;
+			move(onTile, dir);
+			SKillOn = false;
+		}
 		break;
 	default:
 		break;
