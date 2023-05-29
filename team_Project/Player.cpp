@@ -191,6 +191,9 @@ void Player::HandleEvents() {
 			//g_flag_running = false
 			break;
 		case SDL_KEYDOWN:
+			if (!IsAlive) {
+				return;
+			}
 			if (SKillOn) {
 				Skill(event);
 			}
@@ -299,4 +302,38 @@ void Player::HandleEvents() {
 		}
 		
 	}
+}
+
+
+
+// 게임 오버 화면
+void GameOverScreen::Update() {
+	if (i < 255) {
+		SDL_SetTextureAlphaMod(sprite_->textr, i);
+		i -= 3;
+	}
+	else if (i >= 255) {
+		SDL_SetTextureAlphaMod(sprite_->textr, 255);
+	}
+
+	GameManager* gm = GameManager::getinstance();
+	SDL_Event event;
+	if (SDL_PollEvent(&event)) {
+		switch (event.type) {
+			case SDL_MOUSEBUTTONDOWN:
+				if (event.button.button == SDL_BUTTON_RIGHT) {
+					gm->CurrentPhase = INTRO;
+				}
+				break;
+			case SDL_MOUSEBUTTONUP:
+				break;
+		}
+	}
+}
+
+void GameOverScreen::Render() {
+	GameManager* gm = GameManager::getinstance();
+
+	SDL_Rect tmp = { 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT };
+	SDL_RenderCopy(gm->g_renderer, sprite_->textr, &sprite_->sr, &tmp);
 }
