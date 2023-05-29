@@ -7,7 +7,7 @@
 #include"SDL_image.h"
 #include"SDL_ttf.h"
 #include"SDL_mixer.h"
-
+#include<fstream>
 
 #define WINDOW_WIDTH 1280
 #define WINDOW_HEIGHT 720
