@@ -22,6 +22,8 @@ public:
 		GameManager::getinstance()->p_x = trs->x;
 		GameManager::getinstance()->p_y = trs->y;
 		SKillOn = false;
+
+		gameover_ = new GameOverScreen("game_over");
 	}
 
 	~Player();
@@ -37,6 +39,9 @@ public:
 
 	void Update() {
 		HandleEvents();
+		if (!IsAlive) {
+			gameover_->Update();
+		}
 	}
 	void HandleEvents();
 	void SetMotion(States st);
@@ -50,5 +55,25 @@ public:
 	virtual void Render();
 private:
 	InputComponent* input_;
+	SpriteComponent* sprite_;
+	GameOverScreen* gameover_;
+};
+
+class GameOverScreen : public Object {
+public:
+	GameOverScreen(std::string name) : Object(name) {
+		sprite_ = objf::CreateComp<SpriteComponent>("SpriteComponent");
+		addComponent(sprite_);
+		sprite_->InitSprite("./resource/GameOver_screen.png");
+		sprite_->SetSpriteRect(0, 0, 320, 180);
+
+		SDL_SetTextureAlphaMod(sprite_->textr, 0);
+	}
+
+	void Update();
+	void Render();
+
+private:
+	int i = 0;
 	SpriteComponent* sprite_;
 };
