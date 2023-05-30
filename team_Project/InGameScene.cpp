@@ -9,6 +9,7 @@ void InGameScene::InitScene() {
 	gm->map->SetTile();
 	Player* tmp =
 	objf::CreateObj<Player>("Player");
+	gm->ui_ = objf::CreateObj<UI>("UI");
 	int x, y;
 	x = gm->SpawnPoint_x;
 	y = gm->SpawnPoint_y;
@@ -25,6 +26,7 @@ void InGameScene::InitScene() {
 		m_tmp->SetThisCharacterOnTile(points.x, points.y);
 	}
 }
+
 void InGameScene::SceneReset() {
 	GameManager* gm = GameManager::getinstance();
 	gm->map->GetMap().clear();
@@ -32,6 +34,8 @@ void InGameScene::SceneReset() {
 	delete(gm->map);
 	delete(gm->PF);
 	delete(gm->path);
+	delete(gm->ui_);
+
 	gm->MonsterSpawnPoints.clear();
 
 	objCol.clear();

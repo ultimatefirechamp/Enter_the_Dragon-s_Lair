@@ -7,6 +7,24 @@ Player::~Player() {
 	delete(input_);
 
 }
+
+
+void EndingChanger::Update() {
+	GameManager* gm = GameManager::getinstance();
+	gm->Scenes[gm->CurrentPhase]->SceneReset();
+	gm->CurrentPhase = ENDING;
+	gm->Scenes[gm->CurrentPhase]->InitScene();
+	gm->objCol.clear();
+	gm->objCol = gm->Scenes[gm->CurrentPhase]->objCol;
+	return;
+}
+
+void Player::move(Tile* tar) {
+	onTile->onCharacter = NULL;
+	onTile = tar;
+	onTile->onCharacter = this;
+	trs->SetPos(onTile->mapX, onTile->mapY);
+}
 void Player::SetMotion(States st) {
 	switch (st)
 	{
@@ -26,6 +44,9 @@ void Player::SetMotion(States st) {
 	case KICK:
 		sprite_->SetSpriteRect(168, 96, 24, 24);
 		//sprite_->SetSpriteRect();
+		break;
+	case ST_OF_H:
+		sprite_->SetSpriteRect(192, 96, 24, 24);
 		break;
 	default:
 		break;
@@ -78,13 +99,24 @@ void Player::Skill(SDL_Event event) {
 			break;
 		case SDLK_KP_5:
 			dir = 5;
+			tmp = onTile;
 			break;
 		default:
 			break;
 		}
+		if (tmp == NULL) {
+			return;
+		}
 		if (dir != 5 && tmp->onCharacter != NULL) {
+			if (stamina < 20) {
+				SKillOn = false;
+				SpriteState = IDLE;
+				return;
+			}
+			stamina -= 20;
+			stbar->set_st(stamina);
 			gm->sm->player_atk_sound();
-			tmp->onCharacter->GetDamaged(40);
+			Attack(tmp->onCharacter, 40);
 			SpriteState = PUNCH;
 			SKillOn = false;
 			gm->P_Turn = false;
@@ -144,26 +176,43 @@ void Player::Skill(SDL_Event event) {
 		default:
 			break;
 		}
+		if (tmp == NULL) {
+			return;
+		}
+		if (!tmp->IsWalkable) {
+			SKillOn = false;
+			SpriteState = IDLE;
+			gm->P_Turn = false;
+			return;
+		}
 		if (dir != 5 && tmp->onCharacter != NULL) {
+			if (stamina < 40) {
+				SKillOn = false;
+				SpriteState = IDLE;
+				return;
+			}
+			stamina -= 40;
+			stbar->set_st(stamina);
 			gm->sm->player_atk_sound();
 			if (onTile->u->onCharacter != NULL)
-				onTile->u->onCharacter->GetDamaged(15);
+				Attack(onTile->u->onCharacter,15);
 			if (onTile->d->onCharacter != NULL)
-				onTile->d->onCharacter->GetDamaged(15);
+				Attack(onTile->d->onCharacter, 15);
 			if (onTile->r->onCharacter != NULL)
-				onTile->r->onCharacter->GetDamaged(15);
+				Attack(onTile->r->onCharacter, 15);
 			if (onTile->l->onCharacter != NULL)
-				onTile->l->onCharacter->GetDamaged(15);
+				Attack(onTile->l->onCharacter, 15);
 			if (onTile->ul->onCharacter != NULL)
-				onTile->ul->onCharacter->GetDamaged(15);
+				Attack(onTile->ul->onCharacter, 15);
 			if (onTile->ur->onCharacter != NULL)
-				onTile->ur->onCharacter->GetDamaged(15);
+				Attack(onTile->ur->onCharacter, 15);
 			if (onTile->dl->onCharacter != NULL)
-				onTile->dl->onCharacter->GetDamaged(15);
+				Attack(onTile->dl->onCharacter, 15);
 			if (onTile->dr->onCharacter != NULL)
-				onTile->dr->onCharacter->GetDamaged(15);
-			tmp->onCharacter->GetDamaged(15);
-			SpriteState = PUNCH;
+				Attack(onTile->dr->onCharacter, 15);
+			if (tmp->onCharacter != NULL)
+				Attack(tmp->onCharacter, 15);
+			SpriteState = ST_OF_H;
 
 			SKillOn = false;
 			gm->P_Turn = false;
@@ -226,9 +275,19 @@ void Player::Skill(SDL_Event event) {
 		default:
 			break;
 		}
+		if (tmp == NULL) {
+			return;
+		}
 		if (dir != 5 && tmp->onCharacter != NULL) {
+			if (stamina < 10) {
+				SKillOn = false;
+				SpriteState = IDLE;
+				return;
+			}
+			stamina -= 10;
+			stbar->set_st(stamina);
 			gm->sm->player_atk_sound();
-			tmp->onCharacter->GetDamaged(15);
+			Attack(tmp->onCharacter,15);
 			SpriteState = PUNCH;
 			SKillOn = false;
 			gm->P_Turn = false;
@@ -236,6 +295,13 @@ void Player::Skill(SDL_Event event) {
 		else if (dir != 5 && tmp->onCharacter == NULL) {
 			move(onTile, dir);
 			if (tmp2->onCharacter != NULL) {
+				if (stamina < 10) {
+					SKillOn = false;
+					SpriteState = IDLE;
+					return;
+				}
+				stamina -= 10;
+				stbar->set_st(stamina);
 				gm->sm->player_atk_sound();
 				tmp2->onCharacter->GetDamaged(40);
 				SpriteState = PUNCH;
@@ -256,14 +322,117 @@ void Player::Skill(SDL_Event event) {
 
 		}
 		break;
+	case WALL_RUN:
+		WallRun(event, gm);
 	default:
 		break;
 	}
 }
-
+void Player::WallRun(SDL_Event event, GameManager* &gm) {
+	Tile* tmp = NULL;
+	Tile* tmp2 = NULL;
+	int dir = -1;
+	switch (event.key.keysym.sym)
+	{
+	case SDL_QUIT:
+		gm->g_flag = false;
+	case SDLK_KP_6:
+		dir = 4;
+		tmp = onTile->r;
+		tmp2 = onTile->l->l;
+		break;
+	case SDLK_KP_4:
+		dir = 6;
+		tmp = onTile->l;
+		tmp2 = onTile->r->r;
+		break;
+	case SDLK_KP_2:
+		dir = 8;
+		tmp = onTile->d;
+		tmp2 = onTile->u->u;
+		break;
+	case SDLK_KP_8:
+		dir = 2;
+		tmp = onTile->u;
+		tmp2 = onTile->d->d;
+		break;
+	case SDLK_KP_7:
+		dir = 3;
+		tmp = onTile->ul;
+		tmp2 = onTile->dr->dr;
+		break;
+	case SDLK_KP_9:
+		dir = 1;
+		tmp = onTile->ur;
+		tmp2 = onTile->dl->dl;
+		break;
+	case SDLK_KP_1:
+		dir = 9;
+		tmp = onTile->dl;
+		tmp2 = onTile->ur->ur;
+		break;
+	case SDLK_KP_3:
+		dir = 7;
+		tmp = onTile->dr;
+		tmp2 = onTile->ul->ul;
+		break;
+	case SDLK_KP_5:
+		dir = 5;
+		tmp = onTile;
+		break;
+	default:
+		break;
+	}
+	if (tmp == NULL) {
+		return;
+	}
+	if (!tmp->IsWalkable) {
+		if (tmp2->IsWalkable && tmp2->onCharacter == NULL) {
+			if (stamina < 40) {
+				SKillOn = false;
+				SpriteState = IDLE;
+				return;
+			}
+			stamina -= 40;
+			stbar->set_st(stamina);
+			move(tmp2);
+			gm->sm->player_atk_sound();
+			if (onTile->u->onCharacter != NULL)
+				Attack(onTile->u->onCharacter,15);
+			if (onTile->d->onCharacter != NULL)
+				Attack(onTile->d->onCharacter, 15);
+			if (onTile->r->onCharacter != NULL)
+				Attack(onTile->r->onCharacter, 15);
+			if (onTile->l->onCharacter != NULL)
+				Attack(onTile->l->onCharacter, 15);
+			if (onTile->ul->onCharacter != NULL)
+				Attack(onTile->ul->onCharacter, 15);
+			if (onTile->ur->onCharacter != NULL)
+				Attack(onTile->ur->onCharacter, 15);
+			if (onTile->dl->onCharacter != NULL)
+				Attack(onTile->dl->onCharacter, 15);
+			if (onTile->dr->onCharacter != NULL)
+				Attack(onTile->dr->onCharacter, 15);
+			SpriteState = IDLE;
+			SKillOn = false;
+		}
+		else {
+			SKillOn = false;
+			gm->P_Turn = false;
+			SpriteState = IDLE;
+		}
+	}
+	else {
+		move(tmp);
+		SpriteState = IDLE;
+		SKillOn = false;
+		gm->P_Turn = false;
+	}
+}
 void Player::Render() {
 	sprite_->Render();
 	hpbar->Render();
+	stbar->Render();
 }
 
 bool Player::GetDamaged(int damage) {
@@ -325,7 +494,27 @@ void Player::move(Tile* tile, int dir) {
 
 void Player::Attack(Character* monster) {
 	GameManager::getinstance()->sm->player_atk_sound();
-	monster->GetDamaged(20);
+	if (monster->GetDamaged(20)) {
+		MonsterNumber--;
+		stamina += 33;
+		hp += 20;
+		hp = std::min(hp, max_hp);
+		stamina = std::min(stamina, MaxStamina);
+		hpbar->set_hp(hp);
+		stbar->set_st(stamina);
+	}
+}
+void Player::Attack(Character* monster, int dam) {
+	GameManager::getinstance()->sm->player_atk_sound();
+	if (monster->GetDamaged(dam)) {
+		MonsterNumber--;
+		stamina += 33;
+		hp += 33;
+		hp = std::min(hp, max_hp);
+		stamina = std::min(stamina, MaxStamina);
+		hpbar->set_hp(hp);
+		stbar->set_st(stamina);
+	}
 }
 
 void Player::CheckIsThereEnemy() {
@@ -366,6 +555,8 @@ void Player::HandleEvents() {
 				}
 				else if (onTile->r->onCharacter != NULL) {
 					Attack(onTile->r->onCharacter);
+					stamina += 10;
+					stamina = std::min(stamina, MaxStamina);
 				}
 				gm->P_Turn = false;
 			}
@@ -380,6 +571,8 @@ void Player::HandleEvents() {
 				}
 				else if (onTile->u->onCharacter != NULL) {
 					Attack(onTile->u->onCharacter);
+					stamina += 10;
+					stamina = std::min(stamina, MaxStamina);
 				}
 				gm->P_Turn = false;
 			}
@@ -390,6 +583,8 @@ void Player::HandleEvents() {
 				}
 				else if (onTile->d->onCharacter != NULL) {
 					Attack(onTile->d->onCharacter);
+					stamina += 10;
+					stamina = std::min(stamina, MaxStamina);
 				}
 				gm->P_Turn = false;
 			}
@@ -400,6 +595,8 @@ void Player::HandleEvents() {
 				}
 				else if (onTile->l->onCharacter != NULL) {
 					Attack(onTile->l->onCharacter);
+					stamina += 10;
+					stamina = std::min(stamina, MaxStamina);
 				}
 				gm->P_Turn = false;
 			}
@@ -410,6 +607,8 @@ void Player::HandleEvents() {
 				}
 				else if (onTile->dl->onCharacter != NULL) {
 					Attack(onTile->dl->onCharacter);
+					stamina += 10;
+					stamina = std::min(stamina, MaxStamina);
 				}
 				gm->P_Turn = false;
 			}
@@ -421,6 +620,8 @@ void Player::HandleEvents() {
 				}
 				else if (onTile->dr->onCharacter != NULL) {
 					Attack(onTile->dr->onCharacter);
+					stamina += 10;
+					stamina = std::min(stamina, MaxStamina);
 				}
 				gm->P_Turn = false;
 			}
@@ -432,6 +633,8 @@ void Player::HandleEvents() {
 				}
 				else if (onTile->ul->onCharacter != NULL) {
 					Attack(onTile->ul->onCharacter);
+					stamina += 10;
+					stamina = std::min(stamina, MaxStamina);
 				}
 				gm->P_Turn = false;
 			}
@@ -442,6 +645,8 @@ void Player::HandleEvents() {
 				}
 				else if (onTile->ur->onCharacter != NULL) {
 					Attack(onTile->ur->onCharacter);
+					stamina += 10;
+					stamina = std::min(stamina, MaxStamina);
 				}
 				gm->P_Turn = false;
 			}
@@ -466,19 +671,23 @@ void Player::HandleEvents() {
 				SetMotion(SpriteState);
 				SKillOn = true;
 			}
+			else if (event.key.keysym.sym == SDLK_r) {
+				SkillState = WALL_RUN;
+				SpriteState = PUNCH_READY;
+				SetMotion(SpriteState);
+				SKillOn = true;
+			}
+			else if (event.key.keysym.sym == SDLK_m) {
+				MonsterNumber = 0;
+			}
 			gm->p_x = trs->x;
 			gm->p_y = trs->y;
+			stbar->set_st(stamina);
 			SetMotion(SpriteState);
 			break;
 		case SDL_KEYUP:
 			break;
 		case SDL_MOUSEBUTTONDOWN:
-			if (event.button.button == SDL_BUTTON_RIGHT) {
-				SkillState = ONE_INCH_PUNCH;
-				SpriteState = PUNCH_READY;
-				SetMotion(SpriteState);
-				SKillOn = true;
-			}
 			break;
 		case SDL_MOUSEBUTTONUP:
 			break;
@@ -509,6 +718,7 @@ void GameOverScreen::Update() {
 					gm->CurrentPhase = INTRO;
 					gm->Scenes[gm->CurrentPhase]->InitScene();
 					gm->objCol = gm->Scenes[gm->CurrentPhase]->objCol;
+					gm->sm->intro_music();
 				}
 				break;
 			case SDL_MOUSEBUTTONUP:

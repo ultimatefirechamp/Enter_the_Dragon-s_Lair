@@ -27,7 +27,7 @@ void GameManager::InitScenes() {
 		scene->InitScene();
 		scene->objCol = this->objCol;
 	}*/
-	CurrentPhase = INTRO_STORY;
+	CurrentPhase = INTRO;
 	Scenes[CurrentPhase]->InitScene();
 	this->objCol = Scenes[CurrentPhase]->objCol;
 }
@@ -151,8 +151,10 @@ void GameManager::Render() {
 	SDL_RenderClear(g_renderer);
 	for (int i = 0; i < objCol.size(); i++) {
 		objCol[i]->Render();
+		if (CurrentPhase == INGAME) {
+			ui_->Render();
+		}
 	}
 
 	SDL_RenderPresent(g_renderer);
-
 }

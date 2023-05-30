@@ -10,6 +10,7 @@ class PathAlgorithm;
 class Path;
 class SoundManager;
 class Scene;
+class UI;
 
 struct coordinate {
 	int x, y;
@@ -20,6 +21,7 @@ public:
 	std::vector<Object*> objCol;
 	std::vector<Scene*> Scenes;
 
+	UI* ui_;
 	SDL_Renderer* g_renderer;
 	Map* map;
 	PathAlgorithm* PF;

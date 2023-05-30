@@ -65,6 +65,21 @@ private:
 	bool Iflag = false;
 };
 
+class SubTitleLogo : public Picture {
+public:
+	SubTitleLogo(std::string name) : Picture(name) {
+		getSprite()->InitSprite("./resource/start_subtitle.png");//320 180
+		getSprite()->SetSpriteRect(0, 0, 320, 180);
+		trs = objf::CreateObj<transform>("transform");
+		addComponent(trs);
+		trs->SetPos(1280, 30);
+		trs->SetSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+	}
+	void Update();
+private:
+	bool Iflag = false;
+};
+
 class CharacterTitle : public Picture {
 public:
 	CharacterTitle(std::string name) : Picture(name) {
@@ -84,11 +99,26 @@ class StartButton : public Picture {
 public:
 	StartButton(std::string name) : Picture(name) {
 		getSprite()->InitSprite("./resource/start_button.png");
-		getSprite()->SetSpriteRect(0, 0, 320, 180);
+		getSprite()->SetSpriteRect(0, 0, 84, 28);
 		trs = objf::CreateObj<transform>("transform");
 		addComponent(trs);
-		trs->SetPos(1280, 30);
-		trs->SetSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+		trs->SetPos(1280, 440);
+		trs->SetSize(340, 112);
+	}
+	void Update();
+private:
+	bool Iflag = false;
+};
+
+class ExitButton : public Picture {
+public:
+	ExitButton(std::string name) : Picture(name) {
+		getSprite()->InitSprite("./resource/exit_button.png");
+		getSprite()->SetSpriteRect(0, 0, 64, 27);
+		trs = objf::CreateObj<transform>("transform");
+		addComponent(trs);
+		trs->SetPos(1280, 575);
+		trs->SetSize(256, 108);
 	}
 	void Update();
 private:
