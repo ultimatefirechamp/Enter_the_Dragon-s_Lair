@@ -107,8 +107,8 @@ void CharacterTitle::Update() {
 	}
 	else if (trs->x >= 0) {
 		trs->x = 0;
-		objf::CreateObj<StartButton>("StartButton");
 		objf::CreateObj<ExitButton>("ExitButton");
+		objf::CreateObj<StartButton>("StartButton");
 		Iflag = true;
 	}
 }
@@ -130,8 +130,15 @@ void StartButton::Update() {
 					gm->objCol.clear();
 					gm->CurrentPhase = INGAME;
 					gm->Scenes[gm->CurrentPhase]->InitScene();
-					break;
 				}
+				else if (x > 965 &&
+					y > 575 &&
+					x < 965 + 256 &&
+					y < 575 + 108
+					) {
+					gm->g_flag = false;
+				}
+				break;
 			}
 		}
 	}
@@ -146,25 +153,7 @@ void StartButton::Update() {
 void ExitButton::Update() {
 	GameManager* gm = GameManager::getinstance();
 	if (Iflag) {
-		SDL_Event event;
-		if (SDL_PollEvent(&event)) {
-			switch (event.type) {
-			case SDL_QUIT:
-				gm->g_flag = false;
-				break;
-			case SDL_MOUSEBUTTONDOWN:
-				int x = event.button.x;
-				int y = event.button.y;
-				if (x > trs->x &&
-					y > trs->y &&
-					x < trs->x + trs->w &&
-					y < trs->y + trs->h
-					) {
-					gm->g_flag = false;
-					break;
-				}
-			}
-		}
+		return;
 	}
 	else if (trs->x > 965) {
 		trs->x -= 15;
