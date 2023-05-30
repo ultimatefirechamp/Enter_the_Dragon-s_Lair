@@ -8,12 +8,14 @@ class Scene
 public:
 	std::vector<Object*> objCol;
 	virtual void InitScene() = 0;
+	virtual void SceneReset() = 0;
 };
 
 class Intro : public Scene {
 public:
 	Intro();
 	virtual void InitScene();
+	virtual void SceneReset();
 };
 
 class Picture : public Object {

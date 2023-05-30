@@ -365,7 +365,7 @@ void Player::HandleEvents() {
 void GameOverScreen::Update() {
 	if (i < 255) {
 		SDL_SetTextureAlphaMod(sprite_->textr, i);
-		i -= 3;
+		i += 3;
 	}
 	else if (i >= 255) {
 		SDL_SetTextureAlphaMod(sprite_->textr, 255);
@@ -377,7 +377,10 @@ void GameOverScreen::Update() {
 		switch (event.type) {
 			case SDL_MOUSEBUTTONDOWN:
 				if (event.button.button == SDL_BUTTON_RIGHT) {
+					gm->Scenes[gm->CurrentPhase]->SceneReset();
 					gm->CurrentPhase = INTRO;
+					gm->Scenes[gm->CurrentPhase]->InitScene();
+					gm->objCol = gm->Scenes[gm->CurrentPhase]->objCol;
 				}
 				break;
 			case SDL_MOUSEBUTTONUP:

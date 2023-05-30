@@ -8,6 +8,7 @@ public:
 	InGameScene() {}
 	~InGameScene();
 	void InitScene();
+	void SceneReset();
 private:
 
 };

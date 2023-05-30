@@ -19,12 +19,13 @@ GameManager::~GameManager() {
 	delete(instance);
 }
 void GameManager::InitScenes() {
-	for (auto& scene : Scenes) {
+	/*for (auto& scene : Scenes) {
 		this->objCol = scene->objCol;
 		scene->InitScene();
 		scene->objCol = this->objCol;
-	}
+	}*/
 	CurrentPhase = INTRO;
+	Scenes[CurrentPhase]->InitScene();
 	this->objCol = Scenes[CurrentPhase]->objCol;
 }
 

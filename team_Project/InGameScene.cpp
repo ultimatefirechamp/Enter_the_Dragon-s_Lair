@@ -17,7 +17,16 @@ void InGameScene::InitScene() {
 	gm->p_x = x;
 	gm->p_y = y;
 }
+void InGameScene::SceneReset() {
+	GameManager* gm = GameManager::getinstance();
+	gm->map->GetMap().clear();
+	gm->PF->ResetPath(gm->path);
+	delete(gm->map);
+	delete(gm->PF);
+	delete(gm->path);
+	objCol.clear();
+}
+
 InGameScene::~InGameScene() {
 	objCol.clear();
-
 }

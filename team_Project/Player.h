@@ -37,8 +37,7 @@ public:
 		trs->SetSize(100, 100);
 		SpriteState = IDLE;
 		SKillOn = false;
-
-		gameover_ = new GameOverScreen("game_over");
+		GameOverScreenOn = false;
 	}
 
 	~Player();
@@ -53,16 +52,22 @@ public:
 	void CheckIsThereEnemy();
 
 	void Update() {
-		HandleEvents();
 		if (!IsAlive) {
-			gameover_->Update();
+			if (GameOverScreenOn) {
+				return;
+			}
+			objf::CreateObj<GameOverScreen>("GameOverScreen");
+			GameOverScreenOn = true;
 		}
+		else
+			HandleEvents();
 	}
 	void HandleEvents();
 	void SetMotion(States st);
 
 	void Skill(SDL_Event event);
 	bool SKillOn;
+	bool GameOverScreenOn;
 
 	Skills SkillState;
 	States SpriteState;
@@ -71,6 +76,5 @@ public:
 private:
 	InputComponent* input_;
 	SpriteComponent* sprite_;
-	GameOverScreen* gameover_;
 };
 
