@@ -11,9 +11,10 @@
 
 #define WINDOW_WIDTH 1280
 #define WINDOW_HEIGHT 720
-#define INTRO 0
-#define INGAME 1
-#define ENDING 2
+#define INTRO_STORY 0
+#define INTRO 1
+#define INGAME 2
+#define ENDING 3
 
 
 enum States

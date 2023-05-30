@@ -416,7 +416,7 @@ void GameOverScreen::Update() {
 	if (SDL_PollEvent(&event)) {
 		switch (event.type) {
 			case SDL_MOUSEBUTTONDOWN:
-				if (event.button.button == SDL_BUTTON_RIGHT) {
+				if (event.button.button == SDL_BUTTON_LEFT) {
 					gm->Scenes[gm->CurrentPhase]->SceneReset();
 					gm->CurrentPhase = INTRO;
 					gm->Scenes[gm->CurrentPhase]->InitScene();
