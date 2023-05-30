@@ -125,7 +125,7 @@ void StartButton::Update() {
 	}
 }
 
-// ����
+
 Ending::Ending() {
 
 }
@@ -150,7 +150,7 @@ void EndingBackGround::Update() {
 	}
 }
 
-// ó� ų�� ����� ���丮
+
 IntroStory::IntroStory() {
 
 }
@@ -168,9 +168,14 @@ void StoryScene::Update() {
 	SDL_Event event;
 	if (SDL_PollEvent(&event)) {
 		switch (event.type) {
+		case SDL_QUIT:
+			gm->g_flag = false;
 		case SDL_MOUSEBUTTONDOWN:
-			if (i == 11) {
-					gm->CurrentPhase = INTRO;
+			if (i == 10) {
+				gm->Scenes[gm->CurrentPhase]->SceneReset();
+				gm->CurrentPhase = INTRO;
+				gm->Scenes[gm->CurrentPhase]->InitScene();
+				gm->objCol = gm->Scenes[gm->CurrentPhase]->objCol;
 			}
 			else {
 				i += 1;
