@@ -11,7 +11,7 @@ public:
 		sprite_->InitSprite("./resource/CharacterSprite.png");
 		sprite_->SetSpriteRect(0, 0, 24, 24);
 		trs->SetPos(5, 1);
-		trs->SetSize(100, 100);
+		trs->SetSize(75, 75);
 		hpbar = objf::CreateComp<HPBAR>("HPBAR");
 		addComponent(hpbar);
 

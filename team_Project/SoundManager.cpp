@@ -33,8 +33,8 @@ SoundManager::SoundManager() {
 		std::cout << "Mix_LoadMUS(\"gameover.mp3\"): " << Mix_GetError() << std::endl;
 	}
 	Mix_VolumeMusic(VOLUME);
-	btn_click_se = Mix_LoadWAV("./resource/button_click.wav");
-	btn_hold_se = Mix_LoadWAV("./resource/button_hold.wav");
+	btn_click_se = Mix_LoadWAV("./resource/start_click.wav");
+	btn_hold_se = Mix_LoadWAV("./resource/start_hold.wav");
 	move_se = Mix_LoadWAV("./resource/move.wav");
 	player_atk_se = Mix_LoadWAV("./resource/player_attack.wav");
 	player_dmg_se = Mix_LoadWAV("./resource/player_damaged.wav");

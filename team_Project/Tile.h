@@ -10,7 +10,7 @@ public:
 	Tile(std::string name, int x, int y) : Object(name) {
 		trs = objf::CreateComp<transform>("transform");
 		addComponent(trs);
-		trs->SetSize(100, 100);
+		trs->SetSize(75, 75);
 		sprite = objf::CreateComp<SpriteComponent>("SpriteComponent");
 		addComponent(sprite);
 		sprite->InitSprite("./resource/GP_MainSheet.png");

@@ -126,6 +126,7 @@ void StartButton::Update() {
 					x < trs->x + trs->w &&
 					y < trs->y + trs->h
 					) {
+					gm->sm->btn_click_sound();
 					gm->Scenes[gm->CurrentPhase]->SceneReset();
 					gm->objCol.clear();
 					gm->CurrentPhase = INGAME;

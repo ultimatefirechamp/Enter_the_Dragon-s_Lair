@@ -49,7 +49,7 @@ public:
 
 		sprite_->InitSprite("./resource/GP_MainSheet.png");
 		sprite_->SetSpriteRect(0, 96, 24, 24);
-		trs->SetSize(100, 100);
+		trs->SetSize(75, 75);
 		SpriteState = IDLE;
 		SKillOn = false;
 		GameOverScreenOn = false;
