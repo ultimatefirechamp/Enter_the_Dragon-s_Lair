@@ -386,6 +386,24 @@ void Player::WallRun(SDL_Event event, GameManager* &gm) {
 	if (tmp == NULL) {
 		return;
 	}
+	if (tmp->IsWalkable) {
+		if (tmp->onCharacter != NULL) {
+			SpriteState = IDLE;
+			Attack(tmp->onCharacter);
+			stamina += 10;
+			stamina = std::min(stamina, MaxStamina);
+			SKillOn = false;
+			gm->P_Turn = false;
+			return;
+		}
+		else {
+			move(tmp);
+			SpriteState = IDLE;
+			SKillOn = false;
+			gm->P_Turn = false;
+			return;
+		}
+	}
 	if (!tmp->IsWalkable) {
 		if (tmp2->IsWalkable && tmp2->onCharacter == NULL) {
 			if (stamina < 40) {
