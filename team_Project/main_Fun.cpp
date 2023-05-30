@@ -35,7 +35,7 @@ int main(int arc, char** argv) {
 	mn->SetPos(3, 3);
 	mn->SetThisCharacterOnTile(3, 3);*/
 
-	gm->sm->intro_music();
+	gm->sm->cutscene_music();
 	g_last_time_ms = SDL_GetTicks();
 
 	while (gm->g_flag) {
