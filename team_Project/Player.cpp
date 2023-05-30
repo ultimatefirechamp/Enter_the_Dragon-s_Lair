@@ -65,39 +65,39 @@ void Player::Skill(SDL_Event event) {
 	{
 		switch (event.key.keysym.sym)
 		{
-		case SDLK_KP_6:
+		case SDLK_d:
 			tmp = onTile->r;
 			dir = 6;
 			break;
-		case SDLK_KP_4:
+		case SDLK_a:
 			tmp = onTile->l;
 			dir = 4;
 			break;
-		case SDLK_KP_2:
+		case SDLK_x:
 			tmp = onTile->d;
 			dir = 2;
 			break;
-		case SDLK_KP_8:
+		case SDLK_w:
 			tmp = onTile->u;
 			dir = 8;
 			break;
-		case SDLK_KP_7:
+		case SDLK_q:
 			tmp = onTile->ul;
 			dir = 7;
 			break;
-		case SDLK_KP_9:
+		case SDLK_e:
 			tmp = onTile->ur;
 			dir = 9;
 			break;
-		case SDLK_KP_1:
+		case SDLK_z:
 			tmp = onTile->dl;
 			dir = 1;
 			break;
-		case SDLK_KP_3:
+		case SDLK_c:
 			tmp = onTile->dr;
 			dir = 3;
 			break;
-		case SDLK_KP_5:
+		case SDLK_s:
 			dir = 5;
 			tmp = onTile;
 			break;
@@ -137,39 +137,39 @@ void Player::Skill(SDL_Event event) {
 
 		switch (event.key.keysym.sym)
 		{
-		case SDLK_KP_6:
+		case SDLK_d:
 			tmp = onTile->r;
 			dir = 6;
 			break;
-		case SDLK_KP_4:
+		case SDLK_a:
 			tmp = onTile->l;
 			dir = 4;
 			break;
-		case SDLK_KP_2:
+		case SDLK_x:
 			tmp = onTile->d;
 			dir = 2;
 			break;
-		case SDLK_KP_8:
+		case SDLK_w:
 			tmp = onTile->u;
 			dir = 8;
 			break;
-		case SDLK_KP_7:
+		case SDLK_q:
 			tmp = onTile->ul;
 			dir = 7;
 			break;
-		case SDLK_KP_9:
+		case SDLK_e:
 			tmp = onTile->ur;
 			dir = 9;
 			break;
-		case SDLK_KP_1:
+		case SDLK_z:
 			tmp = onTile->dl;
 			dir = 1;
 			break;
-		case SDLK_KP_3:
+		case SDLK_c:
 			tmp = onTile->dr;
 			dir = 3;
 			break;
-		case SDLK_KP_5:
+		case SDLK_s:
 			tmp = onTile;
 			dir = 5;
 			break;
@@ -229,47 +229,47 @@ void Player::Skill(SDL_Event event) {
 	case ONE_WILD_WIND:
 		switch (event.key.keysym.sym)
 		{
-		case SDLK_KP_6:
+		case SDLK_d:
 			tmp = onTile->r;
 			tmp2 = onTile->r->r;
 			dir = 6;
 			break;
-		case SDLK_KP_4:
+		case SDLK_a:
 			tmp = onTile->l;
 			tmp2 = onTile->l->l;
 			dir = 4;
 			break;
-		case SDLK_KP_2:
+		case SDLK_x:
 			tmp = onTile->d;
 			tmp2 = onTile->d->d;
 			dir = 2;
 			break;
-		case SDLK_KP_8:
+		case SDLK_w:
 			tmp = onTile->u;
 			tmp2 = onTile->u->u;
 			dir = 8;
 			break;
-		case SDLK_KP_7:
+		case SDLK_q:
 			tmp = onTile->ul;
 			tmp2 = onTile->ul->ul;
 			dir = 7;
 			break;
-		case SDLK_KP_9:
+		case SDLK_e:
 			tmp = onTile->ur;
 			tmp2 = onTile->ur->ur;
 			dir = 9;
 			break;
-		case SDLK_KP_1:
+		case SDLK_z:
 			tmp = onTile->dl;
 			tmp2 = onTile->dl->dl;
 			dir = 1;
 			break;
-		case SDLK_KP_3:
+		case SDLK_c:
 			tmp = onTile->dr;
 			tmp2 = onTile->dr->dr;
 			dir = 3;
 			break;
-		case SDLK_KP_5:
+		case SDLK_s:
 			dir = 5;
 			break;
 		default:
@@ -336,47 +336,47 @@ void Player::WallRun(SDL_Event event, GameManager* &gm) {
 	{
 	case SDL_QUIT:
 		gm->g_flag = false;
-	case SDLK_KP_6:
+	case SDLK_d:
 		dir = 4;
 		tmp = onTile->r;
 		tmp2 = onTile->l->l;
 		break;
-	case SDLK_KP_4:
+	case SDLK_a:
 		dir = 6;
 		tmp = onTile->l;
 		tmp2 = onTile->r->r;
 		break;
-	case SDLK_KP_2:
+	case SDLK_x:
 		dir = 8;
 		tmp = onTile->d;
 		tmp2 = onTile->u->u;
 		break;
-	case SDLK_KP_8:
+	case SDLK_w:
 		dir = 2;
 		tmp = onTile->u;
 		tmp2 = onTile->d->d;
 		break;
-	case SDLK_KP_7:
+	case SDLK_q:
 		dir = 3;
 		tmp = onTile->ul;
 		tmp2 = onTile->dr->dr;
 		break;
-	case SDLK_KP_9:
+	case SDLK_e:
 		dir = 1;
 		tmp = onTile->ur;
 		tmp2 = onTile->dl->dl;
 		break;
-	case SDLK_KP_1:
+	case SDLK_z:
 		dir = 9;
 		tmp = onTile->dl;
 		tmp2 = onTile->ur->ur;
 		break;
-	case SDLK_KP_3:
+	case SDLK_c:
 		dir = 7;
 		tmp = onTile->dr;
 		tmp2 = onTile->ul->ul;
 		break;
-	case SDLK_KP_5:
+	case SDLK_s:
 		dir = 5;
 		tmp = onTile;
 		break;
@@ -548,7 +548,7 @@ void Player::HandleEvents() {
 			if (SKillOn) {
 				Skill(event);
 			}
-			else if (event.key.keysym.sym == SDLK_KP_6) {
+			else if (event.key.keysym.sym == SDLK_d) {
 				if (onTile->r->onCharacter == NULL && onTile->r->IsWalkable) {//if there is no Character
 					SpriteState = IDLE;
 					move(onTile, 6);
@@ -560,11 +560,11 @@ void Player::HandleEvents() {
 				}
 				gm->P_Turn = false;
 			}
-			else if (event.key.keysym.sym == SDLK_KP_5) {
+			else if (event.key.keysym.sym == SDLK_s) {
 				SpriteState = IDLE;
 				gm->P_Turn = false;
 			}
-			else if (event.key.keysym.sym == SDLK_KP_8) {
+			else if (event.key.keysym.sym == SDLK_w) {
 				if (onTile->u->onCharacter == NULL && onTile->u->IsWalkable) {//if there is no Character
 					SpriteState = IDLE;
 					move(onTile, 8);
@@ -576,7 +576,7 @@ void Player::HandleEvents() {
 				}
 				gm->P_Turn = false;
 			}
-			else if (event.key.keysym.sym == SDLK_KP_2) {
+			else if (event.key.keysym.sym == SDLK_x) {
 				if (onTile->d->onCharacter == NULL && onTile->d->IsWalkable) {
 					SpriteState = IDLE;
 					move(onTile, 2);
@@ -588,7 +588,7 @@ void Player::HandleEvents() {
 				}
 				gm->P_Turn = false;
 			}
-			else if (event.key.keysym.sym == SDLK_KP_4) {
+			else if (event.key.keysym.sym == SDLK_a) {
 				if (onTile->l->onCharacter == NULL && onTile->l->IsWalkable) {
 					SpriteState = IDLE;
 					move(onTile, 4);
@@ -600,7 +600,7 @@ void Player::HandleEvents() {
 				}
 				gm->P_Turn = false;
 			}
-			else if (event.key.keysym.sym == SDLK_KP_1) {
+			else if (event.key.keysym.sym == SDLK_z) {
 				if (onTile->dl->onCharacter == NULL && onTile->dl->IsWalkable) {
 					SpriteState = IDLE;
 					move(onTile, 1);
@@ -612,7 +612,7 @@ void Player::HandleEvents() {
 				}
 				gm->P_Turn = false;
 			}
-			else if (event.key.keysym.sym == SDLK_KP_3) {
+			else if (event.key.keysym.sym == SDLK_c) {
 				if (onTile->dr->onCharacter == NULL && onTile->dr->IsWalkable) {
 					
 					SpriteState = IDLE;
@@ -625,7 +625,7 @@ void Player::HandleEvents() {
 				}
 				gm->P_Turn = false;
 			}
-			else if (event.key.keysym.sym == SDLK_KP_7) {
+			else if (event.key.keysym.sym == SDLK_q) {
 				if (onTile->ul->onCharacter == NULL && onTile->ul->IsWalkable) {
 					
 					SpriteState = IDLE;
@@ -638,7 +638,7 @@ void Player::HandleEvents() {
 				}
 				gm->P_Turn = false;
 			}
-			else if (event.key.keysym.sym == SDLK_KP_9) {
+			else if (event.key.keysym.sym == SDLK_e) {
 				if (onTile->ur->onCharacter == NULL && onTile->ur->IsWalkable) {
 					move(onTile, 9);
 					SpriteState = IDLE;
@@ -653,25 +653,25 @@ void Player::HandleEvents() {
 			else if (event.key.keysym.sym == SDLK_p) {
 				this->IsAlive = false;
 			}
-			else if (event.key.keysym.sym == SDLK_w) {
+			else if (event.key.keysym.sym == SDLK_4) {
 				SkillState = ONE_WILD_WIND;
 				SpriteState = PUNCH_READY;
 				SetMotion(SpriteState);
 				SKillOn = true;
 			}
-			else if (event.key.keysym.sym == SDLK_q) {
+			else if (event.key.keysym.sym == SDLK_1) {
 				SkillState = ONE_INCH_PUNCH;
 				SpriteState = PUNCH_READY;
 				SetMotion(SpriteState);
 				SKillOn = true;
 			}
-			else if (event.key.keysym.sym == SDLK_e) {
+			else if (event.key.keysym.sym == SDLK_3) {
 				SkillState = STATUE_OF_HEAVEN;
 				SpriteState = PUNCH_READY;
 				SetMotion(SpriteState);
 				SKillOn = true;
 			}
-			else if (event.key.keysym.sym == SDLK_r) {
+			else if (event.key.keysym.sym == SDLK_2) {
 				SkillState = WALL_RUN;
 				SpriteState = PUNCH_READY;
 				SetMotion(SpriteState);
