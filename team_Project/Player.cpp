@@ -94,7 +94,6 @@ void Player::Skill(SDL_Event event) {
 			move(onTile, dir);
 			SKillOn = false;
 			gm->P_Turn = false;
-
 		}
 
 	}
