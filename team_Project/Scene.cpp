@@ -108,10 +108,18 @@ void StartButton::Update() {
 				//g_flag_running = false
 				break;
 			case SDL_MOUSEBUTTONDOWN:
-				gm->Scenes[gm->CurrentPhase]->SceneReset();
-				gm->objCol.clear();
-				gm->CurrentPhase = INGAME;
-				gm->Scenes[gm->CurrentPhase]->InitScene();
+				int x = event.button.x;
+				int y = event.button.y;
+				if (x > 885 &&
+					y > 440 &&
+					x < 885 + 340 &&
+					y < 440 + 112
+					) {
+					gm->Scenes[gm->CurrentPhase]->SceneReset();
+					gm->objCol.clear();
+					gm->CurrentPhase = INGAME;
+					gm->Scenes[gm->CurrentPhase]->InitScene();
+				}
 				break;
 			}
 		}
