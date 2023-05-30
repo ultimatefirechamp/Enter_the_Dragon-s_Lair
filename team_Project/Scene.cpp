@@ -30,11 +30,12 @@ void IntroBackGround::Update() {
 		i += 3;
 	}
 	else if (i >= 255) {
+		i = 255;
 		SDL_SetTextureAlphaMod(getSprite()->textr, 255);
 		//create Next Object
-		objf::CreateObj<TitleLogo>("TitleLogo");
+		objf::CreateObj<TitleLogo>("SubTitleLogo");
+		objf::CreateObj<SubTitleLogo>("TitleLogo");
 		objf::CreateObj<CharacterTitle>("CharacterTitle");
-		objf::CreateObj<StartButton>("StartButton");
 		Iflag = true;
 	}
 }
@@ -51,15 +52,29 @@ void TitleLogo::Update() {
 		Iflag = true;
 	}
 }
+void SubTitleLogo::Update() {
+	if (Iflag) {
+		return;
+	}
+	if (trs->x > 0) {
+		trs->x -= 30;
+	}
+	else if (trs->x <= 0) {
+		trs->x = 0;
+		Iflag = true;
+	}
+}
 void CharacterTitle::Update() {
 	if (Iflag) {
 		return;
 	}
 	if (trs->x < 0) {
-		trs->x += 35;
+		trs->x += 20;
 	}
 	else if (trs->x >= 0) {
 		trs->x = 0;
+		objf::CreateObj<StartButton>("StartButton");
+		objf::CreateObj<ExitButton>("ExitButton");
 		Iflag = true;
 	}
 }
@@ -69,24 +84,59 @@ void StartButton::Update() {
 		SDL_Event event;
 		if (SDL_PollEvent(&event)) {
 			switch (event.type) {
-			case SDL_QUIT:
-				gm->g_flag = false;
-				//g_flag_running = false
-				break;
 			case SDL_MOUSEBUTTONDOWN:
-				gm->Scenes[gm->CurrentPhase]->SceneReset();
-				gm->objCol.clear();
-				gm->CurrentPhase = INGAME;
-				gm->Scenes[gm->CurrentPhase]->InitScene();
-				break;
+				int x = event.button.x;
+				int y = event.button.y;
+				if (x > trs->x &&
+					y > trs->y &&
+					x < trs->x + trs->w &&
+					y < trs->y + trs->h
+					) {
+					gm->Scenes[gm->CurrentPhase]->SceneReset();
+					gm->objCol.clear();
+					gm->CurrentPhase = INGAME;
+					gm->Scenes[gm->CurrentPhase]->InitScene();
+					break;
+				}
 			}
 		}
 	}
-	else if (trs->x > 0) {
-		trs->x -= 45;
+	else if (trs->x > 885) {
+		trs->x -= 20;
 	}
-	else if (trs->x <= 0) {
-		trs->x = 0;
+	else if (trs->x <= 885) {
+		trs->x = 885;
+		Iflag = true;
+	}
+}
+void ExitButton::Update() {
+	GameManager* gm = GameManager::getinstance();
+	if (Iflag) {
+		SDL_Event event;
+		if (SDL_PollEvent(&event)) {
+			switch (event.type) {
+			case SDL_QUIT:
+				gm->g_flag = false;
+				break;
+			case SDL_MOUSEBUTTONDOWN:
+				int x = event.button.x;
+				int y = event.button.y;
+				if (x > trs->x &&
+					y > trs->y &&
+					x < trs->x + trs->w &&
+					y < trs->y + trs->h
+					) {
+					gm->g_flag = false;
+					break;
+				}
+			}
+		}
+	}
+	else if (trs->x > 965) {
+		trs->x -= 15;
+	}
+	else if (trs->x <= 965) {
+		trs->x = 965;
 		Iflag = true;
 	}
 }
@@ -135,7 +185,7 @@ void StoryScene::Update() {
 	if (SDL_PollEvent(&event)) {
 		switch (event.type) {
 		case SDL_MOUSEBUTTONDOWN:
-			if (i == 11) {
+			if (i == 10) {
 					gm->CurrentPhase = INTRO;
 			}
 			else {
