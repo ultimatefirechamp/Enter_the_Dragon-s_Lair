@@ -63,13 +63,21 @@ SoundManager::~SoundManager() {
 	Mix_FreeMusic(intro_bgm);
 	Mix_FreeMusic(stage_bgm);
 	Mix_FreeMusic(ending_bgm);
+	Mix_FreeMusic(gameover_bgm);
 	Mix_FreeChunk(move_se);
 	Mix_FreeChunk(btn_click_se);
 	Mix_FreeChunk(btn_hold_se);
+	Mix_FreeChunk(phase_transition_se);
 	Mix_FreeChunk(player_atk_se);
 	Mix_FreeChunk(player_dmg_se);
+	Mix_FreeChunk(player_die_se);
 	Mix_FreeChunk(monster_atk_se);
 	Mix_FreeChunk(monster_dmg_se);
+	Mix_FreeChunk(monster_die_se);
+	Mix_FreeChunk(charge_se);
+	Mix_FreeChunk(skill1_se);
+	Mix_FreeChunk(skill2_se);
+	Mix_FreeChunk(skill3_se);
 	Mix_CloseAudio();
 }
 //인트로 화면 bgm 재생
