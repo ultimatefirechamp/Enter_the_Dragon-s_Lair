@@ -650,34 +650,34 @@ void Player::HandleEvents() {
 				}
 				gm->P_Turn = false;
 			}
-			else if (event.key.keysym.sym == SDLK_p) {
+			else if (event.key.keysym.sym == SDLK_5) {
 				this->IsAlive = false;
 			}
-			else if (event.key.keysym.sym == SDLK_4) {
+			else if (event.key.keysym.sym == SDLK_p) {
 				SkillState = ONE_WILD_WIND;
 				SpriteState = PUNCH_READY;
 				SetMotion(SpriteState);
 				SKillOn = true;
 			}
-			else if (event.key.keysym.sym == SDLK_1) {
+			else if (event.key.keysym.sym == SDLK_u) {
 				SkillState = ONE_INCH_PUNCH;
 				SpriteState = PUNCH_READY;
 				SetMotion(SpriteState);
 				SKillOn = true;
 			}
-			else if (event.key.keysym.sym == SDLK_3) {
+			else if (event.key.keysym.sym == SDLK_o) {
 				SkillState = STATUE_OF_HEAVEN;
 				SpriteState = PUNCH_READY;
 				SetMotion(SpriteState);
 				SKillOn = true;
 			}
-			else if (event.key.keysym.sym == SDLK_2) {
+			else if (event.key.keysym.sym == SDLK_i) {
 				SkillState = WALL_RUN;
 				SpriteState = PUNCH_READY;
 				SetMotion(SpriteState);
 				SKillOn = true;
 			}
-			else if (event.key.keysym.sym == SDLK_m) {
+			else if (event.key.keysym.sym == SDLK_7) {
 				MonsterNumber = 0;
 			}
 			gm->p_x = trs->x;
