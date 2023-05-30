@@ -97,6 +97,12 @@ void Player::Skill(SDL_Event event) {
 			return;
 		}
 		if (dir != 5 && tmp->onCharacter != NULL) {
+			if (stamina < 20) {
+				SKillOn = false;
+				SpriteState = IDLE;
+				return;
+			}
+			stamina -= 20;
 			gm->sm->player_atk_sound();
 			Attack(tmp->onCharacter, 40);
 			SpriteState = PUNCH;
@@ -162,6 +168,12 @@ void Player::Skill(SDL_Event event) {
 			return;
 		}
 		if (dir != 5 && tmp->onCharacter != NULL) {
+			if (stamina < 40) {
+				SKillOn = false;
+				SpriteState = IDLE;
+				return;
+			}
+			stamina -= 40;
 			gm->sm->player_atk_sound();
 			if (onTile->u->onCharacter != NULL)
 				Attack(onTile->u->onCharacter,15);
@@ -248,6 +260,12 @@ void Player::Skill(SDL_Event event) {
 			return;
 		}
 		if (dir != 5 && tmp->onCharacter != NULL) {
+			if (stamina < 10) {
+				SKillOn = false;
+				SpriteState = IDLE;
+				return;
+			}
+			stamina -= 10;
 			gm->sm->player_atk_sound();
 			Attack(tmp->onCharacter,15);
 			SpriteState = PUNCH;
@@ -257,6 +275,12 @@ void Player::Skill(SDL_Event event) {
 		else if (dir != 5 && tmp->onCharacter == NULL) {
 			move(onTile, dir);
 			if (tmp2->onCharacter != NULL) {
+				if (stamina < 10) {
+					SKillOn = false;
+					SpriteState = IDLE;
+					return;
+				}
+				stamina -= 10;
 				gm->sm->player_atk_sound();
 				tmp2->onCharacter->GetDamaged(40);
 				SpriteState = PUNCH;
@@ -343,6 +367,12 @@ void Player::WallRun(SDL_Event event, GameManager* &gm) {
 	}
 	if (!tmp->IsWalkable) {
 		if (tmp2->IsWalkable && tmp2->onCharacter == NULL) {
+			if (stamina < 40) {
+				SKillOn = false;
+				SpriteState = IDLE;
+				return;
+			}
+			stamina -= 40;
 			move(tmp2);
 			gm->sm->player_atk_sound();
 			if (onTile->u->onCharacter != NULL)
@@ -442,8 +472,8 @@ void Player::move(Tile* tile, int dir) {
 void Player::Attack(Character* monster) {
 	GameManager::getinstance()->sm->player_atk_sound();
 	if (monster->GetDamaged(20)) {
-		stamina += 20;
-		hp += 33;
+		stamina += 33;
+		hp += 20;
 		hp = std::min(hp, max_hp);
 		stamina = std::min(stamina, MaxStamina);
 		hpbar->set_hp(hp);
