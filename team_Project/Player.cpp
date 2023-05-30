@@ -168,6 +168,12 @@ void Player::Skill(SDL_Event event) {
 		if (tmp == NULL) {
 			return;
 		}
+		if (!tmp->IsWalkable) {
+			SKillOn = false;
+			SpriteState = IDLE;
+			gm->P_Turn = false;
+			return;
+		}
 		if (dir != 5 && tmp->onCharacter != NULL) {
 			if (stamina < 40) {
 				SKillOn = false;
