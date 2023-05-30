@@ -83,36 +83,28 @@ SoundManager::~SoundManager() {
 //인트로 화면 bgm 재생
 void SoundManager::intro_music()
 {
-	if (Mix_PlayingMusic()) {
-		Mix_HaltMusic();
-	}
+	Mix_HaltChannel(-1);
 	Mix_PlayMusic(intro_bgm, -1);
 }
 
 //게임 내 bgm 재생
 void SoundManager::stage_music()
 {
-	if (Mix_PlayingMusic()) {
-		Mix_HaltMusic();
-	}
+	Mix_HaltChannel(-1);
 	Mix_PlayMusic(stage_bgm, -1);
 }
 
 //엔딩 화면 bgm 재생
 void SoundManager::ending_music()
 {
-	if (Mix_PlayingMusic()) {
-		Mix_HaltMusic();
-	}
+	Mix_HaltChannel(-1);
 	Mix_PlayMusic(ending_bgm, -1);
 }
 
 //게임오버 화면 bgm 재생
 void SoundManager::gameover_music()
 {
-	if (Mix_PlayingMusic()) {
-		Mix_HaltMusic();
-	}
+	Mix_HaltChannel(-1);
 	Mix_PlayMusic(gameover_bgm, -1);
 }
 
