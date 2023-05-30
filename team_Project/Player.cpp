@@ -94,6 +94,7 @@ void Player::Skill(SDL_Event event) {
 			move(onTile, dir);
 			SKillOn = false;
 			gm->P_Turn = false;
+
 		}
 
 	}
@@ -150,19 +151,34 @@ void Player::Skill(SDL_Event event) {
 		default:
 			break;
 		}
-		if (dir != 5 && tmp->onCharacter == NULL) {
+		if (dir != 5 && tmp->onCharacter != NULL) {
+			gm->sm->player_atk_sound();
+			tmp->onCharacter->GetDamaged(15);
+			SpriteState = PUNCH;
+			SKillOn = false;
+			gm->P_Turn = false;
+		}
+		else if (dir != 5 && tmp->onCharacter == NULL) {
 			move(onTile, dir);
 			if (tmp2->onCharacter != NULL) {
 				gm->sm->player_atk_sound();
 				tmp2->onCharacter->GetDamaged(40);
 				SpriteState = PUNCH;
 				SKillOn = false;
+				gm->P_Turn = false;
+			}
+			else {
+				SKillOn = false;
+				SpriteState = IDLE;
+				gm->P_Turn = false;
 			}
 		}
-		else if (dir != -1) {
+		else if (dir != -1) { // dir == 5
 			SpriteState = IDLE;
 			move(onTile, dir);
 			SKillOn = false;
+			gm->P_Turn = false;
+
 		}
 		break;
 	default:

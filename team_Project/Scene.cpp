@@ -22,8 +22,19 @@ void Picture::Render() {
 }
 
 void BackGround::Update() {
+	
 	if (Iflag) {
 		return;
+	}
+	SDL_Event event;
+	if (SDL_PollEvent(&event)) {
+		switch (event.type)
+		{
+		case SDL_QUIT:
+			GameManager::getinstance()->g_flag = false;
+		default:
+			break;
+		}
 	}
 	if (i < 255) {
 		SDL_SetTextureAlphaMod(getSprite()->textr, i);
@@ -40,8 +51,19 @@ void BackGround::Update() {
 }
 
 void TitleLogo::Update() {
+	
 	if (Iflag) {
 		return;
+	}
+	SDL_Event event;
+	if (SDL_PollEvent(&event)) {
+		switch (event.type)
+		{
+		case SDL_QUIT:
+			GameManager::getinstance()->g_flag = false;
+		default:
+			break;
+		}
 	}
 	if (trs->x > 0) {
 		trs->x -= 30;
@@ -52,8 +74,19 @@ void TitleLogo::Update() {
 	}
 }
 void CharacterTitle::Update() {
+	
 	if (Iflag) {
 		return;
+	}
+	SDL_Event event;
+	if (SDL_PollEvent(&event)) {
+		switch (event.type)
+		{
+		case SDL_QUIT:
+			GameManager::getinstance()->g_flag = false;
+		default:
+			break;
+		}
 	}
 	if (trs->x < 0) {
 		trs->x += 35;
