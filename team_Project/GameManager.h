@@ -11,6 +11,9 @@ class Path;
 class SoundManager;
 class Scene;
 
+struct coordinate {
+	int x, y;
+};
 class GameManager
 {
 public:
@@ -46,6 +49,7 @@ public:
 	void InitScenes();
 	void LoadMap(const char* path);
 
+	std::vector<coordinate> MonsterSpawnPoints;
 	int CurrentPhase;
 private:
 	GameManager();

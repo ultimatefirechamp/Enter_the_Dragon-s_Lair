@@ -14,6 +14,7 @@ GameManager::GameManager() {
 	Scenes.push_back(new InGameScene());
 	Scenes.push_back(new Ending());
 	sm = new SoundManager();
+	
 }
 
 GameManager::~GameManager() {
@@ -60,8 +61,14 @@ void GameManager::LoadMap(const char* path) {
 				tmp_t = new Floor("Floor", r, c);
 				break;
 			case '3':
+				SpawnPoint_x = r;
+				SpawnPoint_y = c;
 				tmp_t = new Floor("Floor", r, c);
 				break;
+			case '4':
+				tmp_t = new Floor("Floor", r, c);
+				coordinate tmp_c = coordinate { r,c };
+				MonsterSpawnPoints.push_back(tmp_c);
 			default:
 				break;
 			}

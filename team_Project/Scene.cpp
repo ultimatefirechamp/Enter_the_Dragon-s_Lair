@@ -2,7 +2,7 @@
 #include "Scene.h"
 
 
-// ÀÎÆ®·Î
+// ï¿½ï¿½Æ®ï¿½ï¿½
 Intro::Intro() {
 
 }
@@ -21,9 +21,21 @@ void Picture::Render() {
 	SDL_RenderCopy(gm->g_renderer, sprite_->textr, &sprite_->sr, &tmp);
 }
 
+
 void IntroBackGround::Update() {
+
 	if (Iflag) {
 		return;
+	}
+	SDL_Event event;
+	if (SDL_PollEvent(&event)) {
+		switch (event.type)
+		{
+		case SDL_QUIT:
+			GameManager::getinstance()->g_flag = false;
+		default:
+			break;
+		}
 	}
 	if (i < 255) {
 		SDL_SetTextureAlphaMod(getSprite()->textr, i);
@@ -40,8 +52,19 @@ void IntroBackGround::Update() {
 }
 
 void TitleLogo::Update() {
+	
 	if (Iflag) {
 		return;
+	}
+	SDL_Event event;
+	if (SDL_PollEvent(&event)) {
+		switch (event.type)
+		{
+		case SDL_QUIT:
+			GameManager::getinstance()->g_flag = false;
+		default:
+			break;
+		}
 	}
 	if (trs->x > 0) {
 		trs->x -= 30;
@@ -52,8 +75,19 @@ void TitleLogo::Update() {
 	}
 }
 void CharacterTitle::Update() {
+	
 	if (Iflag) {
 		return;
+	}
+	SDL_Event event;
+	if (SDL_PollEvent(&event)) {
+		switch (event.type)
+		{
+		case SDL_QUIT:
+			GameManager::getinstance()->g_flag = false;
+		default:
+			break;
+		}
 	}
 	if (trs->x < 0) {
 		trs->x += 35;
@@ -91,7 +125,7 @@ void StartButton::Update() {
 	}
 }
 
-// ¿£µù
+// ï¿½ï¿½ï¿½ï¿½
 Ending::Ending() {
 
 }
@@ -116,7 +150,7 @@ void EndingBackGround::Update() {
 	}
 }
 
-// Ã³À½ Å³¶§ ³ª¿À´Â ½ºÅä¸®
+// Ã³ï¿½ Å³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ä¸®
 IntroStory::IntroStory() {
 
 }
