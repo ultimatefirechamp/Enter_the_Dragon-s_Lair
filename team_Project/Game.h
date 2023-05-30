@@ -8,6 +8,7 @@
 #include"SDL_ttf.h"
 #include"SDL_mixer.h"
 #include<fstream>
+#include<algorithm>
 
 #define WINDOW_WIDTH 1280
 #define WINDOW_HEIGHT 720
@@ -22,12 +23,16 @@ enum States
 	IDLE,
 	PUNCH_READY,
 	PUNCH,
-	KICK
+	KICK,
+	ST_OF_H
 };
 enum Skills {
 	ONE_INCH_PUNCH,
 	DRAGON_KICK,
-	ONE_WILD_WIND
+	ONE_WILD_WIND,
+	STATUE_OF_HEAVEN,
+	WALL_RUN,
+	FURIUOS_WIND
 };
 
 namespace objf {

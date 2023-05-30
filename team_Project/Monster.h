@@ -28,7 +28,7 @@ public:
 	void move(Tile* tar, int dir);
 	void move(Tile* tar);
 	void Attack(Character* player);
-	void GetDamaged(int damage);
+	bool GetDamaged(int damage);
 	void Update();
 	void Render();
 	void SetThisCharacterOnTile(int x, int y) {

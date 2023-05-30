@@ -11,19 +11,20 @@ void InGameScene::InitScene() {
 	objf::CreateObj<Player>("Player");
 	gm->ui_ = objf::CreateObj<UI>("UI");
 	int x, y;
-	x = 10;
-	y = 10;
-	tmp->GetTrans()->SetPos(x, y);
+	x = gm->SpawnPoint_x;
+	y = gm->SpawnPoint_y;
+
+	tmp->GetTrans()->SetPos(gm->SpawnPoint_x, gm->SpawnPoint_y);
 	gm->map->GetMap()[tmp->GetTrans()->x]->tiles[tmp->GetTrans()->y]->onCharacter = tmp;
 	tmp->onTile = gm->map->GetMap()[tmp->GetTrans()->x]->tiles[tmp->GetTrans()->y];
 	gm->p_x = x;
 	gm->p_y = y;
-	Monster* m_tmp = objf::CreateObj<Monster>("Monster");
-	m_tmp->SetPos(5, 5);
-	m_tmp->SetThisCharacterOnTile(5, 5);
-	m_tmp = objf::CreateObj<Monster>("Monster");
-	m_tmp->SetPos(6, 7);
-	m_tmp->SetThisCharacterOnTile(6, 7);
+	Monster* m_tmp;
+	for (auto& points : gm->MonsterSpawnPoints) {
+		m_tmp = objf::CreateObj<Monster>("Monster");
+		m_tmp->SetPos(points.x, points.y);
+		m_tmp->SetThisCharacterOnTile(points.x, points.y);
+	}
 }
 
 void InGameScene::SceneReset() {
@@ -34,6 +35,9 @@ void InGameScene::SceneReset() {
 	delete(gm->PF);
 	delete(gm->path);
 	delete(gm->ui_);
+
+	gm->MonsterSpawnPoints.clear();
+
 	objCol.clear();
 }
 

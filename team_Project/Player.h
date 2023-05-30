@@ -22,6 +22,16 @@ private:
 	SpriteComponent* sprite_;
 };
 
+class EndingChanger : public Object {
+public:
+	EndingChanger(std::string name) : Object(name) {
+
+	}
+	void Update();
+	void Render() {}
+
+};
+
 class Player : public Character
 {
 public:
@@ -34,6 +44,9 @@ public:
 		addComponent(sprite_);
 		hpbar = objf::CreateComp<HPBAR>("HPBAR");
 		addComponent(hpbar);
+		stbar = objf::CreateComp<STBAR>("STBAR");
+		addComponent(stbar);
+
 		sprite_->InitSprite("./resource/GP_MainSheet.png");
 		sprite_->SetSpriteRect(0, 96, 24, 24);
 		trs->SetSize(100, 100);
@@ -42,38 +55,58 @@ public:
 		GameOverScreenOn = false;
 		this->hp = 100;
 		this->max_hp = 100;
+		MaxStamina = 100;
+		stamina = 100;
+		MonsterNumber = 5;
+		
 		hpbar->set_hp(hp);
 		hpbar->set_mh(max_hp);
+
+		stbar->set_st(stamina);
+		stbar->set_ms(MaxStamina);
+
 	}
 
 	~Player();
 
 	Tile* onTile;
 
-	void GetDamaged(int damage);
+	bool GetDamaged(int damage);
 
 	void move(Tile* tile, int dir);
+	void move(Tile* tar);
 	void Attack(Character* monster);
+	void Attack(Character* monster, int dam);
 
 	void CheckIsThereEnemy();
 
 	void Update() {
+		if (MonsterNumber == 0) {
+			objf::CreateObj<EndingChanger>("EndingChanger");
+			GameManager::getinstance()->sm->ending_music();
+		}
 		if (!IsAlive) {
 			if (GameOverScreenOn) {
 				return;
 			}
 			objf::CreateObj<GameOverScreen>("GameOverScreen");
+			GameManager::getinstance()->sm->gameover_music();
 			GameOverScreenOn = true;
 		}
-		else
+		else {
 			HandleEvents();
+		}
 	}
 	void HandleEvents();
 	void SetMotion(States st);
+	void WallRun(SDL_Event event, GameManager* &gm);
 
 	void Skill(SDL_Event event);
 	bool SKillOn;
 	bool GameOverScreenOn;
+	int MaxStamina;
+	int stamina;
+	int MonsterNumber;
 
 	Skills SkillState;
 	States SpriteState;
@@ -83,5 +116,6 @@ private:
 	InputComponent* input_;
 	SpriteComponent* sprite_;
 	HPBAR* hpbar;
+	STBAR* stbar;
 };
 
