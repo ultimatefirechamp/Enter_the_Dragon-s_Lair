@@ -19,20 +19,64 @@ GameManager::~GameManager() {
 	delete(instance);
 }
 void GameManager::InitScenes() {
-	for (auto& scene : Scenes) {
+	/*for (auto& scene : Scenes) {
 		this->objCol = scene->objCol;
 		scene->InitScene();
 		scene->objCol = this->objCol;
-	}
+	}*/
 	CurrentPhase = INTRO;
+	Scenes[CurrentPhase]->InitScene();
 	this->objCol = Scenes[CurrentPhase]->objCol;
+}
+
+void GameManager::LoadMap(const char* path) {
+	int row = 13;
+	int col = 13;
+	std::ifstream mapFile;
+	mapFile.open(path);
+	for (int i = 0; i < map->GetMap().size(); i++) {
+		map->GetMap()[i]->tiles.clear();
+	}
+	map->GetMap().clear();
+
+	mapFile >> row >> col;
+	char tmp;
+	for (int r = 0; r < row; r++) {
+		map->GetMap().push_back(new TileRow());
+		for (int c = 0; c < col; c++) {
+			Tile* tmp_t = NULL;
+			mapFile >> tmp;
+			switch (tmp)
+			{
+			case '0':
+				tmp_t = new AIR("AIR", r, c);
+				break;
+			case '1':
+				tmp_t = new Wall("Wall", r, c);
+				break;
+			case '2':
+				tmp_t = new Floor("Floor", r, c);
+				break;
+			case '3':
+				tmp_t = new Floor("Floor", r, c);
+				break;
+			default:
+				break;
+			}
+
+			tmp_t->GetTrans()->SetPos(r, c);
+			map->GetMap()[r]->tiles.push_back(tmp_t);
+		}
+	}
+
+	map->SetTile();
 }
 
 void GameManager::InitMap() {
 	map = new Map();
 	PF = new PathAlgorithm();
 	path = new Path();
-	for (int i = 0; i < 10; i++) {
+	/*for (int i = 0; i < 10; i++) {
 		map->GetMap().push_back(new TileRow());
 		for (int j = 0; j < 10; j++) {
 			Tile* tmp;
@@ -53,7 +97,7 @@ void GameManager::InitMap() {
 			tmp->GetTrans()->SetPos(i, j);
 			map->GetMap()[i]->tiles.push_back(tmp);
 		}
-	}
+	}*/
 }
 
 void GameManager::PathFind(int x, int y, int x2, int y2) {

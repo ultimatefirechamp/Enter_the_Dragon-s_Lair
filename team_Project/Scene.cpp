@@ -9,6 +9,9 @@ Intro::Intro() {
 void Intro::InitScene() {
 	objCol.push_back(objf::CreateObj<BackGround>("BackGround"));
 }
+void Intro::SceneReset() {
+	objCol.clear();
+}
 void Picture::Render() {
 	GameManager* gm = GameManager::getinstance();
 	SDL_SetRenderDrawColor(gm->g_renderer, 0, 0, 0, 0);
@@ -71,9 +74,10 @@ void StartButton::Update() {
 				//g_flag_running = false
 				break;
 			case SDL_MOUSEBUTTONDOWN:
+				gm->Scenes[gm->CurrentPhase]->SceneReset();
+				gm->objCol.clear();
 				gm->CurrentPhase = INGAME;
-				gm->Scenes[0]->objCol = gm->objCol;
-				gm->objCol = gm->Scenes[gm->CurrentPhase]->objCol;
+				gm->Scenes[gm->CurrentPhase]->InitScene();
 				break;
 			}
 		}

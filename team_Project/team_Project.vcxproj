@@ -165,6 +165,7 @@
     <ClCompile Include="Pathfinding.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="Scene_ending.cpp" />
     <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="Tile.cpp" />
   </ItemGroup>

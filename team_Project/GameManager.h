@@ -26,6 +26,8 @@ public:
 	bool g_flag;
 	bool P_Turn;
 	int p_x, p_y;
+	int SpawnPoint_x, SpawnPoint_y;
+
 
 	void InitMap();
 
@@ -42,6 +44,7 @@ public:
 	void Render();
 	void TestHwakIn();
 	void InitScenes();
+	void LoadMap(const char* path);
 
 	int CurrentPhase;
 private:

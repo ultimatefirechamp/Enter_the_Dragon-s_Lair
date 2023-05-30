@@ -45,9 +45,6 @@ void Monster::Update() {
 			gm->map->GetMap()[x]->tiles[y]->onCharacter->GetDamaged(10);
 		}
 
-		gm->P_Turn = true;
-
-
 	}
 }
 

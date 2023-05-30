@@ -1,6 +1,26 @@
 #pragma once
 #include"Character.h"
 #include"Components.h"
+class Object;
+
+class GameOverScreen : public Object {
+public:
+	GameOverScreen(std::string name) : Object(name) {
+		sprite_ = objf::CreateComp<SpriteComponent>("SpriteComponent");
+		addComponent(sprite_);
+		sprite_->InitSprite("./resource/GameOver_screen.png");
+		sprite_->SetSpriteRect(0, 0, 320, 180);
+
+		SDL_SetTextureAlphaMod(sprite_->textr, 0);
+	}
+
+	void Update();
+	void Render();
+
+private:
+	int i = 0;
+	SpriteComponent* sprite_;
+};
 
 class Player : public Character
 {
@@ -12,16 +32,19 @@ public:
 		addComponent(input_);
 		sprite_ = objf::CreateComp<SpriteComponent>("SpriteComponent");
 		addComponent(sprite_);
+		hpbar = objf::CreateComp<HPBAR>("HPBAR");
+		addComponent(hpbar);
 		sprite_->InitSprite("./resource/GP_MainSheet.png");
 		sprite_->SetSpriteRect(0, 96, 24, 24);
-		trs->SetPos(1, 1);
 		trs->SetSize(100, 100);
-		GameManager::getinstance()->map->GetMap()[trs->x]->tiles[trs->y]->onCharacter = this;
-		onTile = GameManager::getinstance()->map->GetMap()[trs->x]->tiles[trs->y];
 		SpriteState = IDLE;
-		GameManager::getinstance()->p_x = trs->x;
-		GameManager::getinstance()->p_y = trs->y;
 		SKillOn = false;
+		GameOverScreenOn = false;
+		this->hp = 100;
+		this->max_hp = 100;
+		hpbar->set_hp(hp);
+		hpbar->set_mh(max_hp);
+
 	}
 
 	~Player();
@@ -36,13 +59,22 @@ public:
 	void CheckIsThereEnemy();
 
 	void Update() {
-		HandleEvents();
+		if (!IsAlive) {
+			if (GameOverScreenOn) {
+				return;
+			}
+			objf::CreateObj<GameOverScreen>("GameOverScreen");
+			GameOverScreenOn = true;
+		}
+		else
+			HandleEvents();
 	}
 	void HandleEvents();
 	void SetMotion(States st);
 
 	void Skill(SDL_Event event);
 	bool SKillOn;
+	bool GameOverScreenOn;
 
 	Skills SkillState;
 	States SpriteState;
@@ -51,4 +83,6 @@ public:
 private:
 	InputComponent* input_;
 	SpriteComponent* sprite_;
+	HPBAR* hpbar;
 };
+
