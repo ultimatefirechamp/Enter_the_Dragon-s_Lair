@@ -26,6 +26,7 @@ void Player::move(Tile* tar) {
 	trs->SetPos(onTile->mapX, onTile->mapY);
 }
 void Player::SetMotion(States st) {
+	GameManager* gm = GameManager::getinstance();
 	switch (st)
 	{
 	case IDLE:
@@ -35,17 +36,21 @@ void Player::SetMotion(States st) {
 			sprite_->SetSpriteRect(0,96,24,24);
 		break;
 	case PUNCH_READY:
+		gm->sm->charge_sound();
 		sprite_->SetSpriteRect(72, 96, 24, 24);
 		break;
 	case PUNCH:
+		gm->sm->charge_sound();
 		sprite_->SetSpriteRect(144, 96, 24, 24);
 		//sprite_->SetSpriteRect();
 		break;
 	case KICK:
+		gm->sm->charge_sound();
 		sprite_->SetSpriteRect(168, 96, 24, 24);
 		//sprite_->SetSpriteRect();
 		break;
 	case ST_OF_H:
+		gm->sm->charge_sound();
 		sprite_->SetSpriteRect(192, 96, 24, 24);
 		break;
 	default:
@@ -113,6 +118,7 @@ void Player::Skill(SDL_Event event) {
 				SpriteState = IDLE;
 				return;
 			}
+			gm->sm->skill1_sound();
 			stamina -= 20;
 			stbar->set_st(stamina);
 			gm->sm->player_atk_sound();
@@ -134,42 +140,50 @@ void Player::Skill(SDL_Event event) {
 	case DRAGON_KICK:
 		break;
 	case STATUE_OF_HEAVEN:
-
 		switch (event.key.keysym.sym)
 		{
 		case SDLK_d:
+			gm->sm->skill2_sound();
 			tmp = onTile->r;
 			dir = 6;
 			break;
 		case SDLK_a:
+			gm->sm->skill2_sound();
 			tmp = onTile->l;
 			dir = 4;
 			break;
 		case SDLK_x:
+			gm->sm->skill2_sound();
 			tmp = onTile->d;
 			dir = 2;
 			break;
 		case SDLK_w:
+			gm->sm->skill2_sound();
 			tmp = onTile->u;
 			dir = 8;
 			break;
 		case SDLK_q:
+			gm->sm->skill2_sound();
 			tmp = onTile->ul;
 			dir = 7;
 			break;
 		case SDLK_e:
+			gm->sm->skill2_sound();
 			tmp = onTile->ur;
 			dir = 9;
 			break;
 		case SDLK_z:
+			gm->sm->skill2_sound();
 			tmp = onTile->dl;
 			dir = 1;
 			break;
 		case SDLK_c:
+			gm->sm->skill2_sound();
 			tmp = onTile->dr;
 			dir = 3;
 			break;
 		case SDLK_s:
+			gm->sm->skill2_sound();
 			tmp = onTile;
 			dir = 5;
 			break;
@@ -284,6 +298,7 @@ void Player::Skill(SDL_Event event) {
 				SpriteState = IDLE;
 				return;
 			}
+			gm->sm->skill3_sound();
 			stamina -= 10;
 			stbar->set_st(stamina);
 			gm->sm->player_atk_sound();
@@ -300,6 +315,7 @@ void Player::Skill(SDL_Event event) {
 					SpriteState = IDLE;
 					return;
 				}
+				gm->sm->skill3_sound();
 				stamina -= 10;
 				stbar->set_st(stamina);
 				gm->sm->player_atk_sound();
@@ -411,6 +427,7 @@ void Player::WallRun(SDL_Event event, GameManager* &gm) {
 				SpriteState = IDLE;
 				return;
 			}
+			gm->sm->skill2_sound();
 			stamina -= 40;
 			stbar->set_st(stamina);
 			move(tmp2);
@@ -564,6 +581,7 @@ void Player::HandleEvents() {
 				return;
 			}
 			if (SKillOn) {
+				gm->sm->charge_sound();
 				Skill(event);
 			}
 			else if (event.key.keysym.sym == SDLK_d) {

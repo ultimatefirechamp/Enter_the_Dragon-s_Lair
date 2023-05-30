@@ -130,6 +130,7 @@ void StartButton::Update() {
 					gm->Scenes[gm->CurrentPhase]->SceneReset();
 					gm->objCol.clear();
 					gm->CurrentPhase = INGAME;
+					gm->sm->stage_music();
 					gm->Scenes[gm->CurrentPhase]->InitScene();
 				}
 				else if (x > 965 &&

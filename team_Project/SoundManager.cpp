@@ -50,14 +50,14 @@ SoundManager::SoundManager() {
 	Mix_VolumeChunk(btn_click_se, SE_VOLUME);
 	Mix_VolumeChunk(btn_hold_se, SE_VOLUME);
 	Mix_VolumeChunk(move_se, SE_VOLUME);
-	Mix_VolumeChunk(player_atk_se, SE_VOLUME);
+	Mix_VolumeChunk(player_atk_se, 10);
 	Mix_VolumeChunk(player_dmg_se, SE_VOLUME);
 	Mix_VolumeChunk(player_die_se, SE_VOLUME);
 	Mix_VolumeChunk(monster_atk_se, SE_VOLUME);
 	Mix_VolumeChunk(monster_dmg_se, SE_VOLUME);
 	Mix_VolumeChunk(monster_die_se, SE_VOLUME);
 	Mix_VolumeChunk(phase_transition_se, SE_VOLUME);
-	Mix_VolumeChunk(charge_se, SE_VOLUME);
+	Mix_VolumeChunk(charge_se, 10);
 	Mix_VolumeChunk(skill1_se, SE_VOLUME);
 	Mix_VolumeChunk(skill2_se, SE_VOLUME);
 	Mix_VolumeChunk(skill3_se, SE_VOLUME);
@@ -124,7 +124,7 @@ void SoundManager::gameover_music()
 //페이즈 전환시 효과음 재생
 void SoundManager::phase_transition_sound()
 {
-	Mix_PlayChannel(1, phase_transition_se, 0);
+	Mix_PlayChannel(-1, phase_transition_se, 0);
 }
 
 //버튼 클릭 효과음 재생
@@ -160,7 +160,7 @@ void SoundManager::player_dmg_sound()
 //플레이어 사망 시 효과음 재생
 void SoundManager::player_die_sound()
 {
-	Mix_PlayChannel(1, player_die_se, 0);
+	Mix_PlayChannel(2, player_die_se, 0);
 }
 
 //몬스터가 공격 시 효과음 재생
