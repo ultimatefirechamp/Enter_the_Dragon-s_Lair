@@ -50,6 +50,7 @@ public:
 
 		hpbar->set_hp(hp);
 		hpbar->set_mh(max_hp);
+
 		stbar->set_st(stamina);
 		stbar->set_ms(MaxStamina);
 
