@@ -27,7 +27,8 @@ enum States
 enum Skills {
 	ONE_INCH_PUNCH,
 	DRAGON_KICK,
-	ONE_WILD_WIND
+	ONE_WILD_WIND,
+	STATUE_OF_HEAVEN
 };
 
 namespace objf {

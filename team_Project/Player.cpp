@@ -101,6 +101,82 @@ void Player::Skill(SDL_Event event) {
 
 	case DRAGON_KICK:
 		break;
+	case STATUE_OF_HEAVEN:
+
+		switch (event.key.keysym.sym)
+		{
+		case SDLK_KP_6:
+			tmp = onTile->r;
+			dir = 6;
+			break;
+		case SDLK_KP_4:
+			tmp = onTile->l;
+			dir = 4;
+			break;
+		case SDLK_KP_2:
+			tmp = onTile->d;
+			dir = 2;
+			break;
+		case SDLK_KP_8:
+			tmp = onTile->u;
+			dir = 8;
+			break;
+		case SDLK_KP_7:
+			tmp = onTile->ul;
+			dir = 7;
+			break;
+		case SDLK_KP_9:
+			tmp = onTile->ur;
+			dir = 9;
+			break;
+		case SDLK_KP_1:
+			tmp = onTile->dl;
+			dir = 1;
+			break;
+		case SDLK_KP_3:
+			tmp = onTile->dr;
+			dir = 3;
+			break;
+		case SDLK_KP_5:
+			tmp = onTile;
+			dir = 5;
+			break;
+		default:
+			break;
+		}
+		if (dir != 5 && tmp->onCharacter != NULL) {
+			gm->sm->player_atk_sound();
+			if (onTile->u->onCharacter != NULL)
+				onTile->u->onCharacter->GetDamaged(15);
+			if (onTile->d->onCharacter != NULL)
+				onTile->d->onCharacter->GetDamaged(15);
+			if (onTile->r->onCharacter != NULL)
+				onTile->r->onCharacter->GetDamaged(15);
+			if (onTile->l->onCharacter != NULL)
+				onTile->l->onCharacter->GetDamaged(15);
+			if (onTile->ul->onCharacter != NULL)
+				onTile->ul->onCharacter->GetDamaged(15);
+			if (onTile->ur->onCharacter != NULL)
+				onTile->ur->onCharacter->GetDamaged(15);
+			if (onTile->dl->onCharacter != NULL)
+				onTile->dl->onCharacter->GetDamaged(15);
+			if (onTile->dr->onCharacter != NULL)
+				onTile->dr->onCharacter->GetDamaged(15);
+			tmp->onCharacter->GetDamaged(15);
+			SpriteState = PUNCH;
+
+			SKillOn = false;
+			gm->P_Turn = false;
+		}
+		else if (dir != -1) {
+			SpriteState = IDLE;
+			move(onTile, dir);
+			SKillOn = false;
+			gm->P_Turn = false;
+		}
+
+
+		break;
 	case ONE_WILD_WIND:
 		switch (event.key.keysym.sym)
 		{
@@ -190,13 +266,15 @@ void Player::Render() {
 	hpbar->Render();
 }
 
-void Player::GetDamaged(int damage) {
+bool Player::GetDamaged(int damage) {
 	hp -= damage;
 	hpbar->set_hp(hp);
 	if (hp <= 0) {
 		IsAlive = false;
 		hp = 0;
+		return true;
 	}
+	return false;
 }
 
 void Player::move(Tile* tile, int dir) {
@@ -259,8 +337,6 @@ void Player::CheckIsThereEnemy() {
 	}
 	GameManager::getinstance()->P_Turn = false;
 }
-
-
 
 
 void Player::HandleEvents() {
@@ -374,6 +450,18 @@ void Player::HandleEvents() {
 			}
 			else if (event.key.keysym.sym == SDLK_w) {
 				SkillState = ONE_WILD_WIND;
+				SpriteState = PUNCH_READY;
+				SetMotion(SpriteState);
+				SKillOn = true;
+			}
+			else if (event.key.keysym.sym == SDLK_q) {
+				SkillState = ONE_INCH_PUNCH;
+				SpriteState = PUNCH_READY;
+				SetMotion(SpriteState);
+				SKillOn = true;
+			}
+			else if (event.key.keysym.sym == SDLK_e) {
+				SkillState = STATUE_OF_HEAVEN;
 				SpriteState = PUNCH_READY;
 				SetMotion(SpriteState);
 				SKillOn = true;

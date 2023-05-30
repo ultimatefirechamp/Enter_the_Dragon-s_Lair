@@ -51,7 +51,7 @@ public:
 
 	Tile* onTile;
 
-	void GetDamaged(int damage);
+	bool GetDamaged(int damage);
 
 	void move(Tile* tile, int dir);
 	void Attack(Character* monster);
