@@ -87,11 +87,13 @@ void Player::Skill(SDL_Event event) {
 			tmp->onCharacter->GetDamaged(40);
 			SpriteState = PUNCH;
 			SKillOn = false;
+			gm->P_Turn = false;
 		}
 		else if(dir != -1){
 			SpriteState = IDLE;
 			move(onTile, dir);
 			SKillOn = false;
+			gm->P_Turn = false;
 		}
 
 	}
@@ -104,34 +106,42 @@ void Player::Skill(SDL_Event event) {
 		{
 		case SDLK_KP_6:
 			tmp = onTile->r;
+			tmp2 = onTile->r->r;
 			dir = 6;
 			break;
 		case SDLK_KP_4:
 			tmp = onTile->l;
+			tmp2 = onTile->l->l;
 			dir = 4;
 			break;
 		case SDLK_KP_2:
 			tmp = onTile->d;
+			tmp2 = onTile->d->d;
 			dir = 2;
 			break;
 		case SDLK_KP_8:
 			tmp = onTile->u;
+			tmp2 = onTile->u->u;
 			dir = 8;
 			break;
 		case SDLK_KP_7:
 			tmp = onTile->ul;
+			tmp2 = onTile->ul->ul;
 			dir = 7;
 			break;
 		case SDLK_KP_9:
 			tmp = onTile->ur;
+			tmp2 = onTile->ur->ur;
 			dir = 9;
 			break;
 		case SDLK_KP_1:
 			tmp = onTile->dl;
+			tmp2 = onTile->dl->dl;
 			dir = 1;
 			break;
 		case SDLK_KP_3:
 			tmp = onTile->dr;
+			tmp2 = onTile->dr->dr;
 			dir = 3;
 			break;
 		case SDLK_KP_5:
@@ -141,10 +151,13 @@ void Player::Skill(SDL_Event event) {
 			break;
 		}
 		if (dir != 5 && tmp->onCharacter == NULL) {
-			gm->sm->player_atk_sound();
-			tmp->onCharacter->GetDamaged(40);
-			SpriteState = PUNCH;
-			SKillOn = false;
+			move(onTile, dir);
+			if (tmp2->onCharacter != NULL) {
+				gm->sm->player_atk_sound();
+				tmp2->onCharacter->GetDamaged(40);
+				SpriteState = PUNCH;
+				SKillOn = false;
+			}
 		}
 		else if (dir != -1) {
 			SpriteState = IDLE;
@@ -159,10 +172,12 @@ void Player::Skill(SDL_Event event) {
 
 void Player::Render() {
 	sprite_->Render();
+	hpbar->Render();
 }
 
 void Player::GetDamaged(int damage) {
 	hp -= damage;
+	hpbar->set_hp(hp);
 	if (hp <= 0) {
 		IsAlive = false;
 		hp = 0;
@@ -217,7 +232,7 @@ void Player::move(Tile* tile, int dir) {
 
 void Player::Attack(Character* monster) {
 	GameManager::getinstance()->sm->player_atk_sound();
-	monster->GetDamaged(10);
+	monster->GetDamaged(20);
 }
 
 void Player::CheckIsThereEnemy() {
@@ -237,6 +252,10 @@ void Player::HandleEvents() {
 	GameManager* gm = GameManager::getinstance();
 	SDL_Event event;
 	if (SDL_PollEvent(&event)) {
+		if (!gm->P_Turn) {
+			gm->P_Turn = true;
+			return;
+		}
 		switch (event.type) {
 		case SDL_QUIT:
 			gm->g_flag = false;
@@ -337,6 +356,12 @@ void Player::HandleEvents() {
 			}
 			else if (event.key.keysym.sym == SDLK_p) {
 				this->IsAlive = false;
+			}
+			else if (event.key.keysym.sym == SDLK_w) {
+				SkillState = ONE_WILD_WIND;
+				SpriteState = PUNCH_READY;
+				SetMotion(SpriteState);
+				SKillOn = true;
 			}
 			gm->p_x = trs->x;
 			gm->p_y = trs->y;

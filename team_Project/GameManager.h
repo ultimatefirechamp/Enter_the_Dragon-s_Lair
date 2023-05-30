@@ -26,6 +26,8 @@ public:
 	bool g_flag;
 	bool P_Turn;
 	int p_x, p_y;
+	int SpawnPoint_x, SpawnPoint_y;
+
 
 	void InitMap();
 

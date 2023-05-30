@@ -32,12 +32,19 @@ public:
 		addComponent(input_);
 		sprite_ = objf::CreateComp<SpriteComponent>("SpriteComponent");
 		addComponent(sprite_);
+		hpbar = objf::CreateComp<HPBAR>("HPBAR");
+		addComponent(hpbar);
 		sprite_->InitSprite("./resource/GP_MainSheet.png");
 		sprite_->SetSpriteRect(0, 96, 24, 24);
 		trs->SetSize(100, 100);
 		SpriteState = IDLE;
 		SKillOn = false;
 		GameOverScreenOn = false;
+		this->hp = 100;
+		this->max_hp = 100;
+		hpbar->set_hp(hp);
+		hpbar->set_mh(max_hp);
+
 	}
 
 	~Player();
@@ -76,5 +83,6 @@ public:
 private:
 	InputComponent* input_;
 	SpriteComponent* sprite_;
+	HPBAR* hpbar;
 };
 
