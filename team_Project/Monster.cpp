@@ -4,7 +4,7 @@ void Monster::Render() {
 	sprite_->Render();
 	hpbar->Render();
 }
-void Monster::GetDamaged(int damage) {
+bool Monster::GetDamaged(int damage) {
 	hp -= damage;
 	hpbar->set_hp(hp);
 	std::cout << "HP : " << hp << " monster jonna cheo majat Sawyo!\n";
@@ -14,7 +14,9 @@ void Monster::GetDamaged(int damage) {
 		IsOn = false;
 		onTile->onCharacter = NULL;
 		hp = 0;
+		return true;
 	}
+	return false;
 }
 
 void Monster::SetPos(int x, int y) {

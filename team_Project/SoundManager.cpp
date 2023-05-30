@@ -3,9 +3,9 @@
 #include <iostream>
 
 //bgm 볼륨조절
-#define VOLUME 30
+#define VOLUME 10
 //효과음 볼륨조절
-#define SE_VOLUME 50
+#define SE_VOLUME 20
 
 SoundManager::SoundManager() {
 	if (Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, 2, 4096) == -1) {

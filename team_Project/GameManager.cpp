@@ -9,9 +9,12 @@ GameManager::GameManager() {
 	p_y = 0;
 	P_Turn = true;
 	CurrentPhase = 0;
+	Scenes.push_back(new IntroStory());
 	Scenes.push_back(new Intro());
 	Scenes.push_back(new InGameScene());
+	Scenes.push_back(new Ending());
 	sm = new SoundManager();
+	
 }
 
 GameManager::~GameManager() {
@@ -24,7 +27,7 @@ void GameManager::InitScenes() {
 		scene->InitScene();
 		scene->objCol = this->objCol;
 	}*/
-	CurrentPhase = INTRO;
+	CurrentPhase = INTRO_STORY;
 	Scenes[CurrentPhase]->InitScene();
 	this->objCol = Scenes[CurrentPhase]->objCol;
 }
@@ -58,8 +61,14 @@ void GameManager::LoadMap(const char* path) {
 				tmp_t = new Floor("Floor", r, c);
 				break;
 			case '3':
+				SpawnPoint_x = r;
+				SpawnPoint_y = c;
 				tmp_t = new Floor("Floor", r, c);
 				break;
+			case '4':
+				tmp_t = new Floor("Floor", r, c);
+				coordinate tmp_c = coordinate { r,c };
+				MonsterSpawnPoints.push_back(tmp_c);
 			default:
 				break;
 			}

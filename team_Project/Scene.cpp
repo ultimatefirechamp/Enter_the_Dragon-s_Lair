@@ -2,12 +2,12 @@
 #include "Scene.h"
 
 
-
+// ��Ʈ��
 Intro::Intro() {
 
 }
 void Intro::InitScene() {
-	objCol.push_back(objf::CreateObj<BackGround>("BackGround"));
+	objCol.push_back(objf::CreateObj<IntroBackGround>("IntroBackGround"));
 }
 void Intro::SceneReset() {
 	objCol.clear();
@@ -21,9 +21,21 @@ void Picture::Render() {
 	SDL_RenderCopy(gm->g_renderer, sprite_->textr, &sprite_->sr, &tmp);
 }
 
-void BackGround::Update() {
+
+void IntroBackGround::Update() {
+
 	if (Iflag) {
 		return;
+	}
+	SDL_Event event;
+	if (SDL_PollEvent(&event)) {
+		switch (event.type)
+		{
+		case SDL_QUIT:
+			GameManager::getinstance()->g_flag = false;
+		default:
+			break;
+		}
 	}
 	if (i < 255) {
 		SDL_SetTextureAlphaMod(getSprite()->textr, i);
@@ -40,8 +52,19 @@ void BackGround::Update() {
 }
 
 void TitleLogo::Update() {
+	
 	if (Iflag) {
 		return;
+	}
+	SDL_Event event;
+	if (SDL_PollEvent(&event)) {
+		switch (event.type)
+		{
+		case SDL_QUIT:
+			GameManager::getinstance()->g_flag = false;
+		default:
+			break;
+		}
 	}
 	if (trs->x > 0) {
 		trs->x -= 30;
@@ -52,8 +75,19 @@ void TitleLogo::Update() {
 	}
 }
 void CharacterTitle::Update() {
+	
 	if (Iflag) {
 		return;
+	}
+	SDL_Event event;
+	if (SDL_PollEvent(&event)) {
+		switch (event.type)
+		{
+		case SDL_QUIT:
+			GameManager::getinstance()->g_flag = false;
+		default:
+			break;
+		}
 	}
 	if (trs->x < 0) {
 		trs->x += 35;
@@ -88,5 +122,66 @@ void StartButton::Update() {
 	else if (trs->x <= 0) {
 		trs->x = 0;
 		Iflag = true;
+	}
+}
+
+
+Ending::Ending() {
+
+}
+
+void Ending::InitScene() {
+	objCol.push_back(objf::CreateObj<EndingBackGround>("EndingBackGround"));
+}
+
+void Ending::SceneReset() {
+	objCol.clear();
+}
+
+void EndingBackGround::Update() {
+	GameManager* gm = GameManager::getinstance();
+	SDL_Event event;
+	if (SDL_PollEvent(&event)) {
+		switch (event.type) {
+		case SDL_MOUSEBUTTONDOWN:
+			gm->CurrentPhase = INTRO;
+			break;
+		}
+	}
+}
+
+
+IntroStory::IntroStory() {
+
+}
+
+void IntroStory::InitScene(){
+	objCol.push_back(objf::CreateObj<StoryScene>("StoryScene"));
+}
+
+void IntroStory::SceneReset() {
+	objCol.clear();
+}
+
+void StoryScene::Update() {
+	GameManager* gm = GameManager::getinstance();
+	SDL_Event event;
+	if (SDL_PollEvent(&event)) {
+		switch (event.type) {
+		case SDL_QUIT:
+			gm->g_flag = false;
+		case SDL_MOUSEBUTTONDOWN:
+			if (i == 10) {
+				gm->Scenes[gm->CurrentPhase]->SceneReset();
+				gm->CurrentPhase = INTRO;
+				gm->Scenes[gm->CurrentPhase]->InitScene();
+				gm->objCol = gm->Scenes[gm->CurrentPhase]->objCol;
+			}
+			else {
+				i += 1;
+				ChangeScene(scene[i]);
+			}
+			break;
+		}
 	}
 }
