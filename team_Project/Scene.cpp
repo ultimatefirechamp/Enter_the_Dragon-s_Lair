@@ -143,8 +143,15 @@ void EndingBackGround::Update() {
 	SDL_Event event;
 	if (SDL_PollEvent(&event)) {
 		switch (event.type) {
+		case SDL_QUIT:
+			gm->g_flag = false;
+			break;
 		case SDL_MOUSEBUTTONDOWN:
+			gm->sm->intro_music();
+			gm->Scenes[gm->CurrentPhase]->SceneReset();
 			gm->CurrentPhase = INTRO;
+			gm->Scenes[gm->CurrentPhase]->InitScene();
+			gm->objCol = gm->Scenes[gm->CurrentPhase]->objCol;
 			break;
 		}
 	}

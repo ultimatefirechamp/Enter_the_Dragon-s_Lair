@@ -22,6 +22,16 @@ private:
 	SpriteComponent* sprite_;
 };
 
+class EndingChanger : public Object {
+public:
+	EndingChanger(std::string name) : Object(name) {
+
+	}
+	void Update();
+	void Render() {}
+
+};
+
 class Player : public Character
 {
 public:
@@ -47,7 +57,8 @@ public:
 		this->max_hp = 100;
 		MaxStamina = 100;
 		stamina = 100;
-
+		MonsterNumber = 5;
+		
 		hpbar->set_hp(hp);
 		hpbar->set_mh(max_hp);
 
@@ -70,6 +81,10 @@ public:
 	void CheckIsThereEnemy();
 
 	void Update() {
+		if (MonsterNumber == 0) {
+			objf::CreateObj<EndingChanger>("EndingChanger");
+			GameManager::getinstance()->sm->ending_music();
+		}
 		if (!IsAlive) {
 			if (GameOverScreenOn) {
 				return;
@@ -78,8 +93,9 @@ public:
 			GameManager::getinstance()->sm->gameover_music();
 			GameOverScreenOn = true;
 		}
-		else
+		else {
 			HandleEvents();
+		}
 	}
 	void HandleEvents();
 	void SetMotion(States st);
@@ -90,6 +106,7 @@ public:
 	bool GameOverScreenOn;
 	int MaxStamina;
 	int stamina;
+	int MonsterNumber;
 
 	Skills SkillState;
 	States SpriteState;

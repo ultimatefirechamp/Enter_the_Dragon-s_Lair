@@ -8,6 +8,17 @@ Player::~Player() {
 
 }
 
+
+void EndingChanger::Update() {
+	GameManager* gm = GameManager::getinstance();
+	gm->Scenes[gm->CurrentPhase]->SceneReset();
+	gm->CurrentPhase = ENDING;
+	gm->Scenes[gm->CurrentPhase]->InitScene();
+	gm->objCol.clear();
+	gm->objCol = gm->Scenes[gm->CurrentPhase]->objCol;
+	return;
+}
+
 void Player::move(Tile* tar) {
 	onTile->onCharacter = NULL;
 	onTile = tar;
@@ -484,6 +495,7 @@ void Player::move(Tile* tile, int dir) {
 void Player::Attack(Character* monster) {
 	GameManager::getinstance()->sm->player_atk_sound();
 	if (monster->GetDamaged(20)) {
+		MonsterNumber--;
 		stamina += 33;
 		hp += 20;
 		hp = std::min(hp, max_hp);
@@ -495,6 +507,7 @@ void Player::Attack(Character* monster) {
 void Player::Attack(Character* monster, int dam) {
 	GameManager::getinstance()->sm->player_atk_sound();
 	if (monster->GetDamaged(dam)) {
+		MonsterNumber--;
 		stamina += 33;
 		hp += 33;
 		hp = std::min(hp, max_hp);
@@ -663,6 +676,9 @@ void Player::HandleEvents() {
 				SpriteState = PUNCH_READY;
 				SetMotion(SpriteState);
 				SKillOn = true;
+			}
+			else if (event.key.keysym.sym == SDLK_m) {
+				MonsterNumber = 0;
 			}
 			gm->p_x = trs->x;
 			gm->p_y = trs->y;
