@@ -44,7 +44,7 @@ void Monster::Update() {
 			move(gm->map->GetMap()[x]->tiles[y]);
 		}
 		else {
-			gm->map->GetMap()[x]->tiles[y]->onCharacter->GetDamaged(10);
+			gm->map->GetMap()[x]->tiles[y]->onCharacter->GetDamaged(7);
 		}
 
 	}

@@ -34,6 +34,9 @@ public:
 		addComponent(sprite_);
 		hpbar = objf::CreateComp<HPBAR>("HPBAR");
 		addComponent(hpbar);
+		stbar = objf::CreateComp<STBAR>("STBAR");
+		addComponent(stbar);
+
 		sprite_->InitSprite("./resource/GP_MainSheet.png");
 		sprite_->SetSpriteRect(0, 96, 24, 24);
 		trs->SetSize(100, 100);
@@ -47,6 +50,8 @@ public:
 
 		hpbar->set_hp(hp);
 		hpbar->set_mh(max_hp);
+		stbar->set_st(stamina);
+		stbar->set_ms(MaxStamina);
 
 	}
 
@@ -93,5 +98,6 @@ private:
 	InputComponent* input_;
 	SpriteComponent* sprite_;
 	HPBAR* hpbar;
+	STBAR* stbar;
 };
 

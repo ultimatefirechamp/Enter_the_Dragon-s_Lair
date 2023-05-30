@@ -39,6 +39,19 @@ public:
 	void set_hp(int h);
 };
 
+class STBAR : public Component {
+public:
+	STBAR(std::string name) : Component(name) {}
+	int max_st;
+	int st;
+	SDL_Color bg_clr;
+	SDL_Color clr;
+	void Update() {}
+	void Render();
+	void set_ms(int ms);
+	void set_st(int s);
+};
+
 class transform : public Component {
 public:
 	transform(std::string name) : Component(name) {}

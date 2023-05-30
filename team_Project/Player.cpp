@@ -103,6 +103,7 @@ void Player::Skill(SDL_Event event) {
 				return;
 			}
 			stamina -= 20;
+			stbar->set_st(stamina);
 			gm->sm->player_atk_sound();
 			Attack(tmp->onCharacter, 40);
 			SpriteState = PUNCH;
@@ -174,6 +175,7 @@ void Player::Skill(SDL_Event event) {
 				return;
 			}
 			stamina -= 40;
+			stbar->set_st(stamina);
 			gm->sm->player_atk_sound();
 			if (onTile->u->onCharacter != NULL)
 				Attack(onTile->u->onCharacter,15);
@@ -266,6 +268,7 @@ void Player::Skill(SDL_Event event) {
 				return;
 			}
 			stamina -= 10;
+			stbar->set_st(stamina);
 			gm->sm->player_atk_sound();
 			Attack(tmp->onCharacter,15);
 			SpriteState = PUNCH;
@@ -281,6 +284,7 @@ void Player::Skill(SDL_Event event) {
 					return;
 				}
 				stamina -= 10;
+				stbar->set_st(stamina);
 				gm->sm->player_atk_sound();
 				tmp2->onCharacter->GetDamaged(40);
 				SpriteState = PUNCH;
@@ -373,6 +377,7 @@ void Player::WallRun(SDL_Event event, GameManager* &gm) {
 				return;
 			}
 			stamina -= 40;
+			stbar->set_st(stamina);
 			move(tmp2);
 			gm->sm->player_atk_sound();
 			if (onTile->u->onCharacter != NULL)
@@ -410,6 +415,7 @@ void Player::WallRun(SDL_Event event, GameManager* &gm) {
 void Player::Render() {
 	sprite_->Render();
 	hpbar->Render();
+	stbar->Render();
 }
 
 bool Player::GetDamaged(int damage) {
@@ -477,16 +483,18 @@ void Player::Attack(Character* monster) {
 		hp = std::min(hp, max_hp);
 		stamina = std::min(stamina, MaxStamina);
 		hpbar->set_hp(hp);
+		stbar->set_st(stamina);
 	}
 }
 void Player::Attack(Character* monster, int dam) {
 	GameManager::getinstance()->sm->player_atk_sound();
 	if (monster->GetDamaged(dam)) {
-		stamina += 20;
+		stamina += 33;
 		hp += 33;
 		hp = std::min(hp, max_hp);
 		stamina = std::min(stamina, MaxStamina);
 		hpbar->set_hp(hp);
+		stbar->set_st(stamina);
 	}
 }
 
@@ -528,6 +536,8 @@ void Player::HandleEvents() {
 				}
 				else if (onTile->r->onCharacter != NULL) {
 					Attack(onTile->r->onCharacter);
+					stamina += 10;
+					stamina = std::min(stamina, MaxStamina);
 				}
 				gm->P_Turn = false;
 			}
@@ -542,6 +552,8 @@ void Player::HandleEvents() {
 				}
 				else if (onTile->u->onCharacter != NULL) {
 					Attack(onTile->u->onCharacter);
+					stamina += 10;
+					stamina = std::min(stamina, MaxStamina);
 				}
 				gm->P_Turn = false;
 			}
@@ -552,6 +564,8 @@ void Player::HandleEvents() {
 				}
 				else if (onTile->d->onCharacter != NULL) {
 					Attack(onTile->d->onCharacter);
+					stamina += 10;
+					stamina = std::min(stamina, MaxStamina);
 				}
 				gm->P_Turn = false;
 			}
@@ -562,6 +576,8 @@ void Player::HandleEvents() {
 				}
 				else if (onTile->l->onCharacter != NULL) {
 					Attack(onTile->l->onCharacter);
+					stamina += 10;
+					stamina = std::min(stamina, MaxStamina);
 				}
 				gm->P_Turn = false;
 			}
@@ -572,6 +588,8 @@ void Player::HandleEvents() {
 				}
 				else if (onTile->dl->onCharacter != NULL) {
 					Attack(onTile->dl->onCharacter);
+					stamina += 10;
+					stamina = std::min(stamina, MaxStamina);
 				}
 				gm->P_Turn = false;
 			}
@@ -583,6 +601,8 @@ void Player::HandleEvents() {
 				}
 				else if (onTile->dr->onCharacter != NULL) {
 					Attack(onTile->dr->onCharacter);
+					stamina += 10;
+					stamina = std::min(stamina, MaxStamina);
 				}
 				gm->P_Turn = false;
 			}
@@ -594,6 +614,8 @@ void Player::HandleEvents() {
 				}
 				else if (onTile->ul->onCharacter != NULL) {
 					Attack(onTile->ul->onCharacter);
+					stamina += 10;
+					stamina = std::min(stamina, MaxStamina);
 				}
 				gm->P_Turn = false;
 			}
@@ -604,6 +626,8 @@ void Player::HandleEvents() {
 				}
 				else if (onTile->ur->onCharacter != NULL) {
 					Attack(onTile->ur->onCharacter);
+					stamina += 10;
+					stamina = std::min(stamina, MaxStamina);
 				}
 				gm->P_Turn = false;
 			}
@@ -636,17 +660,12 @@ void Player::HandleEvents() {
 			}
 			gm->p_x = trs->x;
 			gm->p_y = trs->y;
+			stbar->set_st(stamina);
 			SetMotion(SpriteState);
 			break;
 		case SDL_KEYUP:
 			break;
 		case SDL_MOUSEBUTTONDOWN:
-			if (event.button.button == SDL_BUTTON_RIGHT) {
-				SkillState = ONE_INCH_PUNCH;
-				SpriteState = PUNCH_READY;
-				SetMotion(SpriteState);
-				SKillOn = true;
-			}
 			break;
 		case SDL_MOUSEBUTTONUP:
 			break;
