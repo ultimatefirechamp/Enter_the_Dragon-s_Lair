@@ -25,6 +25,7 @@ void InGameScene::InitScene() {
 	m_tmp->SetPos(6, 7);
 	m_tmp->SetThisCharacterOnTile(6, 7);
 }
+
 void InGameScene::SceneReset() {
 	GameManager* gm = GameManager::getinstance();
 	gm->map->GetMap().clear();
