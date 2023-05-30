@@ -11,6 +11,7 @@ public:
 	virtual void SceneReset() = 0;
 };
 
+// 인트로
 class Intro : public Scene {
 public:
 	Intro();
@@ -31,9 +32,9 @@ private:
 	SpriteComponent* sprite_;
 };
 
-class BackGround : public Picture {
+class IntroBackGround : public Picture {
 public:
-	BackGround(std::string name) : Picture(name) {
+	IntroBackGround(std::string name) : Picture(name) {
 		getSprite()->InitSprite("./resource/start_background.png");
 		getSprite()->SetSpriteRect(0, 0, 320, 180);
 		SDL_SetTextureAlphaMod(getSprite()->textr, 0);
@@ -92,4 +93,25 @@ public:
 	void Update();
 private:
 	bool Iflag = false;
+};
+
+// 엔딩
+class Ending : public Scene {
+public:
+	Ending();
+	virtual void InitScene();
+};
+
+class EndingBackGround : public Picture {
+public:
+	EndingBackGround(std::string name) : Picture(name) {
+		getSprite()->InitSprite("./resource/Winning.png");
+		getSprite()->SetSpriteRect(0, 0, 320, 180);
+		trs = objf::CreateObj<transform>("transform");
+		addComponent(trs);
+		trs->SetPos(0, 0);
+		trs->SetSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+	}
+
+	void Update();
 };

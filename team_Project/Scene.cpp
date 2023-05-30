@@ -2,12 +2,12 @@
 #include "Scene.h"
 
 
-
+// 인트로
 Intro::Intro() {
 
 }
 void Intro::InitScene() {
-	objCol.push_back(objf::CreateObj<BackGround>("BackGround"));
+	objCol.push_back(objf::CreateObj<IntroBackGround>("IntroBackGround"));
 }
 void Intro::SceneReset() {
 	objCol.clear();
@@ -21,7 +21,7 @@ void Picture::Render() {
 	SDL_RenderCopy(gm->g_renderer, sprite_->textr, &sprite_->sr, &tmp);
 }
 
-void BackGround::Update() {
+void IntroBackGround::Update() {
 	if (Iflag) {
 		return;
 	}
@@ -88,5 +88,26 @@ void StartButton::Update() {
 	else if (trs->x <= 0) {
 		trs->x = 0;
 		Iflag = true;
+	}
+}
+
+// 엔딩
+Ending::Ending() {
+
+}
+
+void Ending::InitScene() {
+	objCol.push_back(objf::CreateObj<EndingBackGround>("EndingBackGround"));
+}
+
+void EndingBackGround::Update() {
+	GameManager* gm = GameManager::getinstance();
+	SDL_Event event;
+	if (SDL_PollEvent(&event)) {
+		switch (event.type) {
+		case SDL_MOUSEBUTTONDOWN:
+			gm->CurrentPhase = INTRO;
+			break;
+		}
 	}
 }
