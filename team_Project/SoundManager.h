@@ -7,6 +7,7 @@ class SoundManager
 public:
 	SoundManager();
 	~SoundManager();
+	void cutscene_music();
 	void intro_music();
 	void stage_music();
 	void ending_music();
@@ -26,6 +27,7 @@ public:
 	void skill2_sound();
 	void skill3_sound();
 private:
+	Mix_Music* cutscene_bgm;
 	Mix_Music* intro_bgm;
 	Mix_Music* stage_bgm;
 	Mix_Music* ending_bgm;

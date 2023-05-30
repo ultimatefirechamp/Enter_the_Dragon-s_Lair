@@ -12,6 +12,10 @@ SoundManager::SoundManager() {
 		std::cout << "Mix_OpenAudio " << Mix_GetError() << std::endl;
 		exit(1);
 	}
+	cutscene_bgm = Mix_LoadMUS("./resource/cutscene.mp3");
+	if (cutscene_bgm == 0) {
+		std::cout << "Mix_LoadMUS(\"cutscene.mp3\"): " << Mix_GetError() << std::endl;
+	}
 	intro_bgm = Mix_LoadMUS("./resource/Start_Theme.mp3");
 	if (intro_bgm == 0) {
 		std::cout << "Mix_LoadMUS(\"StartTheme.mp3\"): " << Mix_GetError() << std::endl;
@@ -60,6 +64,7 @@ SoundManager::SoundManager() {
 }
 
 SoundManager::~SoundManager() {
+	Mix_FreeMusic(cutscene_bgm);
 	Mix_FreeMusic(intro_bgm);
 	Mix_FreeMusic(stage_bgm);
 	Mix_FreeMusic(ending_bgm);
@@ -80,7 +85,15 @@ SoundManager::~SoundManager() {
 	Mix_FreeChunk(skill3_se);
 	Mix_CloseAudio();
 }
-//인트로 화면 bgm 재생
+
+//컷씬 bgm 재생
+void SoundManager::cutscene_music()
+{
+	Mix_HaltChannel(-1);
+	Mix_PlayMusic(cutscene_bgm, -1);
+}
+
+//시작 화면 bgm 재생
 void SoundManager::intro_music()
 {
 	Mix_HaltChannel(-1);
