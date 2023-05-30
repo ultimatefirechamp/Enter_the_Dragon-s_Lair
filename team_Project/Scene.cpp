@@ -223,6 +223,7 @@ void StoryScene::Update() {
 				gm->CurrentPhase = INTRO;
 				gm->Scenes[gm->CurrentPhase]->InitScene();
 				gm->objCol = gm->Scenes[gm->CurrentPhase]->objCol;
+				gm->sm->intro_music();
 			}
 			else {
 				i += 1;
