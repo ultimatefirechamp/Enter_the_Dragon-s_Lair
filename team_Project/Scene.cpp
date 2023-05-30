@@ -2,7 +2,7 @@
 #include "Scene.h"
 
 
-// ��Ʈ��
+
 Intro::Intro() {
 
 }

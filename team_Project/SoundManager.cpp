@@ -24,7 +24,7 @@ SoundManager::SoundManager() {
 	if (ending_bgm == 0) {
 		std::cout << "Mix_LoadMUS(\"ending.mp3\"): " << Mix_GetError() << std::endl;
 	}
-	gameover_bgm = Mix_LoadMUS("./resource/gameover.mp3");
+	gameover_bgm = Mix_LoadMUS("./resource/gameover_alt.mp3");
 	if (gameover_bgm == 0) {
 		std::cout << "Mix_LoadMUS(\"gameover.mp3\"): " << Mix_GetError() << std::endl;
 	}

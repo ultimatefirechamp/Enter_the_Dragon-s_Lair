@@ -42,6 +42,9 @@ public:
 		GameOverScreenOn = false;
 		this->hp = 100;
 		this->max_hp = 100;
+		MaxStamina = 100;
+		stamina = 100;
+
 		hpbar->set_hp(hp);
 		hpbar->set_mh(max_hp);
 
@@ -54,7 +57,9 @@ public:
 	bool GetDamaged(int damage);
 
 	void move(Tile* tile, int dir);
+	void move(Tile* tar);
 	void Attack(Character* monster);
+	void Attack(Character* monster, int dam);
 
 	void CheckIsThereEnemy();
 
@@ -64,6 +69,7 @@ public:
 				return;
 			}
 			objf::CreateObj<GameOverScreen>("GameOverScreen");
+			GameManager::getinstance()->sm->gameover_music();
 			GameOverScreenOn = true;
 		}
 		else
@@ -71,10 +77,13 @@ public:
 	}
 	void HandleEvents();
 	void SetMotion(States st);
+	void WallRun(SDL_Event event, GameManager* &gm);
 
 	void Skill(SDL_Event event);
 	bool SKillOn;
 	bool GameOverScreenOn;
+	int MaxStamina;
+	int stamina;
 
 	Skills SkillState;
 	States SpriteState;
