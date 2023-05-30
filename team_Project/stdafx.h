@@ -1,5 +1,4 @@
 #pragma once
-#include"Components.h"
 #include"Map.h"
 #include"GameManager.h"
 #include"Object.h"
@@ -8,3 +7,4 @@
 #include"Scene.h"
 #include"InGameScene.h"
 #include"Tile.h"
+#include"UI.h"
