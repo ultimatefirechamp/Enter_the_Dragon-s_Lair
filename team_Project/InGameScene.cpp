@@ -9,6 +9,7 @@ void InGameScene::InitScene() {
 	gm->map->SetTile();
 	Player* tmp =
 	objf::CreateObj<Player>("Player");
+	gm->ui_ = objf::CreateObj<UI>("UI");
 	int x, y;
 	x = 10;
 	y = 10;
@@ -31,6 +32,7 @@ void InGameScene::SceneReset() {
 	delete(gm->map);
 	delete(gm->PF);
 	delete(gm->path);
+	delete(gm->ui_);
 	objCol.clear();
 }
 
