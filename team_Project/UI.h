@@ -9,6 +9,7 @@ public:
 		addComponent(sprite_);
 		sprite_->InitSprite("./resource/GP_MainSheet.png");
 		sprite_->SetSpriteRect(2, 156, 159, 42);
+		SDL_SetTextureAlphaMod(sprite_->textr, 30);
 	}
 
 	void Update();
