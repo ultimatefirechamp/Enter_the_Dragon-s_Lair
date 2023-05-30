@@ -2,7 +2,7 @@
 #include "Scene.h"
 
 
-// 인트로
+
 Intro::Intro() {
 
 }
@@ -21,9 +21,21 @@ void Picture::Render() {
 	SDL_RenderCopy(gm->g_renderer, sprite_->textr, &sprite_->sr, &tmp);
 }
 
+
 void IntroBackGround::Update() {
+
 	if (Iflag) {
 		return;
+	}
+	SDL_Event event;
+	if (SDL_PollEvent(&event)) {
+		switch (event.type)
+		{
+		case SDL_QUIT:
+			GameManager::getinstance()->g_flag = false;
+		default:
+			break;
+		}
 	}
 	if (i < 255) {
 		SDL_SetTextureAlphaMod(getSprite()->textr, i);
@@ -40,8 +52,19 @@ void IntroBackGround::Update() {
 }
 
 void TitleLogo::Update() {
+	
 	if (Iflag) {
 		return;
+	}
+	SDL_Event event;
+	if (SDL_PollEvent(&event)) {
+		switch (event.type)
+		{
+		case SDL_QUIT:
+			GameManager::getinstance()->g_flag = false;
+		default:
+			break;
+		}
 	}
 	if (trs->x > 0) {
 		trs->x -= 30;
@@ -52,8 +75,19 @@ void TitleLogo::Update() {
 	}
 }
 void CharacterTitle::Update() {
+	
 	if (Iflag) {
 		return;
+	}
+	SDL_Event event;
+	if (SDL_PollEvent(&event)) {
+		switch (event.type)
+		{
+		case SDL_QUIT:
+			GameManager::getinstance()->g_flag = false;
+		default:
+			break;
+		}
 	}
 	if (trs->x < 0) {
 		trs->x += 35;
@@ -91,7 +125,7 @@ void StartButton::Update() {
 	}
 }
 
-// 엔딩
+
 Ending::Ending() {
 
 }
@@ -116,7 +150,7 @@ void EndingBackGround::Update() {
 	}
 }
 
-// 처음 킬때 나오는 스토리
+
 IntroStory::IntroStory() {
 
 }
@@ -134,9 +168,14 @@ void StoryScene::Update() {
 	SDL_Event event;
 	if (SDL_PollEvent(&event)) {
 		switch (event.type) {
+		case SDL_QUIT:
+			gm->g_flag = false;
 		case SDL_MOUSEBUTTONDOWN:
-			if (i == 11) {
-					gm->CurrentPhase = INTRO;
+			if (i == 10) {
+				gm->Scenes[gm->CurrentPhase]->SceneReset();
+				gm->CurrentPhase = INTRO;
+				gm->Scenes[gm->CurrentPhase]->InitScene();
+				gm->objCol = gm->Scenes[gm->CurrentPhase]->objCol;
 			}
 			else {
 				i += 1;

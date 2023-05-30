@@ -18,5 +18,5 @@ public:
 
 	virtual void move(Tile* tile, int dir) = 0;
 	virtual void Update() = 0;
-	virtual void GetDamaged(int damage) = 0;
+	virtual bool GetDamaged(int damage) = 0;
 };

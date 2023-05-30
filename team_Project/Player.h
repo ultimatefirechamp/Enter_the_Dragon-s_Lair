@@ -34,6 +34,9 @@ public:
 		addComponent(sprite_);
 		hpbar = objf::CreateComp<HPBAR>("HPBAR");
 		addComponent(hpbar);
+		stbar = objf::CreateComp<STBAR>("STBAR");
+		addComponent(stbar);
+
 		sprite_->InitSprite("./resource/GP_MainSheet.png");
 		sprite_->SetSpriteRect(0, 96, 24, 24);
 		trs->SetSize(100, 100);
@@ -42,18 +45,27 @@ public:
 		GameOverScreenOn = false;
 		this->hp = 100;
 		this->max_hp = 100;
+		MaxStamina = 100;
+		stamina = 100;
+
 		hpbar->set_hp(hp);
 		hpbar->set_mh(max_hp);
+
+		stbar->set_st(stamina);
+		stbar->set_ms(MaxStamina);
+
 	}
 
 	~Player();
 
 	Tile* onTile;
 
-	void GetDamaged(int damage);
+	bool GetDamaged(int damage);
 
 	void move(Tile* tile, int dir);
+	void move(Tile* tar);
 	void Attack(Character* monster);
+	void Attack(Character* monster, int dam);
 
 	void CheckIsThereEnemy();
 
@@ -63,6 +75,7 @@ public:
 				return;
 			}
 			objf::CreateObj<GameOverScreen>("GameOverScreen");
+			GameManager::getinstance()->sm->gameover_music();
 			GameOverScreenOn = true;
 		}
 		else
@@ -70,10 +83,13 @@ public:
 	}
 	void HandleEvents();
 	void SetMotion(States st);
+	void WallRun(SDL_Event event, GameManager* &gm);
 
 	void Skill(SDL_Event event);
 	bool SKillOn;
 	bool GameOverScreenOn;
+	int MaxStamina;
+	int stamina;
 
 	Skills SkillState;
 	States SpriteState;
@@ -83,5 +99,6 @@ private:
 	InputComponent* input_;
 	SpriteComponent* sprite_;
 	HPBAR* hpbar;
+	STBAR* stbar;
 };
 
