@@ -44,7 +44,6 @@ public:
 		this->max_hp = 100;
 		hpbar->set_hp(hp);
 		hpbar->set_mh(max_hp);
-
 	}
 
 	~Player();
