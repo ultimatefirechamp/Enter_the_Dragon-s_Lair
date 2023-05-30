@@ -100,6 +100,10 @@ void Ending::InitScene() {
 	objCol.push_back(objf::CreateObj<EndingBackGround>("EndingBackGround"));
 }
 
+void Ending::SceneReset() {
+	objCol.clear();
+}
+
 void EndingBackGround::Update() {
 	GameManager* gm = GameManager::getinstance();
 	SDL_Event event;
@@ -107,6 +111,37 @@ void EndingBackGround::Update() {
 		switch (event.type) {
 		case SDL_MOUSEBUTTONDOWN:
 			gm->CurrentPhase = INTRO;
+			break;
+		}
+	}
+}
+
+// 처음 킬때 나오는 스토리
+IntroStory::IntroStory() {
+
+}
+
+void IntroStory::InitScene(){
+	objCol.push_back(objf::CreateObj<StoryScene>("StoryScene"));
+}
+
+void IntroStory::SceneReset() {
+	objCol.clear();
+}
+
+void StoryScene::Update() {
+	GameManager* gm = GameManager::getinstance();
+	SDL_Event event;
+	if (SDL_PollEvent(&event)) {
+		switch (event.type) {
+		case SDL_MOUSEBUTTONDOWN:
+			if (i == 11) {
+					gm->CurrentPhase = INTRO;
+			}
+			else {
+				i += 1;
+				ChangeScene(scene[i]);
+			}
 			break;
 		}
 	}

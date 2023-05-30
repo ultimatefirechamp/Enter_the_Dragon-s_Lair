@@ -100,6 +100,7 @@ class Ending : public Scene {
 public:
 	Ending();
 	virtual void InitScene();
+	virtual void SceneReset();
 };
 
 class EndingBackGround : public Picture {
@@ -114,4 +115,46 @@ public:
 	}
 
 	void Update();
+};
+
+// 처음 킬때 나오는 스토리
+class IntroStory : public Scene {
+public:
+	IntroStory();
+	virtual void InitScene();
+	virtual void SceneReset();
+};
+
+class StoryScene : public Picture {
+public:
+	StoryScene(std::string name) : Picture(name) {
+		scene[0] = "./resource/intro_story/int1.png";
+		scene[1] = "./resource/intro_story/int2.png";
+		scene[2] = "./resource/intro_story/int3.png";
+		scene[3] = "./resource/intro_story/int4.png";
+		scene[4] = "./resource/intro_story/int5.png";
+		scene[5] = "./resource/intro_story/int6.png";
+		scene[6] = "./resource/intro_story/int7.png";
+		scene[7] = "./resource/intro_story/int8.png";
+		scene[8] = "./resource/intro_story/int9.png";
+		scene[9] = "./resource/intro_story/int10.png";
+		scene[10] = "./resource/intro_story/int11.png";
+
+
+		ChangeScene(scene[i]);
+	}
+
+	void ChangeScene(std::string scene) {
+		getSprite()->InitSprite(scene.c_str());
+		getSprite()->SetSpriteRect(0, 0, 640, 360);
+		trs = objf::CreateObj<transform>("transform");
+		addComponent(trs);
+		trs->SetPos(0, 0);
+		trs->SetSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+	}
+	void Update();
+
+private:
+	int i = 0;
+	std::string scene[11];
 };
